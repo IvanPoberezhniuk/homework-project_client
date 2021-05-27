@@ -7,7 +7,6 @@ import theme from '../src/theme';
 
 const providerFn = ({ theme, children }) => {
   const muTheme = createMuiTheme(theme);
-  console.log(muTheme);
   return <ThemeProvider theme={muTheme}>{children}</ThemeProvider>;
 };
 
