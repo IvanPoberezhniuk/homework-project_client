@@ -22,8 +22,8 @@ export const routes = [
         fallback: <div> Loading... </div>,
       },
       {
-        path: '/home/login',
-        component: lazy(() => import('../containers/pages/Login')),
+        path: '/home/signin',
+        component: lazy(() => import('../containers/pages/Signin')),
         exact: false,
         private: false,
         fallback: <div> Loading... </div>,
