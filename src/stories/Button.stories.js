@@ -1,36 +1,23 @@
 import React from 'react';
 
-import { Button } from './Button';
+import { Button } from '../components/Button/Button';
 
 export default {
-  title: 'Example/Button',
+  title: 'Main/Button',
   component: Button,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
 };
 
 const Template = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  primary: true,
-  label: 'Button',
+  color: 'primary',
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Button',
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
 };
 
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Button',
-};
+export const Default = Template.bind({});
+Default.args = {};
