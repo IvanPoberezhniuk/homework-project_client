@@ -1,4 +1,9 @@
 const theme = {
+  props: {
+    MuiAlert: {
+      icon: false,
+    },
+  },
   palette: {
     primary: {
       main: '#02CC67',
@@ -14,9 +19,6 @@ const theme = {
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
-  },
-  typografy: {
-    fontWeight: 400,
   },
 };
 
