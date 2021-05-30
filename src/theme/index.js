@@ -10,8 +10,7 @@ const theme = {
       contrastText: '#ffffff',
     },
     secondary: {
-      light: '#0066ff',
-      main: '#0044ff',
+      main: '#F4F4F4',
       contrastText: '#ffffff',
     },
     default: {
@@ -20,6 +19,7 @@ const theme = {
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
+  overrides: {},
 };
 
 export default theme;
