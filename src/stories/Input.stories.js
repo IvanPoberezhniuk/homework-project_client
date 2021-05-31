@@ -11,5 +11,4 @@ const Template = (args) => <Input {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   placeholder: "Placeholder",
-  isLength: true,
-}
+};
