@@ -19,15 +19,10 @@ const styles = {
 };
 
 export const Button = withStyles(styles)((props) => {
-  const { classes, color, children, className, ...other } = props;
+  const { classes, children, ...other } = props;
   return (
-    <MUIButton
-      color={color}
-      className={clsx(classes.root)}
-      variant='contained'
-      {...other}
-    >
-      Default
+    <MUIButton className={clsx(classes.root)} variant='contained' {...other}>
+      {children}
     </MUIButton>
   );
 });
