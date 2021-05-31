@@ -12,12 +12,16 @@ const Template = (args) => <Button {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   color: 'primary',
+  children: 'Primary',
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
+  children: 'Disabled',
 };
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  children: 'Default',
+};
