@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 import MUIButton from '@material-ui/core/Button';
@@ -27,6 +26,4 @@ export const Button = withStyles(styles)((props) => {
   );
 });
 
-Button.propTypes = {
-  color: PropTypes.string,
-};
+Button.propTypes = {};
