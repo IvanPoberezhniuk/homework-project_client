@@ -1,0 +1,71 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import ClearIcon from '@material-ui/icons/Clear';
+
+const useStyles = makeStyles(() => ({
+  chip: {
+    margin: '4px',
+    background: '#02CC67',
+    borderRadius: '3px',
+    height: '24px',
+  },
+  chipLabel: {
+    padding: '5px 8px 5px 9px',
+    fontSize: '12px',
+    fontFamily: 'Roboto',
+    fontWeight: 500,
+    color: '#FFF',
+  },
+  inputRoot: {
+    background: "#F4F4F4",
+    borderRadius: 0,
+    '&[class*="MuiOutlinedInput-root"]': {
+      padding: '4px 12px',
+    }
+  },
+  input: {
+    height: '100%',
+  },
+  chipIconClear: {
+    color: '#fff',
+    padding: '8px 4px',
+    height: '14px',
+    width: '14px',
+    '&:hover': {
+      color: '#fff'
+    }
+  },
+}));
+
+export const MultiSelectInput = ({options, placeholder}) => {
+  const classes = useStyles();
+
+  return (
+    <Autocomplete
+      multiple
+      options={options}
+      getOptionLabel={option => option.name}
+      filterSelectedOptions
+      classes = {{inputRoot: classes.inputRoot, input: classes.input}}
+      ChipProps = {
+        {
+          deleteIcon: <ClearIcon />,
+          classes: {
+            root: classes.chip,
+            deleteIcon: classes.chipIconClear,
+            label: classes.chipLabel,
+          },
+        }
+      }
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          variant="outlined"
+          placeholder={placeholder}
+        />
+      )}
+    />
+  );
+}
