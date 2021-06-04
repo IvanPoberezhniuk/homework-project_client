@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TableHeader = ({ children, ...other }) => {
+const TableHead = ({ children, ...other }) => {
   const classes = useStyles();
   return (
     <MUITableHead className={classes.root} {...other}>
@@ -17,4 +17,4 @@ const TableHeader = ({ children, ...other }) => {
   );
 };
 
-export default TableHeader;
+export default TableHead;

@@ -1,10 +1,9 @@
 import React from 'react';
 
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
@@ -100,21 +99,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MiniDrawer() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-
       <Drawer
         variant='permanent'
         className={clsx(classes.drawer, {
@@ -131,7 +119,6 @@ export default function MiniDrawer() {
         <div className={classes.toolbar}></div>
         <List>
           <ListItem
-            // className={clsx(classes.button, classes.selected)}
             classes={{ root: classes.button, selected: classes.selected }}
             button
             key={Users}
@@ -146,7 +133,6 @@ export default function MiniDrawer() {
           </ListItem>
           <ListItem className={classes.button} button key={User}>
             <Avatar variant='square' src={User}></Avatar>
-
             <ListItemText className={classes.listItemText} primary='Profile' />
           </ListItem>
         </List>
