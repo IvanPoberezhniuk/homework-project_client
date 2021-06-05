@@ -6,6 +6,7 @@ const theme = {
   },
   palette: {
     primary: {
+      light: 'rgba(2, 204, 103, 0.5)',
       main: '#02CC67',
       contrastText: '#ffffff',
     },
