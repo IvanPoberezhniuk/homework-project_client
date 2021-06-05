@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 import { ReactComponent as PencilIcon } from '../../assets/icons/pencil.svg';
-import { ReactComponent as FinishIcon } from '../../assets/icons/finish.svg';
+import { ReactComponent as TrashIcon } from '../../assets/icons/trash.svg';
 import { ReactComponent as MoreIcon } from '../../assets/icons/more.svg';
 import { getComparator, stableSort } from '../../helpers/table';
 
@@ -116,6 +116,11 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  optionsCell: {
+    padding: '0 10px',
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
 }));
 
 const EnhancedTable = () => {
@@ -163,19 +168,18 @@ const EnhancedTable = () => {
                       <TableCell>{row.role}</TableCell>
                       <TableCell>
                         <SvgIcon>
-                          <MoreIcon />
+                          <MoreIcon height={24} width={24} />
                         </SvgIcon>
                       </TableCell>
                       <TableCell>
-                        <SvgIcon>
-                          <PencilIcon />
-                        </SvgIcon>
-                        <SvgIcon>
-                          <FinishIcon />
-                        </SvgIcon>
-                        <SvgIcon>
-                          <FinishIcon />
-                        </SvgIcon>
+                        <div className={classes.optionsCell}>
+                          <SvgIcon>
+                            <PencilIcon height={24} width={24} />
+                          </SvgIcon>
+                          <SvgIcon>
+                            <TrashIcon height={24} width={24} />
+                          </SvgIcon>
+                        </div>
                       </TableCell>
                     </TableRow>
                   );

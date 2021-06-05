@@ -15,9 +15,6 @@ import User from '../../../assets/icons/user.svg';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -44,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: '-1',
     flexShrink: 0,
     whiteSpace: 'nowrap',
+    // position: 'relative',
   },
   drawerOpen: {
     width: '100px',
@@ -97,46 +95,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MiniDrawer() {
+const SideBar = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className={classes.root}>
-      <Drawer
-        variant='permanent'
-        className={clsx(classes.drawer, {
+    <Drawer
+      variant='permanent'
+      classes={{
+        paper: clsx(classes.drawer, {
           [classes.drawerOpen]: open,
           [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <div className={classes.toolbar}></div>
-        <List>
-          <ListItem
-            classes={{ root: classes.button, selected: classes.selected }}
-            button
-            key={Users}
-            selected
-          >
-            <Avatar variant='square' src={Users}></Avatar>
-            <ListItemText className={classes.listItemText} primary='Users' />
-          </ListItem>
-          <ListItem className={classes.button} button key={Projects}>
-            <Avatar variant='square' src={Projects}></Avatar>
-            <ListItemText className={classes.listItemText} primary='Projects' />
-          </ListItem>
-          <ListItem className={classes.button} button key={User}>
-            <Avatar variant='square' src={User}></Avatar>
-            <ListItemText className={classes.listItemText} primary='Profile' />
-          </ListItem>
-        </List>
-      </Drawer>
-    </div>
+        }),
+      }}
+    >
+      <div className={classes.toolbar}></div>
+      <List>
+        <ListItem
+          classes={{ root: classes.button, selected: classes.selected }}
+          button
+          key={Users}
+          selected
+        >
+          <Avatar variant='square' src={Users}></Avatar>
+          <ListItemText className={classes.listItemText} primary='Users' />
+        </ListItem>
+        <ListItem className={classes.button} button key={Projects}>
+          <Avatar variant='square' src={Projects}></Avatar>
+          <ListItemText className={classes.listItemText} primary='Projects' />
+        </ListItem>
+        <ListItem className={classes.button} button key={User}>
+          <Avatar variant='square' src={User}></Avatar>
+          <ListItemText className={classes.listItemText} primary='Profile' />
+        </ListItem>
+      </List>
+    </Drawer>
   );
-}
+};
+
+export default SideBar;

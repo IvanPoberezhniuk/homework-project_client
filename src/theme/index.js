@@ -21,6 +21,9 @@ const theme = {
     tonalOffset: 0.2,
   },
   overrides: {},
+  typography: {
+    fontSize: 18,
+  },
 };
 
 export default theme;
