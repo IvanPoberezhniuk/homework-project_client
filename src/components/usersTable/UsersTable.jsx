@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -14,6 +15,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import { ReactComponent as PencilIcon } from '../../assets/icons/pencil.svg';
 import { ReactComponent as FinishIcon } from '../../assets/icons/finish.svg';
 import { ReactComponent as MoreIcon } from '../../assets/icons/more.svg';
+import { getComparator, stableSort } from '../../helpers/table';
 
 const createData = (name, role, projects) => {
   return { name, role, projects };
@@ -31,33 +33,6 @@ const rows = [
   createData('bitcoin project', '11.11.2001', '05.11.2009'),
   createData('lokk like a project', '11.01.2001', '05.11.2019'),
 ];
-
-const descendingComparator = (a, b, orderBy) => {
-  console.log(a, b, orderBy);
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-};
-
-const getComparator = (order, orderBy) => {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-};
-
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
 
 const headCells = [
   {
