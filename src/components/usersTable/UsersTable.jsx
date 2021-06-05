@@ -11,48 +11,43 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import TableTeamAvatar from '../table/TableTeamAvatar';
 
 import { ReactComponent as PencilIcon } from '../../assets/icons/pencil.svg';
 import { ReactComponent as FinishIcon } from '../../assets/icons/finish.svg';
+import { ReactComponent as MoreIcon } from '../../assets/icons/more.svg';
 import { getComparator, stableSort } from '../../helpers/table';
 
-const createData = (projectName, startDate, endDate, status, team) => {
-  return { projectName, startDate, endDate, status, team };
+const createData = (name, role, projects) => {
+  return { name, role, projects };
 };
 
 const rows = [
-  createData('myPRojecst', '05.11.2009', '05.11.2009', 67, 4.3),
-  createData('Busines PRoject', '11.01.2001', '05.11.2009', 51, 4.9),
-  createData('NOt a project', '11.01.2001', '01.11.2019', 24, 6.0),
-  createData('Fake Project', '11.01.2001', '05.11.2019', 24, 4.0),
-  createData('ua project', '01.01.2201', '05.11.20-8', 49, 3.9),
-  createData('by project', '11.01.2001', '05.12.2009', 87, 6.5),
-  createData('react project', '11.01.2001', '05.11.2009', 4.3),
-  createData('project', '11.01.2001', '05.11.2009', 0.0),
-  createData('bitcoin project', '11.11.2001', '05.11.2009', 65, 7.0),
-  createData('lokk like a project', '11.01.2001', '05.11.2019', 98, 0.0),
-  createData('Marshmallow project', '11.01.2001', '05.11.2001', 81, 2.0),
-  createData('cars project', '11.04.2301', '07.11.2003', 9, 37.0),
-  createData('alalalal', '10.01.2001', '11.11.2009', 63, 4.0),
+  createData('myPRojecst', '05.11.2009', '05.11.2009'),
+  createData('Busines PRoject', '11.01.2001', '05.11.2009'),
+  createData('NOt a project', '11.01.2001', '01.11.2019'),
+  createData('Fake Project', '11.01.2001', '05.11.2019'),
+  createData('ua project', '01.01.2201', '05.11.20-8'),
+  createData('by project', '11.01.2001', '05.12.2009'),
+  createData('react project', '11.01.2001', '05.11.2009'),
+  createData('project', '11.01.2001', '05.11.2009'),
+  createData('bitcoin project', '11.11.2001', '05.11.2009'),
+  createData('lokk like a project', '11.01.2001', '05.11.2019'),
 ];
 
 const headCells = [
   {
-    id: 'projectName',
+    id: 'name',
     numeric: false,
     disablePadding: true,
-    label: 'Project Name',
+    label: 'Name',
   },
   {
-    id: 'startDate',
+    id: 'role',
     numeric: false,
     disablePadding: false,
-    label: 'Start Date',
+    label: 'Role',
   },
-  { id: 'endDate', numeric: false, disablePadding: false, label: 'End Date' },
-  { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
-  { id: 'team', numeric: false, disablePadding: false, label: 'Team' },
+  { id: 'projects', numeric: false, disablePadding: false, label: 'Projects' },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -91,7 +86,6 @@ const EnhancedTableHead = (props) => {
 
 EnhancedTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
@@ -127,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
 const EnhancedTable = () => {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('projectName');
+  const [orderBy, setOrderBy] = React.useState('name');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -155,6 +149,7 @@ const EnhancedTable = () => {
               {stableSort(rows, getComparator(order, orderBy)).map(
                 (row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
+
                   return (
                     <TableRow
                       hover
@@ -163,13 +158,13 @@ const EnhancedTable = () => {
                       key={row.name}
                     >
                       <TableCell component='th' id={labelId} scope='row'>
-                        {row.projectName}
+                        {row.name}
                       </TableCell>
-                      <TableCell>{row.startDate}</TableCell>
-                      <TableCell>{row.endDate}</TableCell>
-                      <TableCell>{row.status}</TableCell>
+                      <TableCell>{row.role}</TableCell>
                       <TableCell>
-                        <TableTeamAvatar>TE</TableTeamAvatar>
+                        <SvgIcon>
+                          <MoreIcon />
+                        </SvgIcon>
                       </TableCell>
                       <TableCell>
                         <SvgIcon>
