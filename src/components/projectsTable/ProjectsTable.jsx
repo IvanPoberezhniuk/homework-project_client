@@ -15,8 +15,8 @@ import TableTeamAvatar from '../table/TableTeamAvatar';
 import { ReactComponent as PencilIcon } from '../../assets/icons/pencil.svg';
 import { ReactComponent as FinishIcon } from '../../assets/icons/finish.svg';
 
-const createData = (name, calories, fat, carbs, protein) => {
-  return { name, calories, fat, carbs, protein };
+const createData = (projectName, startDate, endDate, status, team) => {
+  return { projectName, startDate, endDate, status, team };
 };
 
 const rows = [
@@ -63,20 +63,20 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'Project Name',
+    id: 'projectName',
     numeric: false,
     disablePadding: true,
     label: 'Project Name',
   },
   {
-    id: 'Start Date',
-    numeric: true,
+    id: 'startDate',
+    numeric: false,
     disablePadding: false,
     label: 'Start Date',
   },
-  { id: 'End Date', numeric: true, disablePadding: false, label: 'End Date' },
-  { id: 'Status', numeric: true, disablePadding: false, label: 'Status' },
-  { id: 'Team', numeric: true, disablePadding: false, label: 'Team' },
+  { id: 'endDate', numeric: false, disablePadding: false, label: 'End Date' },
+  { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+  { id: 'team', numeric: false, disablePadding: false, label: 'Team' },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -151,41 +151,13 @@ const useStyles = makeStyles((theme) => ({
 const EnhancedTable = () => {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [orderBy, setOrderBy] = React.useState('projectName');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -198,35 +170,29 @@ const EnhancedTable = () => {
           >
             <EnhancedTableHead
               classes={classes}
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+              {stableSort(rows, getComparator(order, orderBy)).map(
+                (row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
                       role='checkbox'
-                      aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.name}
-                      selected={isItemSelected}
                     >
                       <TableCell component='th' id={labelId} scope='row'>
-                        {row.name}
+                        {row.projectName}
                       </TableCell>
-                      <TableCell>{row.calories}</TableCell>
-                      <TableCell>{row.fat}</TableCell>
-                      <TableCell>{row.carbs}</TableCell>
+                      <TableCell>{row.startDate}</TableCell>
+                      <TableCell>{row.endDate}</TableCell>
+                      <TableCell>{row.status}</TableCell>
                       <TableCell>
                         <TableTeamAvatar>TE</TableTeamAvatar>
                       </TableCell>
@@ -243,11 +209,7 @@ const EnhancedTable = () => {
                       </TableCell>
                     </TableRow>
                   );
-                })}
-              {emptyRows > 0 && (
-                <TableRow>
-                  <TableCell colSpan={6} />
-                </TableRow>
+                }
               )}
             </TableBody>
           </Table>
