@@ -15,6 +15,9 @@ import TableTeamAvatar from '../table/TableTeamAvatar';
 
 import { ReactComponent as PencilIcon } from '../../assets/icons/pencil.svg';
 import { ReactComponent as FinishIcon } from '../../assets/icons/finish.svg';
+import { ReactComponent as TrashIcon } from '../../assets/icons/trash.svg';
+import { ReactComponent as MoreIcon } from '../../assets/icons/more.svg';
+
 import { getComparator, stableSort } from '../../helpers/table';
 
 const createData = (projectName, startDate, endDate, status, team) => {
@@ -122,6 +125,22 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  teamCell: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    border: 'none',
+  },
+  moreIcon: {
+    padding: '0 10px',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  optionsCell: {
+    padding: '0 10px',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }));
 
 const EnhancedTable = () => {
@@ -168,19 +187,28 @@ const EnhancedTable = () => {
                       <TableCell>{row.startDate}</TableCell>
                       <TableCell>{row.endDate}</TableCell>
                       <TableCell>{row.status}</TableCell>
-                      <TableCell>
-                        <TableTeamAvatar>TE</TableTeamAvatar>
+                      <TableCell className={classes.teamCell}>
+                        <TableTeamAvatar className={classes.moreIcon}>
+                          TE
+                        </TableTeamAvatar>
+                        <div className={classes.moreIcon}>
+                          <SvgIcon>
+                            <MoreIcon height={24} width={24} />
+                          </SvgIcon>
+                        </div>
                       </TableCell>
                       <TableCell>
-                        <SvgIcon>
-                          <PencilIcon />
-                        </SvgIcon>
-                        <SvgIcon>
-                          <FinishIcon />
-                        </SvgIcon>
-                        <SvgIcon>
-                          <FinishIcon />
-                        </SvgIcon>
+                        <div className={classes.optionsCell}>
+                          <SvgIcon>
+                            <FinishIcon height={24} width={24} />
+                          </SvgIcon>
+                          <SvgIcon>
+                            <PencilIcon height={24} width={24} />
+                          </SvgIcon>
+                          <SvgIcon>
+                            <TrashIcon height={24} width={24} />
+                          </SvgIcon>
+                        </div>
                       </TableCell>
                     </TableRow>
                   );
