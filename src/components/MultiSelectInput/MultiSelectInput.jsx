@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -41,9 +41,13 @@ const useStyles = makeStyles(() => ({
 
 export const MultiSelectInput = ({options, placeholder}) => {
   const classes = useStyles();
+  const [selected, setSelected] = useState(1);
 
   return (
     <Autocomplete
+      onChange = {(event, value) => {
+        setSelected(value);
+      }}
       multiple
       options={options}
       getOptionLabel={option => option.name}
@@ -63,7 +67,7 @@ export const MultiSelectInput = ({options, placeholder}) => {
         <TextField
           {...params}
           variant="outlined"
-          placeholder={placeholder}
+          placeholder={!selected.length && placeholder}
         />
       )}
     />
