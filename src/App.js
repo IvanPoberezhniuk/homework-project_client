@@ -1,23 +1,28 @@
 import Router from './router/Router';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 import Header from './components/shared/header/Header';
 import Sidebar from './components/shared/sidebar/Sidebar';
-import './App.css';
 import { routes } from './router/config';
 
+const useStyles = makeStyles((theme) => ({
+  main: {
+    padding: '48px 48px 48px 147px',
+  },
+}));
+
 const App = () => {
+  const classes = useStyles();
   return (
-    <div className='App'>
+    <div>
       <Header />
-      {/* <Link to='/home'>Home</Link>
-            <Link to='/home/signin'>Login</Link>
-            <Link to='/profile'>Profile</Link>
-            <Link to='/projects'>Projects</Link>
-            <Link to='/home/signup'>Signup</Link>
-            <Link to='/users'>Users</Link>
-            <Link to='/dashboard'>Dashboard</Link> */}
-      <Sidebar />
-      <Router routes={routes} />
+      <aside>
+        <Sidebar />
+      </aside>
+      <main className={classes.main}>
+        <Router routes={routes} />
+      </main>
     </div>
   );
 };

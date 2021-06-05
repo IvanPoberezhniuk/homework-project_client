@@ -8,9 +8,6 @@ import { Button } from '../../button/Button';
 import AppBar from '../../appBar/AppBar';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   toolbar: {
     justifyContent: 'flex-end',
     height: '80px',
@@ -32,23 +29,21 @@ const Header = ({ isAuth }) => {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position='static' color='default'>
-        <Toolbar className={classes.toolbar}>
-          {isAuth ? (
-            <HeaderLoginMenu
-              handleMenu={handleMenu}
-              handleClose={handleClose}
-              name={name}
-              open={open}
-              anchorEl={anchorEl}
-            />
-          ) : (
-            <Button color='primary'>LogIn</Button>
-          )}
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position='static' color='default'>
+      <Toolbar className={classes.toolbar}>
+        {isAuth ? (
+          <HeaderLoginMenu
+            handleMenu={handleMenu}
+            handleClose={handleClose}
+            name={name}
+            open={open}
+            anchorEl={anchorEl}
+          />
+        ) : (
+          <Button color='primary'>LogIn</Button>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
 
