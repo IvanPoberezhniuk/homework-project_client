@@ -16,6 +16,9 @@ const theme = {
     default: {
       main: '#CCCCCC',
     },
+    background: {
+      paper: '#fff',
+    },
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
