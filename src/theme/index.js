@@ -1,5 +1,3 @@
-import roboto from '@fontsource/roboto';
-
 const theme = {
   props: {
     MuiAlert: {
