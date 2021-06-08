@@ -10,7 +10,6 @@ import TableHead from '../table/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import SvgIcon from '@material-ui/core/SvgIcon';
 
 import { getComparator, stableSort } from '../../helpers/table';
 import { TrashIcon, EditIcon, MoreIcon } from '../shared/icons';
