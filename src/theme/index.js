@@ -1,12 +1,19 @@
+import roboto from '@fontsource/roboto';
+
 const theme = {
+  props: {
+    MuiAlert: {
+      icon: false,
+    },
+  },
   palette: {
     primary: {
+      light: 'rgba(2, 204, 103, 0.5)',
       main: '#02CC67',
       contrastText: '#ffffff',
     },
     secondary: {
-      light: '#0066ff',
-      main: '#0044ff',
+      main: '#F4F4F4',
       contrastText: '#ffffff',
     },
     default: {
@@ -15,8 +22,10 @@ const theme = {
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
-  typografy: {
-    fontWeight: 400,
+
+  typography: {
+    fontSize: 18,
+    fontFamily: ['Roboto', 'serif'].join(','),
   },
 };
 

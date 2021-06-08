@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 import MUIButton from '@material-ui/core/Button';
@@ -19,19 +18,12 @@ const styles = {
 };
 
 export const Button = withStyles(styles)((props) => {
-  const { classes, color, children, className, ...other } = props;
+  const { classes, children, ...other } = props;
   return (
-    <MUIButton
-      color={color}
-      className={clsx(classes.root)}
-      variant='contained'
-      {...other}
-    >
-      Default
+    <MUIButton className={clsx(classes.root)} variant='contained' {...other}>
+      {children}
     </MUIButton>
   );
 });
 
-Button.propTypes = {
-  color: PropTypes.string,
-};
+Button.propTypes = {};
