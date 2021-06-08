@@ -10,14 +10,8 @@ import TableHead from '../table/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import TableTeamAvatar from '../table/TableTeamAvatar';
-
-import { ReactComponent as PencilIcon } from '../../assets/icons/pencil.svg';
-import { ReactComponent as FinishIcon } from '../../assets/icons/finish.svg';
-import { ReactComponent as TrashIcon } from '../../assets/icons/trash.svg';
-import { ReactComponent as MoreIcon } from '../../assets/icons/more.svg';
-
+import { EditIcon, FinishIcon, TrashIcon, StartIcon } from '../shared/icons';
 import { getComparator, stableSort } from '../../helpers/table';
 
 const createData = (projectName, startDate, endDate, status, team) => {
@@ -191,23 +185,14 @@ const EnhancedTable = () => {
                         <TableTeamAvatar className={classes.moreIcon}>
                           TE
                         </TableTeamAvatar>
-                        <div className={classes.moreIcon}>
-                          <SvgIcon>
-                            <MoreIcon height={24} width={24} />
-                          </SvgIcon>
-                        </div>
+                        <div className={classes.moreIcon}></div>
                       </TableCell>
                       <TableCell>
                         <div className={classes.optionsCell}>
-                          <SvgIcon>
-                            <FinishIcon height={24} width={24} />
-                          </SvgIcon>
-                          <SvgIcon>
-                            <PencilIcon height={24} width={24} />
-                          </SvgIcon>
-                          <SvgIcon>
-                            <TrashIcon height={24} width={24} />
-                          </SvgIcon>
+                          <FinishIcon />
+                          <EditIcon />
+                          <TrashIcon />
+                          <StartIcon />
                         </div>
                       </TableCell>
                     </TableRow>

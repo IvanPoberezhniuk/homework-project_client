@@ -12,10 +12,8 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
-import { ReactComponent as PencilIcon } from '../../assets/icons/pencil.svg';
-import { ReactComponent as TrashIcon } from '../../assets/icons/trash.svg';
-import { ReactComponent as MoreIcon } from '../../assets/icons/more.svg';
 import { getComparator, stableSort } from '../../helpers/table';
+import { TrashIcon, EditIcon, MoreIcon } from '../shared/icons';
 
 const createData = (name, role, projects) => {
   return { name, role, projects };
@@ -167,18 +165,12 @@ const EnhancedTable = () => {
                       </TableCell>
                       <TableCell>{row.role}</TableCell>
                       <TableCell>
-                        <SvgIcon>
-                          <MoreIcon height={24} width={24} />
-                        </SvgIcon>
+                        <MoreIcon />
                       </TableCell>
                       <TableCell>
                         <div className={classes.optionsCell}>
-                          <SvgIcon>
-                            <PencilIcon height={24} width={24} />
-                          </SvgIcon>
-                          <SvgIcon>
-                            <TrashIcon height={24} width={24} />
-                          </SvgIcon>
+                          <EditIcon />
+                          <TrashIcon />
                         </div>
                       </TableCell>
                     </TableRow>
