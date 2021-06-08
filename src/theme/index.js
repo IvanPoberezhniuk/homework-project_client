@@ -1,3 +1,5 @@
+import roboto from '@fontsource/roboto';
+
 const theme = {
   props: {
     MuiAlert: {
@@ -20,9 +22,10 @@ const theme = {
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
-  overrides: {},
+
   typography: {
     fontSize: 18,
+    fontFamily: ['Roboto', 'serif'].join(','),
   },
 };
 
