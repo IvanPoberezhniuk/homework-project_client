@@ -10,11 +10,8 @@ import TableHead from '../table/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import TableTeamAvatar from '../table/TableTeamAvatar';
-
-import { ReactComponent as PencilIcon } from '../../assets/icons/pencil.svg';
-import { ReactComponent as FinishIcon } from '../../assets/icons/finish.svg';
+import { EditIcon, FinishIcon, TrashIcon, StartIcon } from '../shared/icons';
 import { getComparator, stableSort } from '../../helpers/table';
 
 const createData = (projectName, startDate, endDate, status, team) => {
@@ -122,6 +119,22 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  teamCell: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    border: 'none',
+  },
+  moreIcon: {
+    padding: '0 10px',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  optionsCell: {
+    padding: '0 10px',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }));
 
 const EnhancedTable = () => {
@@ -168,19 +181,19 @@ const EnhancedTable = () => {
                       <TableCell>{row.startDate}</TableCell>
                       <TableCell>{row.endDate}</TableCell>
                       <TableCell>{row.status}</TableCell>
-                      <TableCell>
-                        <TableTeamAvatar>TE</TableTeamAvatar>
+                      <TableCell className={classes.teamCell}>
+                        <TableTeamAvatar className={classes.moreIcon}>
+                          TE
+                        </TableTeamAvatar>
+                        <div className={classes.moreIcon}></div>
                       </TableCell>
                       <TableCell>
-                        <SvgIcon>
-                          <PencilIcon />
-                        </SvgIcon>
-                        <SvgIcon>
+                        <div className={classes.optionsCell}>
                           <FinishIcon />
-                        </SvgIcon>
-                        <SvgIcon>
-                          <FinishIcon />
-                        </SvgIcon>
+                          <EditIcon />
+                          <TrashIcon />
+                          <StartIcon />
+                        </div>
                       </TableCell>
                     </TableRow>
                   );

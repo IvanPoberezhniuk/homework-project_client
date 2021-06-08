@@ -12,10 +12,8 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
-import { ReactComponent as PencilIcon } from '../../assets/icons/pencil.svg';
-import { ReactComponent as FinishIcon } from '../../assets/icons/finish.svg';
-import { ReactComponent as MoreIcon } from '../../assets/icons/more.svg';
 import { getComparator, stableSort } from '../../helpers/table';
+import { TrashIcon, EditIcon, MoreIcon } from '../shared/icons';
 
 const createData = (name, role, projects) => {
   return { name, role, projects };
@@ -116,6 +114,11 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  optionsCell: {
+    padding: '0 10px',
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
 }));
 
 const EnhancedTable = () => {
@@ -162,20 +165,13 @@ const EnhancedTable = () => {
                       </TableCell>
                       <TableCell>{row.role}</TableCell>
                       <TableCell>
-                        <SvgIcon>
-                          <MoreIcon />
-                        </SvgIcon>
+                        <MoreIcon />
                       </TableCell>
                       <TableCell>
-                        <SvgIcon>
-                          <PencilIcon />
-                        </SvgIcon>
-                        <SvgIcon>
-                          <FinishIcon />
-                        </SvgIcon>
-                        <SvgIcon>
-                          <FinishIcon />
-                        </SvgIcon>
+                        <div className={classes.optionsCell}>
+                          <EditIcon />
+                          <TrashIcon />
+                        </div>
                       </TableCell>
                     </TableRow>
                   );
