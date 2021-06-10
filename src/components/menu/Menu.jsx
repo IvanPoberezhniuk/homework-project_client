@@ -1,7 +1,7 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import MUImenu from '@material-ui/core/Menu';
 
-const styles = {
+const useStyles = makeStyles(() => ({
   paper: {
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     marginTop: '30px',
@@ -10,7 +10,6 @@ const styles = {
     padding: '16px',
     minHeight: '180px',
     minWidth: '183px',
-
     '&::before': {
       content: '""',
       width: 0,
@@ -23,15 +22,21 @@ const styles = {
       borderBottomColor: '#F4F4F4',
     },
   },
-};
+}));
 
-const Menu = (props) => {
-  const { children, ...other } = props;
+const Menu = ({ children, ...other }) => {
+  const classes = useStyles();
+
   return (
-    <MUImenu elevation={0} {...other}>
+    <MUImenu
+      className={{ paper: classes.paper }}
+      classes={{ paper: classes.paper }}
+      elevation={0}
+      {...other}
+    >
       {children}
     </MUImenu>
   );
 };
 
-export default withStyles(styles)(Menu);
+export default Menu;

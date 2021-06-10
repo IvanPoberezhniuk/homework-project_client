@@ -1,8 +1,8 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import FilledInput from '@material-ui/core/FilledInput';
 
-const styles = {
+const useStyles = makeStyles(() => ({
   root: {
     background: '#F4F4F4',
     height: '40px',
@@ -18,16 +18,20 @@ const styles = {
     '&::placeholder': {
       color: '#777777',
       opacity: 1,
-    }
-  }
-}
+    },
+  },
+}));
 
-export const Input = withStyles(styles)(( {placeholder, classes} )=> {
+export const Input = ({ placeholder, ...other }) => {
+  const classes = useStyles();
   return (
-    <FilledInput disableUnderline={true}
-    margin = 'none'
-    fullWidth='true'
-    classes={{input: classes.input, root: classes.root}}
-    placeholder={placeholder}/>
+    <FilledInput
+      disableUnderline={true}
+      margin='none'
+      fullWidth='true'
+      classes={{ input: classes.input, root: classes.root }}
+      placeholder={placeholder}
+      {...other}
+    />
   );
-});
+};

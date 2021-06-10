@@ -1,11 +1,11 @@
 import React from 'react';
 
 import MUIAlert from '@material-ui/lab/Alert';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const styledBy = (property, mapping) => (props) => mapping[props[property]];
 
-const styles = {
+const useStyles = makeStyles(() => ({
   root: {
     color: styledBy('severity', {
       error: '#FF0000',
@@ -14,11 +14,17 @@ const styles = {
     borderLeft: '4px solid ',
     fontWeight: 'bold',
   },
-};
+}));
 
 const Alert = (props) => {
+  const classes = useStyles(props);
+
   const { children, ...other } = props;
-  return <MUIAlert {...other}>{children}</MUIAlert>;
+  return (
+    <MUIAlert className={classes.root} {...other}>
+      {children}
+    </MUIAlert>
+  );
 };
 
-export default withStyles(styles)(Alert);
+export default Alert;

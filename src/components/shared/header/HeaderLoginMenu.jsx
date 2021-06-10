@@ -57,7 +57,6 @@ const HeaderLoginMenu = ({ handleMenu, handleClose, open, anchorEl, name }) => {
         getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-        className={classes.menu}
       >
         <Grid
           container
