@@ -4,15 +4,20 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core/styles';
 
-import style from './SignupForm.module.css';
 import Input from '../../Input/Input';
 import { Button } from '../../Button/Button';
 
 const useStyles = makeStyles(() => ({
+  form: {
+    maxWidth: '322px',
+  },
   btn: {
     width: '322px',
     height: '37px',
     marginTop: '40px',
+  },
+  inputWrapper: {
+    marginTop: '16px'
   },
 }));
 
@@ -51,12 +56,12 @@ const SignupForm = () => {
         }, 400);
        }}
      >
-      <Form className={ style.form }>
-        <Input name='firstName' type='text' placeholder='First Name' className={style.inputWrapper} />
-        <Input name='lastName' type='text' placeholder='Last Name' className={style.inputWrapper} />
-        <Input name='email' type='email' placeholder='Email' className={style.inputWrapper} />
-        <Input name='password' type='password' placeholder='Password' className={style.inputWrapper} />
-        <Input name='confirmPassword' type='password' placeholder='Confirm Password' className={style.inputWrapper} />
+      <Form className={classes.form}>
+        <Input name='firstName' type='text' placeholder='First Name' className={classes.inputWrapper} />
+        <Input name='lastName' type='text' placeholder='Last Name' className={classes.inputWrapper} />
+        <Input name='email' type='email' placeholder='Email' className={classes.inputWrapper} />
+        <Input name='password' type='password' placeholder='Password' className={classes.inputWrapper} />
+        <Input name='confirmPassword' type='password' placeholder='Confirm Password' className={classes.inputWrapper} />
         <Button type='submit' color='primary' classes={{root: classes.btn }}>Sign Up</Button>
        </Form>
      </Formik>

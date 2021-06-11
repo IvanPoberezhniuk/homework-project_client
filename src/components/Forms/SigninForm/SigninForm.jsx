@@ -5,12 +5,14 @@ import * as Yup from 'yup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
 
-import style from './SigninForm.module.css'
-import Input  from '../../Input/Input';
+import Input from '../../Input/Input';
 import Checkbox from '../../checkbox/Checkbox';
 import { Button } from '../../Button/Button';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
+  form: {
+    maxWidth: '322px',
+  },
   checkbox: {
     display: 'block',
     width: '100%',
@@ -27,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     height: '37px',
     marginTop: '40px',
   },
+  inputWrapper: {
+    marginTop: '16px'
+  },
 }));
 
 const SigninForm = () => {
@@ -35,8 +40,8 @@ const SigninForm = () => {
   const SigninSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Please enter your email address'),
     password: Yup.string()
-      .min(6, 'Too short')
-      .max(20, 'Too long')
+      .min(6, 'Incorrect password')
+      .max(20, 'Incorrect password')
       .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Invalid password')
       .required('Please enter your password'),
   })
@@ -52,9 +57,9 @@ const SigninForm = () => {
         }, 400);
        }}
      >
-      <Form>
-        <Input name='email' type='email' placeholder='Email' className={style.inputWrapper} />
-        <Input name='password' type='password' placeholder='Password' className={style.inputWrapper} />
+      <Form className={classes.form}>
+        <Input name='email' type='email' placeholder='Email' className={classes.inputWrapper} />
+        <Input name='password' type='password' placeholder='Password' className={classes.inputWrapper} />
         <FormControlLabel
           control={<Checkbox name='rememberMe' /> }
           label='Remember me?'
