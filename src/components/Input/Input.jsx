@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const Input = ({ placeholder, ...other }) => {
+const Input = ({ placeholder, ...other }) => {
   const classes = useStyles();
   return (
     <FilledInput
@@ -35,3 +35,5 @@ export const Input = ({ placeholder, ...other }) => {
     />
   );
 };
+
+export default Input;

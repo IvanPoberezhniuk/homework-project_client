@@ -20,11 +20,11 @@ const useStyles = makeStyles(() => ({
     color: '#FFF',
   },
   inputRoot: {
-    background: "#F4F4F4",
+    background: '#F4F4F4',
     borderRadius: 0,
     '&[class*="MuiOutlinedInput-root"]': {
       padding: '4px 12px',
-    }
+    },
   },
   input: {
     height: '100%',
@@ -35,42 +35,42 @@ const useStyles = makeStyles(() => ({
     height: '14px',
     width: '14px',
     '&:hover': {
-      color: '#fff'
-    }
+      color: '#fff',
+    },
   },
 }));
 
-export const MultiSelectInput = ({options, placeholder}) => {
+const MultiSelectInput = ({ placeholder, ...other }) => {
   const classes = useStyles();
-  const [selected, setSelected] = useState(1);
+  const [selected, setSelected] = useState([]);
 
   return (
     <Autocomplete
-      onChange = {(event, value) => {
-        setSelected(value);
+      onChange={(event, value) => {
+        setSelected((prevState) => [...prevState, value]);
       }}
       multiple
-      options={options}
-      getOptionLabel={option => option.name}
+      getOptionLabel={(option) => option.name}
       filterSelectedOptions
-      classes = {{inputRoot: classes.inputRoot, input: classes.input}}
-      ChipProps = {
-        {
-          deleteIcon: <ClearIcon />,
-          classes: {
-            root: classes.chip,
-            deleteIcon: classes.chipIconClear,
-            label: classes.chipLabel,
-          },
-        }
-      }
+      classes={{ inputRoot: classes.inputRoot, input: classes.input }}
+      ChipProps={{
+        deleteIcon: <ClearIcon />,
+        classes: {
+          root: classes.chip,
+          deleteIcon: classes.chipIconClear,
+          label: classes.chipLabel,
+        },
+      }}
       renderInput={(params) => (
         <TextField
           {...params}
-          variant="outlined"
+          variant='outlined'
           placeholder={!selected.length && placeholder}
         />
       )}
+      {...other}
     />
   );
-}
+};
+
+export default MultiSelectInput;

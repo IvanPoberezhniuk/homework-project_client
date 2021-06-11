@@ -1,12 +1,10 @@
-import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
 
 import Menu from '../../menu/Menu';
-import { Button } from '../../button/Button';
+import Button from '../../button/Button';
 import ArrowDown from '../../../assets/icons/arrow-down.svg';
 
 const useStyles = makeStyles((theme) => ({
