@@ -6,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
 
 import style from './SigninForm.module.css'
-import { Input } from '../../Input/Input';
+import Input  from '../../Input/Input';
 import Checkbox from '../../checkbox/Checkbox';
 import { Button } from '../../Button/Button';
 
@@ -35,8 +35,8 @@ const SigninForm = () => {
   const SigninSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Please enter your email address'),
     password: Yup.string()
-      .min(6, 'Incorrect password')
-      .max(20, 'Incorrect password')
+      .min(6, 'Too short')
+      .max(20, 'Too long')
       .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Invalid password')
       .required('Please enter your password'),
   })

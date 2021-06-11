@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core/styles';
 
 import style from './SignupForm.module.css';
-import { Input } from '../../Input/Input';
+import Input from '../../Input/Input';
 import { Button } from '../../Button/Button';
 
 const useStyles = makeStyles(() => ({
@@ -24,9 +24,10 @@ const SignupForm = () => {
     lastName: Yup.string().max(255, 'Too long').required('Please enter your last name'),
     email: Yup.string().email('Invalid email address').required('Please enter your email address'),
     password: Yup.string()
-      .min(6, 'Incorrect password')
-      .max(20, 'Incorrect password')
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Invalid password')
+      .min(6, 'Too short')
+      .max(20, 'Too long')
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/,
+        'Password must contains at least one letter in lower case, one letter in upper case and one number')
       .required('Please enter your password'),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'Please confirm your password')
@@ -50,7 +51,7 @@ const SignupForm = () => {
         }, 400);
        }}
      >
-      <Form>
+      <Form className={ style.form }>
         <Input name='firstName' type='text' placeholder='First Name' className={style.inputWrapper} />
         <Input name='lastName' type='text' placeholder='Last Name' className={style.inputWrapper} />
         <Input name='email' type='email' placeholder='Email' className={style.inputWrapper} />
