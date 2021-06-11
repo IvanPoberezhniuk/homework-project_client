@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import UsersTable from '../../components/usersTable/UsersTable';
+import UsersTable from '../modules/usersTable/UsersTable';
 
 const useStyles = makeStyles((theme) => ({
   root: {

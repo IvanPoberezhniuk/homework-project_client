@@ -10,7 +10,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import Slide from '@material-ui/core/Slide';
 
 import { ReactComponent as WarningIcon } from './../../assets/icons/warning.svg';
-import { Button } from '../button/Button';
+import { Button } from '../';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -63,7 +63,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='down' ref={ref} {...props} />;
 });
 
-export const WarningModal = ({ description }) => {
+const WarningModal = ({ description }) => {
   const [open, setOpen] = React.useState(true);
   const classes = useStyles();
 
@@ -117,3 +117,5 @@ export const WarningModal = ({ description }) => {
     </div>
   );
 };
+
+export default WarningModal;
