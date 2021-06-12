@@ -1,9 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 
-import Input from '../../components/Input/Input';
-import Button from '../../components/button/Button';
-import MultiSelectInput from '../../components/MultiSelectInput/MultiSelectInput';
+import { Input, Button, MultiSelectInput } from '../../components';
 
 const useStyles = makeStyles(() => ({
   container: {

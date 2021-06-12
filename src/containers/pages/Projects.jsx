@@ -1,9 +1,8 @@
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Button from '../../components/button/Button';
-
-import ProjectsTable from '../../components/projectsTable/ProjectsTable';
+import ProjectsTable from '../modules/projectsTable/ProjectsTable';
+import { Button } from '../../components';
 
 const useStyles = makeStyles((theme) => ({
   root: {
