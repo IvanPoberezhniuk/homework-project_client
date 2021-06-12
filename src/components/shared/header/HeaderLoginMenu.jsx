@@ -4,7 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
 
 import Menu from '../../menu/Menu';
+
 import Button from '../../button/Button';
+
 import ArrowDown from '../../../assets/icons/arrow-down.svg';
 
 const useStyles = makeStyles((theme) => ({
