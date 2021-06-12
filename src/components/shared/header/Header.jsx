@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ isAuth }) => {
+const Header = ({ isAuth = true }) => {
   const name = 'TestUser';
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
