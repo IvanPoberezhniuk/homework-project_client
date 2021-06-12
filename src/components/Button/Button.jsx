@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const Button = ({ children, ...other }) => {
+const Button = ({ children, ...other }) => {
   const classes = useStyles();
   return (
     <MUIButton className={classes.root} variant='contained' {...other}>
@@ -26,3 +26,5 @@ export const Button = ({ children, ...other }) => {
 };
 
 Button.propTypes = {};
+
+export default Button;
