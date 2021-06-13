@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 
 import Menu from '../../menu/Menu';
 
-import Button from '../../button/Button';
+import Button from '../../Button/Button';
 
 import ArrowDown from '../../../assets/icons/arrow-down.svg';
 

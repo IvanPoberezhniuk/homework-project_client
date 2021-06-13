@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     fontSize: '18px',
     color: '#000',
+    margin: 0,
   }
 }));
 
