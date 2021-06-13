@@ -1,11 +1,13 @@
 import Router from './router/Router';
-import '@fontsource/roboto';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import Header from './components/shared/header/Header';
 import Sidebar from './components/shared/sidebar/Sidebar';
 import { routes } from './router/config';
+import { makeServer } from './mirage';
+
+makeServer({ environment: 'development' });
 
 const useStyles = makeStyles((theme) => ({
   main: {

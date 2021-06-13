@@ -65,7 +65,7 @@ const HeaderLoginMenu = ({ handleMenu, handleClose, open, anchorEl, name }) => {
           alignItems='center'
           className={classes.container}
         >
-          <Grid container xs={12}>
+          <Grid container>
             <Grid item>
               <Typography variant='h6' noWrap>
                 Hello, {name}

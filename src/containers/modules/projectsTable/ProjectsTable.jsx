@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
@@ -21,26 +22,6 @@ import {
   StartIcon,
 } from '../../../components/shared/icons';
 import { getComparator, stableSort } from '../../../helpers/table';
-
-const createData = (projectName, startDate, endDate, status, team) => {
-  return { projectName, startDate, endDate, status, team };
-};
-
-const rows = [
-  createData('myPRojecst', '05.11.2009', '05.11.2009', 67, 4.3),
-  createData('Busines PRoject', '11.01.2001', '05.11.2009', 51, 4.9),
-  createData('NOt a project', '11.01.2001', '01.11.2019', 24, 6.0),
-  createData('Fake Project', '11.01.2001', '05.11.2019', 24, 4.0),
-  createData('ua project', '01.01.2201', '05.11.20-8', 49, 3.9),
-  createData('by project', '11.01.2001', '05.12.2009', 87, 6.5),
-  createData('react project', '11.01.2001', '05.11.2009', 4.3),
-  createData('project', '11.01.2001', '05.11.2009', 0.0),
-  createData('bitcoin project', '11.11.2001', '05.11.2009', 65, 7.0),
-  createData('lokk like a project', '11.01.2001', '05.11.2019', 98, 0.0),
-  createData('Marshmallow project', '11.01.2001', '05.11.2001', 81, 2.0),
-  createData('cars project', '11.04.2301', '07.11.2003', 9, 37.0),
-  createData('alalalal', '10.01.2001', '11.11.2009', 63, 4.0),
-];
 
 const headCells = [
   {
@@ -60,8 +41,7 @@ const headCells = [
   { id: 'team', numeric: false, disablePadding: false, label: 'Team' },
 ];
 
-const EnhancedTableHead = (props) => {
-  const { classes, order, orderBy, onRequestSort } = props;
+const EnhancedTableHead = ({ classes, order, orderBy, onRequestSort }) => {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -96,7 +76,6 @@ const EnhancedTableHead = (props) => {
 
 EnhancedTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
@@ -143,9 +122,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  test: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+  },
 }));
 
-const EnhancedTable = () => {
+const EnhancedTable = ({ rows, isLoading }) => {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('projectName');
@@ -160,6 +144,7 @@ const EnhancedTable = () => {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableContainer>
+          {isLoading && <LinearProgress />}
           <Table
             className={classes.table}
             aria-labelledby='tableTitle'
@@ -172,7 +157,7 @@ const EnhancedTable = () => {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
-            <TableBody>
+            <TableBody className={classes.tableBody}>
               {stableSort(rows, getComparator(order, orderBy)).map(
                 (row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
@@ -181,7 +166,7 @@ const EnhancedTable = () => {
                       hover
                       role='checkbox'
                       tabIndex={-1}
-                      key={row.name}
+                      key={`${row.name} ${index}`}
                     >
                       <TableCell component='th' id={labelId} scope='row'>
                         {row.projectName}
