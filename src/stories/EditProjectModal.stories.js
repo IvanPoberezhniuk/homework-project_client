@@ -1,19 +1,20 @@
 import React from 'react';
 
-import CreateProjectModal from '../components/Modals/CreateProjectModal';
+import EditProjectModal from '../components/Modals/EditProjectModal';
 
 export default {
   title: 'Main/Modals',
-  component: CreateProjectModal,
+  component: EditProjectModal,
 };
 
-const Template = (args) => < CreateProjectModal {
-  ...args
-}
+const Template = (args) => <EditProjectModal {
+    ...args
+  }
 />;
 
-export const CreateProject = Template.bind({});
-CreateProject.args = {
+export const EditProject = Template.bind({});
+EditProject.args = {
+  projectName: 'project 1',
   availableItems: [
     { id: 1, firstName: 'test 1', lastName: 'user' },
     { id: 2, firstName: 'test 2', lastName: 'user' },
@@ -25,4 +26,7 @@ CreateProject.args = {
     { id: 8, firstName: 'test 8', lastName: 'user' },
     { id: 9, firstName: 'test 9', lastName: 'user' },
   ],
+  selectedItems: [
+    { id: 10, firstName: 'test 10', lastName: 'user' },
+  ]
 };

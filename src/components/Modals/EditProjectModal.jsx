@@ -3,7 +3,8 @@ import React from 'react';
 import ProjectForm from '../Forms/ProjectForm';
 import ProjectModal from './ProjectModal';
 
-const CreateProjectModal = ({ availableItems,  ...props }) => {
+const EditProjectModal = ({ projectName, availableItems, selectedItems, ...props }) => {
+  debugger;
   const [open, setOpen] = React.useState(true);
 
   const handleClose = () => {
@@ -11,13 +12,13 @@ const CreateProjectModal = ({ availableItems,  ...props }) => {
   };
 
   const content = (<ProjectForm
-    projectName={''}
+    projectName={projectName}
     availableItems={availableItems}
-    selectedItems={[]}
+    selectedItems={selectedItems}
     closeHandler={handleClose} />
   )
 
   return <ProjectModal title='Create new Project' content={content} />
 }
 
-export default CreateProjectModal;
+export default EditProjectModal;
