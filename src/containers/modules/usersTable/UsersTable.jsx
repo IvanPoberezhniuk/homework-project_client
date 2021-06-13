@@ -7,6 +7,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { TableCell, TableContainer, TableHead } from '../../../components';
 
@@ -16,23 +17,6 @@ import {
   EditIcon,
   MoreIcon,
 } from '../../../components/shared/icons';
-
-const createData = (name, role, projects) => {
-  return { name, role, projects };
-};
-
-const rows = [
-  createData('myPRojecst', '05.11.2009', '05.11.2009'),
-  createData('Busines PRoject', '11.01.2001', '05.11.2009'),
-  createData('NOt a project', '11.01.2001', '01.11.2019'),
-  createData('Fake Project', '11.01.2001', '05.11.2019'),
-  createData('ua project', '01.01.2201', '05.11.20-8'),
-  createData('by project', '11.01.2001', '05.12.2009'),
-  createData('react project', '11.01.2001', '05.11.2009'),
-  createData('project', '11.01.2001', '05.11.2009'),
-  createData('bitcoin project', '11.11.2001', '05.11.2009'),
-  createData('lokk like a project', '11.01.2001', '05.11.2019'),
-];
 
 const headCells = [
   {
@@ -123,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTable = () => {
+const EnhancedTable = ({ rows }) => {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -138,6 +122,7 @@ const EnhancedTable = () => {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableContainer>
+          {!rows.length && <LinearProgress />}
           <Table
             className={classes.table}
             aria-labelledby='tableTitle'

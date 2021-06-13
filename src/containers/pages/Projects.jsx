@@ -1,8 +1,15 @@
+import { useEffect, useCallback } from 'react';
+
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ProjectsTable from '../modules/projectsTable/ProjectsTable';
 import { Button } from '../../components';
+import {
+  fetchProjects,
+  FETCH_PROJECTS,
+} from '../../redux/modules/projectsTable';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,6 +23,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Projects = () => {
   const classes = useStyles();
+  const projects = useSelector((state) => state.projectsTable.list);
+  const isLoading = useSelector((state) => state.projectsTable.isLoading);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProjects(FETCH_PROJECTS));
+  }, [dispatch]);
 
   return (
     <>
@@ -32,7 +47,7 @@ const Projects = () => {
           Create Project
         </Button>
       </Grid>
-      <ProjectsTable></ProjectsTable>
+      <ProjectsTable rows={projects} isLoading={isLoading} />
     </>
   );
 };

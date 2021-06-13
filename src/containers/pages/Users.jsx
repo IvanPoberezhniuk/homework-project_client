@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -11,13 +13,20 @@ const useStyles = makeStyles((theme) => ({
 
 const Users = () => {
   const classes = useStyles();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/users')
+      .then((response) => response.json())
+      .then((json) => setUsers(json));
+  }, []);
 
   return (
     <>
       <Typography variant='h5' component='h1' className={classes.root}>
         Users
       </Typography>
-      <UsersTable />
+      <UsersTable rows={users} />
     </>
   );
 };
