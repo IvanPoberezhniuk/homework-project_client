@@ -1,10 +1,9 @@
 import React from 'react';
 
-import clsx from 'clsx';
 import MUIButton from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-const styles = {
+const useStyles = makeStyles(() => ({
   root: {
     color: '#FFFFFF',
     height: '37px',
@@ -15,15 +14,17 @@ const styles = {
   hover: {
     background: '#02CC67',
   },
-};
+}));
 
-export const Button = withStyles(styles)((props) => {
-  const { classes, children, ...other } = props;
+const Button = ({ children, ...other }) => {
+  const classes = useStyles();
   return (
-    <MUIButton className={clsx(classes.root)} variant='contained' {...other}>
+    <MUIButton className={classes.root} variant='contained' {...other}>
       {children}
     </MUIButton>
   );
-});
+};
 
 Button.propTypes = {};
+
+export default Button;

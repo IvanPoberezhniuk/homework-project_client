@@ -4,7 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import HeaderLoginMenu from './HeaderLoginMenu';
-import { Button } from '../../Button/Button';
+
+import Button from '../../button/Button';
+
 import AppBar from '../../appBar/AppBar';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ isAuth }) => {
+const Header = ({ isAuth = true }) => {
   const name = 'TestUser';
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);

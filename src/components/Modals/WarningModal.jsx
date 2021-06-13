@@ -10,7 +10,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import Slide from '@material-ui/core/Slide';
 
 import { ReactComponent as WarningIcon } from './../../assets/icons/warning.svg';
-import { Button } from '../Button/Button';
+import { Button } from '../';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
       lineHeight: '42px',
       fontWeight: 400,
       fontSize: '36px',
-    }
+    },
   },
   contentWrapper: {
     padding: '40px 0',
@@ -52,18 +52,18 @@ const useStyles = makeStyles(() => ({
   actionsSpacing: {
     '& > :not(:first-child)': {
       marginLeft: '33px',
-    }
+    },
   },
   btn: {
     width: '215px',
-  }
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
+  return <Slide direction='down' ref={ref} {...props} />;
 });
 
-export const WarningModal = ({ description }) => {
+const WarningModal = ({ description }) => {
   const [open, setOpen] = React.useState(true);
   const classes = useStyles();
 
@@ -82,32 +82,40 @@ export const WarningModal = ({ description }) => {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-        classes={{ paper: classes.paper, container: classes.container}}
+        aria-labelledby='alert-dialog-slide-title'
+        aria-describedby='alert-dialog-slide-description'
+        classes={{ paper: classes.paper, container: classes.container }}
       >
         <div className={classes.titleWrapper}>
           <SvgIcon>
-              <WarningIcon />
-            </SvgIcon>
-          <DialogTitle id="alert-dialog-slide-title" classes={{ root: classes.title}}>
+            <WarningIcon />
+          </SvgIcon>
+          <DialogTitle
+            id='alert-dialog-slide-title'
+            classes={{ root: classes.title }}
+          >
             Warning
           </DialogTitle>
         </div>
-        <DialogContent classes={{root: classes.contentWrapper}}>
-          <DialogContentText id="alert-dialog-slide-description" classes={{root: classes.content}}>
+        <DialogContent classes={{ root: classes.contentWrapper }}>
+          <DialogContentText
+            id='alert-dialog-slide-description'
+            classes={{ root: classes.content }}
+          >
             {description}
           </DialogContentText>
         </DialogContent>
-        <DialogActions classes={{root: classes.actions,spacing: classes.actionsSpacing}}>
-          <Button color="primary" classes={{root: classes.btn }}>
+        <DialogActions
+          classes={{ root: classes.actions, spacing: classes.actionsSpacing }}
+        >
+          <Button color='primary' classes={{ root: classes.btn }}>
             Yes
           </Button>
-          <Button classes={{root: classes.btn }}>
-            No
-          </Button>
+          <Button classes={{ root: classes.btn }}>No</Button>
         </DialogActions>
       </Dialog>
     </div>
   );
-}
+};
+
+export default WarningModal;
