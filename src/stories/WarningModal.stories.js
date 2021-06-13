@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   WarningModal
-} from '../components/Modals/WarningModal';
+} from '../components/index';
 
 export default {
   title: 'Main/Modals',

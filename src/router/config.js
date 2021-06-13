@@ -13,7 +13,7 @@ export const routes = [
     exact: false,
     private: false,
     fallback: <div> Loading... </div>,
-    routes: [
+    /* routes: [
       {
         path: '/home/signup',
         component: lazy(() => import('../containers/pages/Signup')),
@@ -28,7 +28,7 @@ export const routes = [
         private: false,
         fallback: <div> Loading... </div>,
       },
-    ],
+    ], */
   },
   {
     path: '/users',
@@ -47,6 +47,20 @@ export const routes = [
   {
     path: '/profile',
     component: lazy(() => import('../containers/pages/Profile')),
+    exact: false,
+    private: false,
+    fallback: <div> Loading... </div>,
+  },
+  {
+    path: '/signin',
+    component: lazy(() => import('../containers/pages/Signin')),
+    exact: false,
+    private: false,
+    fallback: <div> Loading... </div>,
+  },
+  {
+    path: '/signup',
+    component: lazy(() => import('../containers/pages/Signup')),
     exact: false,
     private: false,
     fallback: <div> Loading... </div>,

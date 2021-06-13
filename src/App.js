@@ -17,7 +17,11 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  return (
+  //if auth -> dashboard
+  //else -> signin
+
+  return <Router routes={routes} />;
+  /* return (
     <div>
       <Header />
       <aside>
@@ -27,7 +31,9 @@ const App = () => {
         <Router routes={routes} />
       </main>
     </div>
-  );
+  ); */
 };
 
 export default App;
+
+
