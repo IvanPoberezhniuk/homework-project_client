@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-import Avatar from '../Avatar/Avatar';
+import { Avatar } from '../';
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -30,36 +30,43 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     padding: '16px',
     margin: 0,
-  }
+  },
 }));
 
-
-const List = ({ items, placeholder, onClickItemHandler, ...props}) => {
+const List = ({ items, placeholder, onClickItemHandler, ...props }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.container} >
-      { !items.length
-        ? <p className={classes.placeholder}>{placeholder}</p>
-        : <Grid container spacing={3} classes={{container: classes.gridContainer}} >
+    <div className={classes.container}>
+      {!items.length ? (
+        <p className={classes.placeholder}>{placeholder}</p>
+      ) : (
+        <Grid
+          container
+          spacing={3}
+          classes={{ container: classes.gridContainer }}
+        >
           {items.map((item) => (
             <Grid
               Grid
               item
               xs={3}
               key={item.id}
-              onClick={() => { onClickItemHandler(item.id) }}
-              >
+              onClick={() => {
+                onClickItemHandler(item.id);
+              }}
+            >
               <Avatar
                 firstName={item.firstName}
                 lastName={item.lastName}
-                isShowName={true} />
+                isShowName={true}
+              />
             </Grid>
           ))}
         </Grid>
-      }
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default List;

@@ -3,9 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
 
-import Menu from '../../menu/Menu';
-
-import Button from '../../Button/Button';
+import { Button, Menu } from '../../';
 
 import ArrowDown from '../../../assets/icons/arrow-down.svg';
 

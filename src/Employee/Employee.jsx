@@ -1,15 +1,5 @@
-import React from 'react';
-
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
-
-import style from './ProjectForm.module.css'
-import { Input } from '../Input/Input';
-import { Button } from '../Button/Button';
-
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -33,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   employee: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   avatar: {
     background: theme.palette.primary.main,
@@ -67,10 +57,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     padding: '16px',
     margin: 0,
-  }
+  },
 }));
-
-
 
 const Employee = ({ name, ...props }) => {
   const classes = useStyles();
@@ -79,5 +67,5 @@ const Employee = ({ name, ...props }) => {
       <Avatar className={classes.avatar}>{name}</Avatar>
       {name && <div className={classes.name}>{name}</div>}
     </div>
-  )
-}
+  );
+};

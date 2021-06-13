@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
   },
   itemWrapper: {
     padding: '8px 0',
-  }
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -68,7 +68,7 @@ const TeamModal = ({ teamList, ...props }) => {
     setOpen(false);
   };
 
-  let team = teamList.map((employee) =>
+  let team = teamList.map((employee) => (
     <div className={classes.itemWrapper}>
       <Avatar
         firstName={employee.firstName}
@@ -76,7 +76,7 @@ const TeamModal = ({ teamList, ...props }) => {
         isShowName={true}
       />
     </div>
-  )
+  ));
 
   return (
     <div>
@@ -101,7 +101,11 @@ const TeamModal = ({ teamList, ...props }) => {
         <DialogActions
           classes={{ root: classes.actions, spacing: classes.actionsSpacing }}
         >
-          <Button color='primary' classes={{ root: classes.btn }} onClick={handleClose}>
+          <Button
+            color='primary'
+            classes={{ root: classes.btn }}
+            onClick={handleClose}
+          >
             Close
           </Button>
         </DialogActions>

@@ -1,16 +1,13 @@
 import React from 'react';
 
-import CreateProjectModal from '../components/Modals/CreateProjectModal';
+import { CreateProjectModal } from '../components/';
 
 export default {
   title: 'Main/Modals',
   component: CreateProjectModal,
 };
 
-const Template = (args) => < CreateProjectModal {
-  ...args
-}
-/>;
+const Template = (args) => <CreateProjectModal {...args} />;
 
 export const CreateProject = Template.bind({});
 CreateProject.args = {

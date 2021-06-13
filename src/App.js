@@ -20,8 +20,8 @@ const App = () => {
   //if auth -> dashboard
   //else -> signin
 
-  return <Router routes={routes} />;
-  /* return (
+  // return <Router routes={routes} />;
+  return (
     <div>
       <Header />
       <aside>
@@ -31,9 +31,7 @@ const App = () => {
         <Router routes={routes} />
       </main>
     </div>
-  ); */
+  );
 };
 
 export default App;
-
-

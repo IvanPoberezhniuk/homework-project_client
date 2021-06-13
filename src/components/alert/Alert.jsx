@@ -1,5 +1,3 @@
-import React from 'react';
-
 import MUIAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 

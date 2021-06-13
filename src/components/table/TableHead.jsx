@@ -1,4 +1,3 @@
-import React from 'react';
 import MUITableHead from '@material-ui/core/TableHead';
 import { makeStyles } from '@material-ui/core/styles';
 

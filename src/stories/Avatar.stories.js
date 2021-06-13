@@ -1,10 +1,11 @@
 import React from 'react';
-import Avatar from '../components/Avatar/Avatar.jsx'
+
+import { Avatar } from '../components/';
 
 export default {
   title: 'Main/Avatar',
-  component: Avatar
-}
+  component: Avatar,
+};
 
 const Template = (args) => <Avatar {...args} />;
 
@@ -20,4 +21,4 @@ WithName.args = {
   firstName: 'test',
   lastName: 'user',
   isShowName: true,
-}
+};

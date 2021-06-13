@@ -1,18 +1,13 @@
 import React from 'react';
 
-import {
-  TeamModal
-} from '../components/index';
+import { TeamModal } from '../components';
 
 export default {
   title: 'Main/Modals/Team',
   component: TeamModal,
 };
 
-const Template = (args) => <TeamModal {
-  ...args
-}
-/>;
+const Template = (args) => <TeamModal {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -26,5 +21,5 @@ Default.args = {
     { id: 7, firstName: 'test 7', lastName: 'user' },
     { id: 8, firstName: 'test 8', lastName: 'user' },
     { id: 9, firstName: 'test 9', lastName: 'user' },
-  ]
+  ],
 };

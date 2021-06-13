@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MultiSelectInput } from '../components/MultiSelectInput/MultiSelectInput';
+import { MultiSelectInput } from '../components/';
 
 export default {
   title: 'Main/MultiSelectInput',
@@ -21,5 +21,5 @@ Standart.args = {
       id: 2,
       name: 'CSS',
     },
-  ]
+  ],
 };

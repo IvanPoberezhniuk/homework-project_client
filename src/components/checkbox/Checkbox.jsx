@@ -45,7 +45,9 @@ const Checkbox = ({ children, ...props }) => {
   return (
     <>
       <MUICheckbox
-        checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+        checkedIcon={
+          <span className={clsx(classes.icon, classes.checkedIcon)} />
+        }
         icon={<span className={classes.icon} />}
         {...field}
         {...props}
@@ -53,8 +55,8 @@ const Checkbox = ({ children, ...props }) => {
         {children}
       </MUICheckbox>
       {meta.touched && meta.error ? (
-         <div className="error">{meta.error}</div>
-       ) : null}
+        <div className='error'>{meta.error}</div>
+      ) : null}
     </>
   );
 };

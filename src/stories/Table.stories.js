@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProjectsTable from '../components/projectsTable/ProjectsTable';
+import ProjectsTable from '../containers/modules/projectsTable/ProjectsTable';
 
 export default {
   title: 'Main/ProjectsTable',
@@ -9,26 +9,12 @@ export default {
 
 const Template = (args) => <ProjectsTable {...args} />;
 
-export const Error = Template.bind({});
-Error.args = {
-  severity: 'error',
-  children: 'error',
+export const Loaded = Template.bind({});
+Loaded.args = {
+  isLoading: false,
 };
 
-export const Warning = Template.bind({});
-Warning.args = {
-  severity: 'warning',
-  children: 'warning',
-};
-
-export const Info = Template.bind({});
-Info.args = {
-  severity: 'info',
-  children: 'info',
-};
-
-export const Success = Template.bind({});
-Success.args = {
-  severity: 'success',
-  children: 'success',
+export const Loading = Template.bind({});
+Loading.args = {
+  isLoading: true,
 };

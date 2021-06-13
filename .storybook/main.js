@@ -6,5 +6,6 @@ module.exports = {
     '@storybook/preset-create-react-app',
     '@react-theming/storybook-addon',
     '@storybook-addon-material-ui',
+    'storybook-formik/register',
   ],
 };

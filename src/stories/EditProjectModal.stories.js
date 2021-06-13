@@ -1,16 +1,13 @@
 import React from 'react';
 
-import EditProjectModal from '../components/Modals/EditProjectModal';
+import { EditProjectModal } from '../components/';
 
 export default {
   title: 'Main/Modals',
   component: EditProjectModal,
 };
 
-const Template = (args) => <EditProjectModal {
-    ...args
-  }
-/>;
+const Template = (args) => <EditProjectModal {...args} />;
 
 export const EditProject = Template.bind({});
 EditProject.args = {
@@ -26,7 +23,5 @@ EditProject.args = {
     { id: 8, firstName: 'test 8', lastName: 'user' },
     { id: 9, firstName: 'test 9', lastName: 'user' },
   ],
-  selectedItems: [
-    { id: 10, firstName: 'test 10', lastName: 'user' },
-  ]
+  selectedItems: [{ id: 10, firstName: 'test 10', lastName: 'user' }],
 };

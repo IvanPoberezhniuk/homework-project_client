@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 import HeaderLoginMenu from './HeaderLoginMenu';
 
-import Button from '../../Button/Button';
+import { Button } from '../../';
 
 import AppBar from '../../appBar/AppBar';
 

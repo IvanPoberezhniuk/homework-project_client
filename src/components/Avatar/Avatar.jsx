@@ -1,13 +1,11 @@
-import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 
-import Avatar from '@material-ui/core/Avatar';
+import MUIAvatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   avatar: {
     background: theme.palette.primary.main,
@@ -23,18 +21,22 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18px',
     color: '#000',
     margin: 0,
-  }
+  },
 }));
 
-const CustomAvatar = ({ firstName, lastName, isShowName, ...props }) => {
+const Avatar = ({ firstName, lastName, isShowName, ...props }) => {
   const classes = useStyles();
   const avatarLabel = (firstName[0] + lastName[0]).toUpperCase();
   return (
     <div className={classes.container}>
-      <Avatar className={classes.avatar}>{avatarLabel}</Avatar>
-      {isShowName && <p className={classes.name}> {firstName} {lastName}</p>}
+      <MUIAvatar className={classes.avatar}>{avatarLabel}</MUIAvatar>
+      {isShowName && (
+        <p className={classes.name}>
+          {firstName} {lastName}
+        </p>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default CustomAvatar;
+export default Avatar;

@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
       lineHeight: '42px',
       fontWeight: 400,
       fontSize: '36px',
-    }
+    },
   },
   contentWrapper: {
     marginTop: '35px',
@@ -35,15 +35,15 @@ const useStyles = makeStyles(() => ({
   actionsSpacing: {
     '& > :not(:first-child)': {
       marginLeft: '33px',
-    }
+    },
   },
   paperWidthMd: {
     maxWidth: '713px',
-  }
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
+  return <Slide direction='down' ref={ref} {...props} />;
 });
 
 const ProjectModal = ({ title, content, ...props }) => {
@@ -60,32 +60,36 @@ const ProjectModal = ({ title, content, ...props }) => {
 
   return (
     <div>
-      {<Dialog
-        open={open}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-        classes={{
-          paper: classes.paper,
-          container: classes.container,
-          paperWidthMd: classes.paperWidthMd,
-        }}
-        maxWidth='md'
-      >
-        <div className={classes.titleWrapper}>
-          <DialogTitle id="alert-dialog-slide-title" classes={{ root: classes.title}}>
-            {title}
-          </DialogTitle>
-        </div>
-        <DialogContent classes={{ root: classes.contentWrapper }}>
-          {content}
-        </DialogContent>
-      </Dialog>
+      {
+        <Dialog
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-labelledby='alert-dialog-slide-title'
+          aria-describedby='alert-dialog-slide-description'
+          classes={{
+            paper: classes.paper,
+            container: classes.container,
+            paperWidthMd: classes.paperWidthMd,
+          }}
+          maxWidth='md'
+        >
+          <div className={classes.titleWrapper}>
+            <DialogTitle
+              id='alert-dialog-slide-title'
+              classes={{ root: classes.title }}
+            >
+              {title}
+            </DialogTitle>
+          </div>
+          <DialogContent classes={{ root: classes.contentWrapper }}>
+            {content}
+          </DialogContent>
+        </Dialog>
       }
     </div>
   );
-}
+};
 
 export default ProjectModal;

@@ -1,7 +1,5 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import { Children } from 'react';
+import MUIPaper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,14 +8,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CustomPaper = ({ children}) => {
+const Paper = ({ children }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Paper elevation={0} children={ children } />
-      <Paper />
-      <Paper elevation={3} />
+      <MUIPaper elevation={0} children={children} />
+      <MUIPaper />
+      <MUIPaper elevation={3} />
     </div>
   );
-}
+};
+
+export default Paper;
