@@ -10,6 +10,13 @@ import User from '../../../assets/icons/user.svg';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '105px',
+    position: 'fixed',
+    backgroundColor: theme.palette.secondary.main,
+  },
+  aside: {
+    zIndex: '-1',
+    minWidth: '105px',
+    position: 'relative',
   },
   button: {
     margin: '8px 0',
@@ -36,7 +43,7 @@ const SideBar = () => {
   const classes = useStyles();
 
   return (
-    <aside>
+    <aside className={classes.aside}>
       <List className={classes.root}>
         <ListItem
           classes={{ root: classes.button }}
