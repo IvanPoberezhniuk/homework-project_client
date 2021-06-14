@@ -9,7 +9,7 @@ import {
   Slide,
 } from '@material-ui/core';
 
-import { Button, Avatar } from '../index';
+import { Button, Avatar } from '../';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -49,9 +49,18 @@ const useStyles = makeStyles(() => ({
   btn: {
     width: '322px',
   },
-  itemWrapper: {
+  avatarWrapper: {
     padding: '8px 0',
+    display: 'flex',
+    alignItems:'center'
   },
+  avatarName: {
+    paddingLeft: '16px',
+    fontWeight: 600,
+    fontSize: '18px',
+    color: '#000',
+    margin: 0,
+  }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -72,11 +81,10 @@ const TeamModal = ({ teamList, ...props }) => {
 
   let team = teamList.map((employee) => (
     <div className={classes.itemWrapper}>
-      <Avatar
-        firstName={employee.firstName}
-        lastName={employee.lastName}
-        isShowName={true}
-      />
+      <div className={classes.avatarWrapper}>
+        <Avatar>{(employee.firstName[0] + employee.lastName[0]).toUpperCase()}</Avatar>
+        <p className={classes.avatarName}>{employee.firstName} {employee.lastName}</p>
+      </div>
     </div>
   ));
 
