@@ -16,7 +16,7 @@ import Paper from './paper/Paper';
 import EditProjectModal from './modals/EditProjectModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import CreateProjectModal from './modals/CreateProjectModal';
-import List from './List/List';
+import List from './list/List';
 import ValidationErrorMsg from './alert/ValidationErrorMsg';
 
 // Shared
