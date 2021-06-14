@@ -2,8 +2,7 @@ import Router from './router/Router';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import Header from './components/shared/header/Header';
-import Sidebar from './components/shared/sidebar/Sidebar';
+import { Header, Sidebar } from './components/';
 import { routes } from './router/config';
 import { makeServer } from './mirage';
 
@@ -11,7 +10,11 @@ makeServer({ environment: 'development' });
 
 const useStyles = makeStyles((theme) => ({
   main: {
-    padding: '48px 48px 48px 147px',
+    padding: '48px',
+    flexBasis: '100%',
+  },
+  container: {
+    display: 'flex',
   },
 }));
 
@@ -22,15 +25,15 @@ const App = () => {
 
   // return <Router routes={routes} />;
   return (
-    <div>
+    <>
       <Header />
-      <aside>
+      <div className={classes.container}>
         <Sidebar />
-      </aside>
-      <main className={classes.main}>
-        <Router routes={routes} />
-      </main>
-    </div>
+        <main className={classes.main}>
+          <Router routes={routes} />
+        </main>
+      </div>
+    </>
   );
 };
 

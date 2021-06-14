@@ -1,3 +1,4 @@
+// Basic components
 import Alert from './alert/Alert';
 import AppBar from './appBar/AppBar';
 import Button from './button/Button';
@@ -11,13 +12,15 @@ import TableHead from './table/TableHead';
 import TableTeamAvatar from './table/TableTeamAvatar';
 import TeamModal from './modals/TeamModal';
 import Avatar from './avatar/Avatar';
-import Paper from './paper/Paper';
+import Paper from './paper/Paper'; 
 import EditProjectModal from './modals/EditProjectModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import CreateProjectModal from './modals/CreateProjectModal';
 import List from './List/List';
 
+// Shared
 import Header from './shared/header/Header';
+import Sidebar from './shared/sidebar/Sidebar';
 
 export {
   Avatar,
@@ -39,4 +42,5 @@ export {
   CreateProjectModal,
   Paper,
   Header,
+  Sidebar,
 };
