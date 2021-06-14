@@ -1,6 +1,6 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button, Checkbox, Input } from '../../';

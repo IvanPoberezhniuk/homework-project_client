@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SvgIcon from '@material-ui/core/SvgIcon';
+import { SvgIcon } from '@material-ui/core';
 import { ReactComponent as Icon } from '../../../assets/icons/pencil.svg';
 
 const EditIcon = () => {

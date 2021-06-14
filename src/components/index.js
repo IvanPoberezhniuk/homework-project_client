@@ -12,11 +12,12 @@ import TableHead from './table/TableHead';
 import TableTeamAvatar from './table/TableTeamAvatar';
 import TeamModal from './modals/TeamModal';
 import Avatar from './avatar/Avatar';
-import Paper from './paper/Paper'; 
+import Paper from './paper/Paper';
 import EditProjectModal from './modals/EditProjectModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import CreateProjectModal from './modals/CreateProjectModal';
 import List from './List/List';
+import ValidationErrorMsg from './alert/ValidationErrorMsg';
 
 // Shared
 import Header from './shared/header/Header';
@@ -43,4 +44,5 @@ export {
   Paper,
   Header,
   Sidebar,
+  ValidationErrorMsg,
 };

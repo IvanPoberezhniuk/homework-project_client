@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Paper from '@material-ui/core/Paper';
+
+import {
+  Table,
+  TableBody,
+  LinearProgress,
+  TableRow,
+  TableSortLabel,
+  Paper,
+} from '@material-ui/core';
 
 import {
   TableCell,
@@ -15,6 +18,7 @@ import {
   TableHead,
   TableTeamAvatar,
 } from '../../../components';
+
 import {
   EditIcon,
   FinishIcon,

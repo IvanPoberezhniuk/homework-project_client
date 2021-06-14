@@ -1,12 +1,10 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
+import { Toolbar } from '@material-ui/core';
 
 import HeaderLoginMenu from './HeaderLoginMenu';
-
 import { Button } from '../../';
-
 import AppBar from '../../appBar/AppBar';
 
 const useStyles = makeStyles((theme) => ({
