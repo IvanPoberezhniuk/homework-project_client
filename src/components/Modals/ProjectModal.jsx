@@ -1,10 +1,7 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
+import { Dialog, DialogContent, DialogTitle, Slide } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   container: {

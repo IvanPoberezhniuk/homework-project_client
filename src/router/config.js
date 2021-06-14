@@ -2,33 +2,18 @@ import React, { lazy } from 'react';
 
 export const routes = [
   {
-    path: '/',
-    exact: true,
-    redirect: '/home',
-    fallback: <div> Loading... </div>,
-  },
-  {
-    path: '/home',
-    component: lazy(() => import('../containers/pages/Home')),
+    path: '/signup',
+    component: lazy(() => import('../containers/pages/Signup')),
     exact: false,
     private: false,
     fallback: <div> Loading... </div>,
-    /* routes: [
-      {
-        path: '/home/signup',
-        component: lazy(() => import('../containers/pages/Signup')),
-        exact: false,
-        private: false,
-        fallback: <div> Loading... </div>,
-      },
-      {
-        path: '/home/signin',
-        component: lazy(() => import('../containers/pages/Signin')),
-        exact: false,
-        private: false,
-        fallback: <div> Loading... </div>,
-      },
-    ], */
+  },
+  {
+    path: '/signin',
+    component: lazy(() => import('../containers/pages/Signin')),
+    exact: false,
+    private: false,
+    fallback: <div> Loading... </div>,
   },
   {
     path: '/users',
@@ -52,15 +37,8 @@ export const routes = [
     fallback: <div> Loading... </div>,
   },
   {
-    path: '/signin',
-    component: lazy(() => import('../containers/pages/Signin')),
-    exact: false,
-    private: false,
-    fallback: <div> Loading... </div>,
-  },
-  {
-    path: '/signup',
-    component: lazy(() => import('../containers/pages/Signup')),
+    path: '*',
+    component: lazy(() => import('../containers/pages/PageNotFound')),
     exact: false,
     private: false,
     fallback: <div> Loading... </div>,

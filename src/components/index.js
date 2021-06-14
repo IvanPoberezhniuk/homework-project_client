@@ -1,3 +1,4 @@
+// Basic components
 import Alert from './alert/Alert';
 import AppBar from './appBar/AppBar';
 import Button from './button/Button';
@@ -16,8 +17,11 @@ import EditProjectModal from './modals/EditProjectModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import CreateProjectModal from './modals/CreateProjectModal';
 import List from './List/List';
+import ValidationErrorMsg from './alert/ValidationErrorMsg';
 
+// Shared
 import Header from './shared/header/Header';
+import Sidebar from './shared/sidebar/Sidebar';
 
 export {
   Avatar,
@@ -39,4 +43,6 @@ export {
   CreateProjectModal,
   Paper,
   Header,
+  Sidebar,
+  ValidationErrorMsg,
 };

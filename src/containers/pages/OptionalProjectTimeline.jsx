@@ -1,5 +1,3 @@
-import React from 'react';
-
 const OptionalProjectTimeline = () => {
   return <div>OptionalProjectTimeline</div>;
 };

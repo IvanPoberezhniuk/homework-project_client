@@ -1,13 +1,15 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import Slide from '@material-ui/core/Slide';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Slide,
+  SvgIcon,
+  DialogContentText,
+} from '@material-ui/core';
 
 import { ReactComponent as WarningIcon } from './../../assets/icons/warning.svg';
 import { Button } from '../';

@@ -1,11 +1,7 @@
-import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
-import { Paper } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
+import { Paper, Typography, Link } from '@material-ui/core';
 
-import SigninForm  from './../../components/Forms/SigninForm/SigninForm';
+import SigninForm from './../../components/Forms/SigninForm/SigninForm';
 import Alert from './../../components/alert/Alert';
 
 const useStyles = makeStyles(() => ({
@@ -42,7 +38,7 @@ const useStyles = makeStyles(() => ({
   footer: {
     marginTop: '8px',
     fontSize: '12px',
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   },
   alertWrapper: {
     width: '100%',
@@ -54,24 +50,33 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
   isSuccessSignIn = true;
   const classes = useStyles();
 
-  const body = (<div className={classes.container}>
-    <Typography variant='h1' component='h2' className={classes.title}>
-      Sign In
-    </Typography>
-    <div className={classes.form}>
-      {!isSuccessSignIn && <Alert severity='error' className={classes.alertWrapper}>Some Error</Alert>}
-      <SigninForm  />
+  const body = (
+    <div className={classes.container}>
+      <Typography variant='h1' component='h2' className={classes.title}>
+        Sign In
+      </Typography>
+      <div className={classes.form}>
+        {!isSuccessSignIn && (
+          <Alert severity='error' className={classes.alertWrapper}>
+            Some Error
+          </Alert>
+        )}
+        <SigninForm />
+      </div>
+      <div className={classes.footer}>
+        Don’t have an account yet?{' '}
+        <Link href='/signup' color='primary' underline='always'>
+          Sign Up
+        </Link>
+      </div>
     </div>
-    <div className={classes.footer}>
-      Don’t have an account yet? <Link href='/signup' color='primary' underline='always'>Sign Up</Link>
+  );
+
+  return (
+    <div className={classes.wrapper}>
+      <Paper children={body} classes={{ root: classes.paper }} />
     </div>
-  </div >
-  )
-
-  return <div className={classes.wrapper}>
-    <Paper children={body} classes={{root: classes.paper}}/>
-  </div>;
-
+  );
 };
 
 export default Signin;

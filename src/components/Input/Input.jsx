@@ -1,10 +1,5 @@
-import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
-import FilledInput from '@material-ui/core/FilledInput';
-import { useField } from 'formik';
-
-import { Alert } from '../';
+import { FilledInput } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -33,26 +28,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Input = ({ placeholder, ...props }) => {
+const Input = ({ ...other }) => {
   const classes = useStyles();
-  const [field, meta] = useField(props);
-
   return (
-    <div>
-      <FilledInput
-        disableUnderline={true}
-        margin='none'
-        fullWidth={true}
-        classes={{ input: classes.input, root: classes.root }}
-        placeholder={placeholder}
-        {...field}
-        {...props}
-      />
-      {meta.touched && meta.error ? (
-        // <ValidationErrorMsg message={meta.error} />
-        <Alert>{meta.error}</Alert>
-      ) : null}
-    </div>
+    <FilledInput
+      disableUnderline={true}
+      margin='none'
+      fullWidth={true}
+      classes={{ input: classes.input, root: classes.root }}
+      {...other}
+    />
   );
 };
 

@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 import { Input, Button, MultiSelectInput } from '../../components';
 
@@ -23,6 +25,27 @@ const useStyles = makeStyles(() => ({
 
 const Profile = () => {
   const classes = useStyles();
+  const { getFieldProps, handleSubmit } = useFormik({
+    initialValues: {
+      firstName: '',
+      secondName: '',
+      skills: [],
+    },
+    validationSchema: Yup.object().shape({
+      firstName: Yup.string()
+        .required('Enter your name')
+        .min(1, 's')
+        .max(15, 'Max length 15 characters')
+        .trim(),
+      secondName: Yup.string()
+        .required('Enter comment text')
+        .max(15, 'Max length 15 characters')
+        .trim(),
+    }),
+    onSubmit(values) {
+      console.log('submitted form', values);
+    },
+  });
 
   return (
     <article className={classes.container}>
@@ -31,32 +54,39 @@ const Profile = () => {
           Profile
         </Typography>
       </header>
-      <section className={classes.profileContent}>
-        <p className={classes.role}>Your current Role is:</p>
-        <Input placeholder='Name' type='text' className={classes.profileItem} />
-        <Input
-          placeholder='Second Name'
-          type='text'
-          className={classes.profileItem}
-        />
-        <MultiSelectInput
-          className={classes.profileItem}
-          options={[
-            { name: 'js' },
-            { name: 'css' },
-            { name: 'php' },
-            { name: 'c++' },
-            { name: 'Жыве Беларусь!' },
-            { name: 'БЧБ!' },
-            { name: 'Pascal' },
-            { name: 'Уверенный пользователь ПК' },
-          ]}
-          placeholder='Select your skills'
-        />
-      </section>
-      <Button fullWidth color='primary'>
-        Save
-      </Button>
+      <form onSubmit={handleSubmit}>
+        <section className={classes.profileContent}>
+          <p className={classes.role}>Your current Role is:</p>
+          <Input
+            placeholder='Name'
+            className={classes.profileItem}
+            {...getFieldProps('firstName')}
+          />
+
+          <Input
+            placeholder='Second Name'
+            className={classes.profileItem}
+            {...getFieldProps('secondName')}
+          />
+          <MultiSelectInput
+            className={classes.profileItem}
+            options={[
+              { name: 'js' },
+              { name: 'css' },
+              { name: 'php' },
+              { name: 'c++' },
+              { name: 'Жыве Беларусь!' },
+              { name: 'БЧБ!' },
+              { name: 'Pascal' },
+              { name: 'Уверенный пользователь ПК' },
+            ]}
+            placeholder='Select your skills'
+          />
+        </section>
+        <Button fullWidth color='primary' type='submit'>
+          Save
+        </Button>
+      </form>
     </article>
   );
 };
