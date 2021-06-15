@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 import { ReactComponent as WarningIcon } from './../../assets/icons/warning.svg';
-import { Button } from '../';
+import { Button } from '..';
 
 const useStyles = makeStyles(() => ({
   container: {

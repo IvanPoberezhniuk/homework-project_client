@@ -13,3 +13,9 @@ export const Primary = Template.bind({});
 Primary.args = {
   placeholder: 'placeholder',
 };
+
+export const ValidationError = Template.bind({});
+ValidationError.args = {
+  error: true,
+  helperText: 'Some validation error',
+};
