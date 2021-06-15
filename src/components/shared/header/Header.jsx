@@ -8,6 +8,9 @@ import { Button } from '../../';
 import AppBar from '../../appBar/AppBar';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    zIndex: 111111,
+  },
   toolbar: {
     justifyContent: 'flex-end',
     height: '80px',
@@ -29,7 +32,7 @@ const Header = ({ isAuth = true }) => {
   };
 
   return (
-    <AppBar position='static' color='default'>
+    <AppBar position='fixed' color='default' className={classes.root}>
       <Toolbar className={classes.toolbar}>
         {isAuth ? (
           <HeaderLoginMenu

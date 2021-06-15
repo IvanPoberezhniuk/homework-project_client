@@ -11,11 +11,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '105px',
     position: 'fixed',
-    backgroundColor: theme.palette.secondary.main,
+    height: '100vh',
+    margin: '80px 0 0 0',
   },
   aside: {
-    zIndex: '-1',
-    minWidth: '105px',
+    minWidth: '100px',
+    backgroundColor: theme.palette.secondary.main,
     position: 'relative',
   },
   button: {
