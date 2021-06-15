@@ -1,10 +1,9 @@
-import Router from './router/Router';
-
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Header, Sidebar } from './components/';
-import { routes } from './router/config';
+import { Header, Sidebar } from './components';
 import { makeServer } from './mirage';
+import { routes } from './router/config';
+import Router from './router/Router';
 
 makeServer({ environment: 'development' });
 

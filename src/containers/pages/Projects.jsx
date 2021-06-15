@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
 
-import ProjectsTable from '../modules/projectsTable/ProjectsTable';
-import { Button } from '../../components';
+import { Button, CreateProjectModal } from '../../components';
 import {
-  fetchProjects,
-  addProject,
-  editProject,
   deleteProject,
-} from '../../redux/modules/projectsTable';
+  editProject,
+  fetchProjects,
+} from '../../redux/modules/projects';
+import ProjectsTable from '../modules/projectsTable/ProjectsTable';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,8 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Projects = () => {
   const classes = useStyles();
-  const projects = useSelector((state) => state.projectsTable.list);
-  const isLoading = useSelector((state) => state.projectsTable.isLoading);
+  const projects = useSelector((state) => state.projects.list);
+  const isLoading = useSelector((state) => state.projects.isLoading);
+  const [showAddProjectModal, setShowAddProjectModal] = useState(false);
+  const [showEditProjectModal, setShowEditProjectModal] = useState(false);
+  const [showRemoveProjectModal, setShowRemoveProjectModal] = useState(false);
+  const [showTeamModal, setShowTeamModal] = useState(false);
+  const [showStarProjectModal, setStarProjectModal] = useState(false);
+  const [showFinishProjectModal, setFinishProjectModal] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -48,20 +54,11 @@ const Projects = () => {
         <Button
           color='primary'
           className={classes.buttonRoot}
-          onClick={() =>
-            dispatch(
-              addProject({
-                projectName: '11111111_aaaa',
-                startDat: '1',
-                endDate: '2',
-                team: 'TEST',
-              })
-            )
-          }
+          onClick={() => setShowAddProjectModal(true)}
         >
           Create Project
         </Button>
-        <Button
+        {/* <Button
           color='primary'
           className={classes.buttonRoot}
           onClick={() =>
@@ -84,9 +81,16 @@ const Projects = () => {
           onClick={() => dispatch(deleteProject(1))}
         >
           delete
-        </Button>
+        </Button> */}
       </Grid>
       <ProjectsTable rows={projects} isLoading={isLoading} />
+      {showAddProjectModal && (
+        <CreateProjectModal
+          isOpen={showAddProjectModal}
+          handleClose={() => setShowAddProjectModal(false)}
+          isLoading={isLoading}
+        />
+      )}
     </>
   );
 };

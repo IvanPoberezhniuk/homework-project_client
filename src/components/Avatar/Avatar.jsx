@@ -1,6 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
-
 import MUIAvatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -24,18 +23,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Avatar = ({ firstName, lastName, isShowName, ...props }) => {
+const Avatar = ({ firstName, lastName, isShowName, children, ...other }) => {
   const classes = useStyles();
-  const avatarLabel = (firstName[0] + lastName[0]).toUpperCase();
   return (
-    <div className={classes.container}>
-      <MUIAvatar className={classes.avatar}>{avatarLabel}</MUIAvatar>
-      {isShowName && (
-        <p className={classes.name}>
-          {firstName} {lastName}
-        </p>
-      )}
-    </div>
+    <MUIAvatar className={classes.avatar} {...other}>
+      {children}
+    </MUIAvatar>
   );
 };
 

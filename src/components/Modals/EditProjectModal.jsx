@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ProjectForm from '../Forms/ProjectForm';
-import ProjectModal from './ProjectModal';
+import ProjectModal from './CreateProjectModal';
 
 const EditProjectModal = ({
   projectName,

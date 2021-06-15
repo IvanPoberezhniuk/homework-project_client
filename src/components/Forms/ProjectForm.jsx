@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { Formik, Form } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { makeStyles } from '@material-ui/core/styles';
 
-import { Input, Button, List } from '../';
+import { makeStyles } from '@material-ui/core/styles';
+import { CircularProgress } from '@material-ui/core/';
+
+import { Button, Input, List } from '..';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -29,29 +31,34 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'right',
   },
   btn: {
-    width: '331px',
+    minWidth: '300px',
   },
   btnsWrapper: {
     marginTop: '40px',
     display: 'flex',
     justifyContent: 'space-between',
   },
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
 }));
 
 const ProjectForm = ({
-  projectName,
+  projectName = 'New Project',
   availableItems,
   selectedItems,
+  submitHandler,
   closeHandler,
-  ...props
+  isLoading,
+  ...other
 }) => {
   const classes = useStyles();
 
-  const SigninSchema = Yup.object({
-    projectName: Yup.string().max(255, 'Too long'),
-  });
-
-  const [items, setItems] = useState(availableItems);
+  const [items, setItems] = useState([]);
   const [selected, setSelectedItems] = useState(selectedItems);
 
   const selectEmployee = (id) => {
@@ -72,49 +79,65 @@ const ProjectForm = ({
     setSelectedItems(newArr);
   };
 
+  useEffect(() => {
+    setItems(availableItems);
+  }, [availableItems]);
+
+  const { getFieldProps, handleSubmit } = useFormik({
+    initialValues: {
+      projectName: projectName,
+    },
+    validationSchema: Yup.object().shape({
+      projectName: Yup.string()
+        .required('Enter project name')
+        .max(255, 'Max length 15 characters')
+        .trim(),
+    }),
+    onSubmit(values) {
+      submitHandler({ ...values, team: [...selected] });
+    },
+  });
+
   return (
-    <Formik
-      initialValues={{ projectName: projectName }}
-      validationSchema={SigninSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          console.log(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
-    >
-      <Form className={classes.form}>
-        <Input name='projectName' type='text' placeholder='Project Name' />
-        <div className={classes.listWrapper}>
-          <List
-            placeholder='Start to add user by clicking on their preview below'
-            name='seletedEmployees'
-            items={selected}
-            onClickItemHandler={deselectEmployee}
-          />
-        </div>
-        <div className={classes.listWrapper}>
-          <List
-            name='employees'
-            items={items}
-            onClickItemHandler={selectEmployee}
-          />
-        </div>
-        <div className={classes.hideBtn}>Hide busy coworkers</div>
-        <div className={classes.btnsWrapper}>
-          <Button type='submit' color='primary' classes={{ root: classes.btn }}>
-            Save
-          </Button>
-          <Button
-            color=''
-            classes={{ root: classes.btn }}
-            onClick={closeHandler}
-          >
-            Close
-          </Button>
-        </div>
-      </Form>
-    </Formik>
+    <form className={classes.form} onSubmit={handleSubmit}>
+      <Input placeholder='Project Name' {...getFieldProps('projectName')} />
+      <div className={classes.listWrapper}>
+        <List
+          placeholder='Start to add user by clicking on their preview below'
+          name='seletedEmployees'
+          items={selected}
+          onClickItemHandler={deselectEmployee}
+        />
+      </div>
+      <div className={classes.listWrapper}>
+        <List
+          name='employees'
+          items={items}
+          onClickItemHandler={selectEmployee}
+        />
+      </div>
+      <div className={classes.hideBtn}>Hide busy coworkers</div>
+      <div className={classes.btnsWrapper}>
+        <Button
+          type='submit'
+          color='primary'
+          classes={{ root: classes.btn }}
+          disabled={isLoading}
+        >
+          Save
+          {isLoading && (
+            <CircularProgress size={24} className={classes.buttonProgress} />
+          )}
+        </Button>
+        <Button
+          color='secondary'
+          classes={{ root: classes.btn }}
+          onClick={closeHandler}
+        >
+          Close
+        </Button>
+      </div>
+    </form>
   );
 };
 

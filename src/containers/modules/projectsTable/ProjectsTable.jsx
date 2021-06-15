@@ -1,16 +1,16 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import {
+  LinearProgress,
+  Paper,
   Table,
   TableBody,
-  LinearProgress,
   TableRow,
   TableSortLabel,
-  Paper,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
   TableCell,
@@ -18,12 +18,11 @@ import {
   TableHead,
   TableTeamAvatar,
 } from '../../../components';
-
 import {
   EditIcon,
   FinishIcon,
-  TrashIcon,
   StartIcon,
+  TrashIcon,
 } from '../../../components/shared/icons';
 import { getComparator, stableSort } from '../../../helpers/table';
 
@@ -175,8 +174,8 @@ const EnhancedTable = ({ rows, isLoading }) => {
                       <TableCell component='th' id={labelId} scope='row'>
                         {row.projectName}
                       </TableCell>
-                      <TableCell>{row.startDate}</TableCell>
-                      <TableCell>{row.endDate}</TableCell>
+                      <TableCell>{row.startDate || '-'}</TableCell>
+                      <TableCell>{row.endDate || '-'}</TableCell>
                       <TableCell>{row.status}</TableCell>
                       <TableCell className={classes.teamCell}>
                         <TableTeamAvatar className={classes.moreIcon}>

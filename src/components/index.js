@@ -1,48 +1,51 @@
 // Basic components
 import Alert from './alert/Alert';
+import ValidationErrorMsg from './alert/ValidationErrorMsg';
 import AppBar from './appBar/AppBar';
+import Avatar from './avatar/Avatar';
 import Button from './button/Button';
 import Checkbox from './checkbox/Checkbox';
+import ProjectForm from './Forms/ProjectForm';
+import ProjectTitle from './Forms/ProjectTitle';
 import Input from './input/Input';
+import List from './list/List';
 import Menu from './menu/Menu';
+import CreateProjectModal from './modals/CreateProjectModal';
+import EditProjectModal from './modals/EditProjectModal';
+import TeamModal from './modals/TeamModal';
 import WarningModal from './modals/WarningModal';
+import MultiSelectInput from './multiSelectInput/MultiSelectInput';
+import Paper from './paper/Paper';
+// Shared
+import Header from './shared/header/Header';
+import Sidebar from './shared/sidebar/Sidebar';
 import TableCell from './table/TableCell';
 import TableContainer from './table/TableContainer';
 import TableHead from './table/TableHead';
 import TableTeamAvatar from './table/TableTeamAvatar';
-import TeamModal from './modals/TeamModal';
-import Avatar from './avatar/Avatar';
-import Paper from './paper/Paper';
-import EditProjectModal from './modals/EditProjectModal';
-import MultiSelectInput from './multiSelectInput/MultiSelectInput';
-import CreateProjectModal from './modals/CreateProjectModal';
-import List from './List/List';
-import ValidationErrorMsg from './alert/ValidationErrorMsg';
-
-// Shared
-import Header from './shared/header/Header';
-import Sidebar from './shared/sidebar/Sidebar';
 
 export {
-  Avatar,
-  List,
   Alert,
   AppBar,
+  Avatar,
   Button,
   Checkbox,
+  CreateProjectModal,
+  EditProjectModal,
+  Header,
   Input,
+  List,
   Menu,
-  WarningModal,
   MultiSelectInput,
+  Paper,
+  ProjectForm,
+  ProjectTitle,
+  Sidebar,
   TableCell,
   TableContainer,
   TableHead,
   TableTeamAvatar,
   TeamModal,
-  EditProjectModal,
-  CreateProjectModal,
-  Paper,
-  Header,
-  Sidebar,
   ValidationErrorMsg,
+  WarningModal,
 };

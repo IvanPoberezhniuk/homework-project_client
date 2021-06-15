@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { projectsAPI } from '../../api';
 
@@ -25,6 +25,7 @@ export const addProject = createAsyncThunk(
   ADD_PROJECT,
   async (project, thunkApi) => {
     try {
+      console.log(11231231232, project);
       const response = await projectsAPI.addProject(project);
       return response.data.projects;
     } catch (err) {
