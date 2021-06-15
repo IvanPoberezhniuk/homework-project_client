@@ -12,12 +12,11 @@ import TableHead from './table/TableHead';
 import TableTeamAvatar from './table/TableTeamAvatar';
 import TeamModal from './modals/TeamModal';
 import Avatar from './avatar/Avatar';
-import Paper from './Paper/Paper';
+import Paper from './paper/Paper';
 import EditProjectModal from './modals/EditProjectModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import CreateProjectModal from './modals/CreateProjectModal';
 import List from './list/List';
-import ValidationErrorMsg from './alert/ValidationErrorMsg';
 import ProjectForm from './Forms/ProjectForm';
 import ProjectModal from './modals/ProjectModal';
 
@@ -46,7 +45,6 @@ export {
   Paper,
   Header,
   Sidebar,
-  ValidationErrorMsg,
   ProjectForm,
   ProjectModal,
 };
