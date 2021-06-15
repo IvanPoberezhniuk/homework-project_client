@@ -1,7 +1,6 @@
 import React from 'react';
 
-import ProjectForm from '../Forms/ProjectForm';
-import ProjectModal from './ProjectModal';
+import { ProjectForm, ProjectModal } from '../index';
 
 const EditProjectModal = ({
   projectName,
@@ -25,7 +24,7 @@ const EditProjectModal = ({
     />
   );
 
-  return <ProjectModal title='Create new Project' content={content} />;
+  return <ProjectModal title='Edit Project' content={content} />;
 };
 
 export default EditProjectModal;
