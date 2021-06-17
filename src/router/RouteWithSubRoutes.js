@@ -1,10 +1,12 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const RouteWithSubRoutes = (route) => {
   // LOGGED IN MOCK
-  const authenticated = true;
+  //const isAuth = true;
   // LOGGED IN MOCK
+  const isAuth = useSelector((state) => state.auth.isAuth);
   return (
     <Suspense fallback={route.fallback}>
       <Route
@@ -13,12 +15,12 @@ const RouteWithSubRoutes = (route) => {
           route.redirect ? (
             <Redirect to={route.redirect} />
           ) : route.private ? (
-            authenticated ? (
+            isAuth ? (
               route.component && (
                 <route.component {...props} routes={route.routes} />
               )
             ) : (
-              <Redirect to='/home/login' />
+              <Redirect to='/signin' />
             )
           ) : (
             route.component && (

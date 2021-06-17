@@ -1,7 +1,6 @@
 import MUICheckbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { useField } from 'formik';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,10 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Checkbox = ({ children, ...props }) => {
-  console.log(children);
+const Checkbox = ({ children, ...other }) => {
   const classes = useStyles();
-  const [field, meta] = useField({ ...props, type: 'checkbox' });
+
   return (
     <>
       <MUICheckbox
@@ -49,14 +47,10 @@ const Checkbox = ({ children, ...props }) => {
           <span className={clsx(classes.icon, classes.checkedIcon)} />
         }
         icon={<span className={classes.icon} />}
-        {...field}
-        {...props}
+        {...other}
       >
         {children}
       </MUICheckbox>
-      {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
-      ) : null}
     </>
   );
 };

@@ -1,7 +1,8 @@
-import { Formik, Form } from 'formik';
+import { useFormik} from 'formik';
 import * as Yup from 'yup';
 import { FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 import { Button, Checkbox, Input } from '../../';
 
@@ -28,58 +29,70 @@ const useStyles = makeStyles(() => ({
   inputWrapper: {
     marginTop: '16px',
   },
+  inputWrapperWithError: {
+    marginBottom: '30px',
+  },
 }));
 
-const SigninForm = () => {
+const SigninForm = ({handleSubmitting}) => {
   const classes = useStyles();
 
-  const SigninSchema = Yup.object({
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Please enter your email address'),
-    password: Yup.string()
-      .min(6, 'Incorrect password')
-      .max(20, 'Incorrect password')
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Invalid password')
-      .required('Please enter your password'),
+
+  const {errors, touched, handleSubmit, getFieldProps}  = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
+    validationSchema:Yup.object({
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Please enter your email address'),
+      password: Yup.string()
+        .min(6, 'Incorrect password')
+        .max(20, 'Incorrect password')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Invalid password')
+        .required('Please enter your password'),
+    }),
+    onSubmit(values) {
+      handleSubmitting(values.email, values.password, values.rememberMe)
+    },
   });
 
   return (
-    <Formik
-      initialValues={{ email: '', password: '', rememberMe: false }}
-      validationSchema={SigninSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
+    <form
+      className={classes.form}
+      onSubmit={handleSubmit}
     >
-      <Form className={classes.form}>
-        <Input
-          name='email'
-          type='email'
-          placeholder='Email'
-          className={classes.inputWrapper}
-        />
-        <Input
-          name='password'
-          type='password'
-          placeholder='Password'
-          className={classes.inputWrapper}
-        />
-        <FormControlLabel
-          control={<Checkbox name='rememberMe' />}
+      <Input
+        type='email'
+        placeholder='Email'
+        className={clsx(classes.inputWrapper,
+          (touched.email && errors.email && classes.inputWrapperWithError))}
+        error={errors.email && touched.email}
+        helperText={touched.email && errors.email}
+        {...getFieldProps('email')}
+      />
+      <Input
+        type='password'
+        placeholder='Password'
+        className={clsx(classes.inputWrapper,
+          (touched.password && errors.password && classes.inputWrapperWithError))}
+        error={errors.password && touched.password}
+        helperText={touched.password && errors.password}
+        {...getFieldProps('password')}
+      />
+      <FormControlLabel
+          control={<Checkbox {...getFieldProps('rememberMe')} />}
           label='Remember me?'
           classes={{ root: classes.checkbox, label: classes.checkboxLabel }}
         />
-        <Button type='submit' color='primary' classes={{ root: classes.btn }}>
-          {' '}
-          Sign in
-        </Button>
-      </Form>
-    </Formik>
-  );
+      <Button type='submit' color='primary' classes={{ root: classes.btn }}>
+        Sign In
+      </Button>
+    </form>
+  )
+
 };
 
 export default SigninForm;

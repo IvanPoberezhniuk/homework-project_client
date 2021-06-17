@@ -2,16 +2,23 @@ import React, { lazy } from 'react';
 
 export const routes = [
   {
+    path: '/',
+    component: lazy(() => import('../containers/pages/Dashboard')),
+    exact: true,
+    private: false,
+    fallback: <div> Loading... </div>,
+  },
+  {
     path: '/signup',
     component: lazy(() => import('../containers/pages/Signup')),
-    exact: false,
+    exact: true,
     private: false,
     fallback: <div> Loading... </div>,
   },
   {
     path: '/signin',
     component: lazy(() => import('../containers/pages/Signin')),
-    exact: false,
+    exact: true,
     private: false,
     fallback: <div> Loading... </div>,
   },

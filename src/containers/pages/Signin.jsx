@@ -1,8 +1,14 @@
+import { useState, useEffect } from 'react';
+import { Redirect } from 'react-router';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography, Link } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 
 import SigninForm from './../../components/Forms/SigninForm/SigninForm';
 import Alert from './../../components/alert/Alert';
+import { signin } from '../../redux/modules/auth';
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -40,28 +46,44 @@ const useStyles = makeStyles(() => ({
     fontSize: '12px',
     alignSelf: 'flex-start',
   },
-  alertWrapper: {
-    width: '100%',
+  alert: {
     margin: '16px 0 8px 0',
   },
 }));
 
 const Signin = ({ isSuccessSignIn, ...props }) => {
-  isSuccessSignIn = true;
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const serverErrorMsg = useSelector((state) => state.auth.serverErrorMsg);
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const token = useSelector((state) => state.auth.token);
+  const [rememberMe, setRememberMe] = useState(false);
+
+  useEffect(() => {
+    if (rememberMe) {
+      Cookies.set('token', token, { expires: 30 });
+    }
+    else {
+      Cookies.set('token', token);
+    }
+  }, [token, rememberMe, dispatch])
+
 
   const body = (
     <div className={classes.container}>
       <Typography variant='h1' component='h2' className={classes.title}>
         Sign In
       </Typography>
-      <div className={classes.form}>
-        {!isSuccessSignIn && (
-          <Alert severity='error' className={classes.alertWrapper}>
-            Some Error
-          </Alert>
+      <div className={classes.content}>
+        {serverErrorMsg && (
+          <div className={classes.alert}>
+            <Alert severity='error'>{serverErrorMsg}</Alert>
+          </div>
         )}
-        <SigninForm />
+        <SigninForm handleSubmitting={async (email, password, rememberMe) => {
+          setRememberMe(rememberMe);
+          await dispatch(signin({ email, password }));
+        }}/>
       </div>
       <div className={classes.footer}>
         Don’t have an account yet?{' '}
@@ -73,7 +95,13 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
   );
 
   return (
-    <div className={classes.wrapper}>
+    isAuth
+      ? <Redirect
+        to={{
+          pathname: '/',
+        }}
+      />
+      :  <div className={classes.wrapper}>
       <Paper children={body} classes={{ root: classes.paper }} />
     </div>
   );
