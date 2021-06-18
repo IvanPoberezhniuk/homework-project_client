@@ -5,7 +5,7 @@ export const routes = [
     path: '/',
     component: lazy(() => import('../containers/pages/Dashboard')),
     exact: true,
-    private: false,
+    private: true,
     fallback: <div> Loading... </div>,
   },
   {
@@ -21,6 +21,7 @@ export const routes = [
     exact: true,
     private: false,
     fallback: <div> Loading... </div>,
+    partition: true,
   },
   {
     path: '/users',
@@ -40,7 +41,7 @@ export const routes = [
     path: '/profile',
     component: lazy(() => import('../containers/pages/Profile')),
     exact: false,
-    private: false,
+    private: true,
     fallback: <div> Loading... </div>,
   },
   {

@@ -84,29 +84,29 @@ const ProjectForm = ({
       }}
     >
       <Form className={classes.form}>
-        <Input name='projectName' type='text' placeholder='Project Name' />
+        <Input name="projectName" type="text" placeholder="Project Name" />
         <div className={classes.listWrapper}>
           <List
-            placeholder='Start to add user by clicking on their preview below'
-            name='seletedEmployees'
+            placeholder="Start to add user by clicking on their preview below"
+            name="seletedEmployees"
             items={selected}
             onClickItemHandler={deselectEmployee}
           />
         </div>
         <div className={classes.listWrapper}>
           <List
-            name='employees'
+            name="employees"
             items={items}
             onClickItemHandler={selectEmployee}
           />
         </div>
         <div className={classes.hideBtn}>Hide busy coworkers</div>
         <div className={classes.btnsWrapper}>
-          <Button type='submit' color='primary' classes={{ root: classes.btn }}>
+          <Button type="submit" color="primary" classes={{ root: classes.btn }}>
             Save
           </Button>
           <Button
-            color=''
+            color=""
             classes={{ root: classes.btn }}
             onClick={closeHandler}
           >

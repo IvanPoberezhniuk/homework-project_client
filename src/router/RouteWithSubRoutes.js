@@ -1,11 +1,11 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Header, Sidebar } from '../components';
+import Dashboard from '../containers/pages/Dashboard';
+import DashboardContainer from '../containers/pages/DashboardContainer';
 
 const RouteWithSubRoutes = (route) => {
-  // LOGGED IN MOCK
-  //const isAuth = true;
-  // LOGGED IN MOCK
   const isAuth = useSelector((state) => state.auth.isAuth);
   return (
     <Suspense fallback={route.fallback}>
@@ -17,10 +17,12 @@ const RouteWithSubRoutes = (route) => {
           ) : route.private ? (
             isAuth ? (
               route.component && (
-                <route.component {...props} routes={route.routes} />
+                <>
+                  {!route?.partition && <DashboardContainer route={route} {...props} /> }
+                </>
               )
             ) : (
-              <Redirect to='/signin' />
+              <Redirect to="/signin" />
             )
           ) : (
             route.component && (

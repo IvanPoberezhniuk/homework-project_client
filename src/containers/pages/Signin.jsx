@@ -6,8 +6,7 @@ import { Paper, Typography, Link } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 
-import SigninForm from './../../components/Forms/SigninForm/SigninForm';
-import Alert from './../../components/alert/Alert';
+import { SigninForm, Alert } from './../../components';
 import { signin } from '../../redux/modules/auth';
 
 const useStyles = makeStyles(() => ({
@@ -23,6 +22,9 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  content: {
+    marginTop: '24px',
   },
   paper: {
     borderRadius: '6px',
@@ -62,46 +64,42 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
   useEffect(() => {
     if (rememberMe) {
       Cookies.set('token', token, { expires: 30 });
-    }
-    else {
+    } else {
       Cookies.set('token', token);
     }
-  }, [token, rememberMe, dispatch])
-
+  }, [token, rememberMe, dispatch]);
 
   const body = (
     <div className={classes.container}>
-      <Typography variant='h1' component='h2' className={classes.title}>
+      <Typography variant="h1" component="h2" className={classes.title}>
         Sign In
       </Typography>
       <div className={classes.content}>
         {serverErrorMsg && (
           <div className={classes.alert}>
-            <Alert severity='error'>{serverErrorMsg}</Alert>
+            <Alert severity="error">{serverErrorMsg}</Alert>
           </div>
         )}
-        <SigninForm handleSubmitting={async (email, password, rememberMe) => {
-          setRememberMe(rememberMe);
-          await dispatch(signin({ email, password }));
-        }}/>
+        <SigninForm
+          handleSubmitting={async (email, password, rememberMe) => {
+            setRememberMe(rememberMe);
+            await dispatch(signin({ email, password }));
+          }}
+        />
       </div>
       <div className={classes.footer}>
         Don’t have an account yet?{' '}
-        <Link href='/signup' color='primary' underline='always'>
+        <Link href="/signup" color="primary" underline="always">
           Sign Up
         </Link>
       </div>
     </div>
   );
 
-  return (
-    isAuth
-      ? <Redirect
-        to={{
-          pathname: '/',
-        }}
-      />
-      :  <div className={classes.wrapper}>
+  return isAuth ? (
+    <Redirect to='/' />
+  ) : (
+    <div className={classes.wrapper}>
       <Paper children={body} classes={{ root: classes.paper }} />
     </div>
   );

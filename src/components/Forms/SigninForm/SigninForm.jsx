@@ -1,4 +1,4 @@
-import { useFormik} from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,17 +34,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SigninForm = ({handleSubmitting}) => {
+const SigninForm = ({ handleSubmitting }) => {
   const classes = useStyles();
 
-
-  const {errors, touched, handleSubmit, getFieldProps}  = useFormik({
+  const { errors, touched, handleSubmit, getFieldProps } = useFormik({
     initialValues: {
       email: '',
       password: '',
       rememberMe: false,
     },
-    validationSchema:Yup.object({
+    validationSchema: Yup.object({
       email: Yup.string()
         .email('Invalid email address')
         .required('Please enter your email address'),
@@ -55,44 +54,44 @@ const SigninForm = ({handleSubmitting}) => {
         .required('Please enter your password'),
     }),
     onSubmit(values) {
-      handleSubmitting(values.email, values.password, values.rememberMe)
+      handleSubmitting(values.email, values.password, values.rememberMe);
     },
   });
 
   return (
-    <form
-      className={classes.form}
-      onSubmit={handleSubmit}
-    >
+    <form className={classes.form} onSubmit={handleSubmit}>
       <Input
-        type='email'
-        placeholder='Email'
-        className={clsx(classes.inputWrapper,
-          (touched.email && errors.email && classes.inputWrapperWithError))}
+        type="email"
+        placeholder="Email"
+        className={clsx(
+          classes.inputWrapper,
+          touched.email && errors.email && classes.inputWrapperWithError
+        )}
         error={errors.email && touched.email}
         helperText={touched.email && errors.email}
         {...getFieldProps('email')}
       />
       <Input
-        type='password'
-        placeholder='Password'
-        className={clsx(classes.inputWrapper,
-          (touched.password && errors.password && classes.inputWrapperWithError))}
+        type="password"
+        placeholder="Password"
+        className={clsx(
+          classes.inputWrapper,
+          touched.password && errors.password && classes.inputWrapperWithError
+        )}
         error={errors.password && touched.password}
         helperText={touched.password && errors.password}
         {...getFieldProps('password')}
       />
       <FormControlLabel
-          control={<Checkbox {...getFieldProps('rememberMe')} />}
-          label='Remember me?'
-          classes={{ root: classes.checkbox, label: classes.checkboxLabel }}
-        />
-      <Button type='submit' color='primary' classes={{ root: classes.btn }}>
+        control={<Checkbox {...getFieldProps('rememberMe')} />}
+        label="Remember me?"
+        classes={{ root: classes.checkbox, label: classes.checkboxLabel }}
+      />
+      <Button type="submit" color="primary" classes={{ root: classes.btn }}>
         Sign In
       </Button>
     </form>
-  )
-
+  );
 };
 
 export default SigninForm;

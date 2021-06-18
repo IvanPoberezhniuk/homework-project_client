@@ -18,6 +18,8 @@ import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import CreateProjectModal from './modals/CreateProjectModal';
 import List from './list/List';
 import ValidationErrorMsg from './alert/ValidationErrorMsg';
+import SigninForm from '../components/Forms/SigninForm/SigninForm';
+import SignupForm from '../components/Forms/SignupForm/SignupForm';
 
 // Shared
 import Header from './shared/header/Header';
@@ -45,4 +47,6 @@ export {
   Header,
   Sidebar,
   ValidationErrorMsg,
+  SigninForm,
+  SignupForm,
 };
