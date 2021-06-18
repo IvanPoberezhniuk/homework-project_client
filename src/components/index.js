@@ -17,6 +17,11 @@ import TeamModal from './modals/TeamModal';
 import WarningModal from './modals/WarningModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import Paper from './paper/Paper';
+import CreateProjectModal from './modals/CreateProjectModal';
+import List from './list/List';
+import ValidationErrorMsg from './alert/ValidationErrorMsg';
+import SigninForm from '../components/Forms/SigninForm/SigninForm';
+import SignupForm from '../components/Forms/SignupForm/SignupForm';
 
 // Shared
 import Header from './shared/header/Header';
@@ -51,4 +56,6 @@ export {
   TeamModal,
   ValidationErrorMsg,
   WarningModal,
+  SigninForm,
+  SignupForm,
 };

@@ -4,6 +4,13 @@ import ModalSwitcher from './ModalSwitcher';
 
 const routes = [
   {
+    path: '/',
+    component: lazy(() => import('../containers/pages/Dashboard')),
+    exact: true,
+    private: true,
+    fallback: <div> Loading... </div>,
+  },
+  {
     path: '/signup',
     component: lazy(() => import('../containers/pages/Signup')),
     exact: true,
@@ -16,6 +23,7 @@ const routes = [
     exact: true,
     private: false,
     fallback: <div> Loading... </div>,
+    partition: true,
   },
   {
     path: '/users',
@@ -34,8 +42,8 @@ const routes = [
   {
     path: '/profile',
     component: lazy(() => import('../containers/pages/Profile')),
-    exact: true,
-    private: false,
+    exact: false,
+    private: true,
     fallback: <div> Loading... </div>,
   },
   {

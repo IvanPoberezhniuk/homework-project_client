@@ -1,8 +1,10 @@
+import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography, Link } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { signup } from '../../redux/modules/auth';
 
-import SignupForm from './../../components/Forms/SignupForm/SignupForm';
-import Alert from './../../components/alert/Alert';
+import { SignupForm, Alert } from './../../components';
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles(() => ({
     padding: '40px 32px',
     boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.25)',
   },
-  form: {
+  content: {
     marginTop: '24px',
   },
   title: {
@@ -40,39 +42,52 @@ const useStyles = makeStyles(() => ({
     fontSize: '12px',
     alignSelf: 'flex-start',
   },
-  alertWrapper: {
-    width: '100%',
+  alert: {
     margin: '16px 0 8px 0',
   },
 }));
 
-const Signup = ({ isSuccessSignUp, ...props }) => {
-  //isSuccessSignUp = true;
+const Signup = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const serverErrorMsg = useSelector((state) => state.auth.serverErrorMsg);
+  const isSuccessRegister = useSelector(
+    (state) => state.auth.isSuccessRegister
+  );
 
   const body = (
     <div className={classes.container}>
-      <Typography variant='h1' component='h2' className={classes.title}>
+      <Typography variant="h1" component="h2" className={classes.title}>
         Sign Up
       </Typography>
-      <div className={classes.form}>
-        {!isSuccessSignUp && (
-          <Alert severity='error' className={classes.alertWrapper}>
-            Some Error
-          </Alert>
+      <div className={classes.content}>
+        {serverErrorMsg && (
+          <div className={classes.alert}>
+            <Alert severity="error">{serverErrorMsg}</Alert>
+          </div>
         )}
-        <SignupForm />
+        <SignupForm
+          handleSubmitting={(firstName, lastName, email, password) => {
+            dispatch(signup({ firstName, lastName, email, password }));
+          }}
+        />
       </div>
       <div className={classes.footer}>
         Already have an account?{' '}
-        <Link href='/signin' color='primary' underline='always'>
+        <Link href="/signin" color="primary" underline="always">
           Sign In
         </Link>
       </div>
     </div>
   );
 
-  return (
+  return isSuccessRegister ? (
+    <Redirect
+      to={{
+        pathname: '/signin',
+      }}
+    />
+  ) : (
     <div className={classes.wrapper}>
       <Paper children={body} classes={{ root: classes.paper }} />
     </div>
