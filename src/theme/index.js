@@ -11,6 +11,7 @@ const theme = {
       contrastText: '#ffffff',
     },
     secondary: {
+      darker: '#e0e0e0',
       main: '#F4F4F4',
       contrastText: '#ffffff',
     },

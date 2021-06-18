@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -48,7 +48,7 @@ const Transition = forwardRef(function Transition({ ref, ...other }) {
 
 const CreateProjectModal = ({
   children,
-  isOpen,
+  isOpen = true,
   handleClose,
   isLoading,
   ...other

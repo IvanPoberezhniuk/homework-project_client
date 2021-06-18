@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Button, CreateProjectModal } from '../../components';
-import {
-  deleteProject,
-  editProject,
-  fetchProjects,
-} from '../../redux/modules/projects';
+import { Button } from '../../components';
+import { fetchProjects } from '../../redux/modules/projects';
+import { MODAL } from '../../router/ModalSwitcher';
 import ProjectsTable from '../modules/projectsTable/ProjectsTable';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,17 +22,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Projects = () => {
+  const history = useHistory();
+  const location = useLocation();
+  const dispatch = useDispatch();
   const classes = useStyles();
   const projects = useSelector((state) => state.projects.list);
   const isLoading = useSelector((state) => state.projects.isLoading);
-  const [showAddProjectModal, setShowAddProjectModal] = useState(false);
-  const [showEditProjectModal, setShowEditProjectModal] = useState(false);
-  const [showRemoveProjectModal, setShowRemoveProjectModal] = useState(false);
-  const [showTeamModal, setShowTeamModal] = useState(false);
-  const [showStarProjectModal, setStarProjectModal] = useState(false);
-  const [showFinishProjectModal, setFinishProjectModal] = useState(false);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProjects());
@@ -54,43 +47,16 @@ const Projects = () => {
         <Button
           color='primary'
           className={classes.buttonRoot}
-          onClick={() => setShowAddProjectModal(true)}
+          onClick={() => {
+            history.push(`/project/${MODAL.ADD}`, {
+              background: location,
+            });
+          }}
         >
           Create Project
         </Button>
-        {/* <Button
-          color='primary'
-          className={classes.buttonRoot}
-          onClick={() =>
-            dispatch(
-              editProject({
-                id: 1,
-                projectName: '2222222_aaaa',
-                startDat: '1333',
-                endDate: '2333',
-                team: 'TEST',
-              })
-            )
-          }
-        >
-          edit
-        </Button>
-        <Button
-          color='primary'
-          className={classes.buttonRoot}
-          onClick={() => dispatch(deleteProject(1))}
-        >
-          delete
-        </Button> */}
       </Grid>
       <ProjectsTable rows={projects} isLoading={isLoading} />
-      {showAddProjectModal && (
-        <CreateProjectModal
-          isOpen={showAddProjectModal}
-          handleClose={() => setShowAddProjectModal(false)}
-          isLoading={isLoading}
-        />
-      )}
     </>
   );
 };

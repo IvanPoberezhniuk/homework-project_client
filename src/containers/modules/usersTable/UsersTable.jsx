@@ -1,23 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/core/styles';
 import {
-  Table,
-  TableRow,
-  TableBody,
-  TableSortLabel,
-  Paper,
   LinearProgress,
+  Paper,
+  Table,
+  TableBody,
+  TableRow,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { TableCell, TableContainer, TableHead } from '../../../components';
-import { getComparator, stableSort } from '../../../helpers/table';
+import { TableCell, TableContainer } from '../../../components';
 import {
-  TrashIcon,
   EditIcon,
   MoreIcon,
+  TrashIcon,
 } from '../../../components/shared/icons';
+import { getComparator, stableSort } from '../../../helpers/table';
+import EnhancedTableHead from '../table/EnchanedTableHead';
 
 const headCells = [
   {
@@ -34,48 +33,6 @@ const headCells = [
   },
   { id: 'projects', numeric: false, disablePadding: false, label: 'Projects' },
 ];
-
-const EnhancedTableHead = (props) => {
-  const { classes, order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-        <TableCell />
-      </TableRow>
-    </TableHead>
-  );
-};
-
-EnhancedTableHead.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -135,6 +92,7 @@ const EnhancedTable = ({ rows }) => {
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              headCells={headCells}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy)).map(

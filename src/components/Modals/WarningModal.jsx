@@ -1,23 +1,20 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogContentText,
   DialogTitle,
   Slide,
   SvgIcon,
-  DialogContentText,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { ReactComponent as WarningIcon } from './../../assets/icons/warning.svg';
-import { Button } from '../';
+import { Button, ButtonLoader } from '..';
+import { ReactComponent as WarningIcon } from '../../assets/icons/warning.svg';
 
 const useStyles = makeStyles(() => ({
-  container: {
-    background: '#bfbfbf',
-  },
   paper: {
     padding: '40px 32px',
     margin: 0,
@@ -65,22 +62,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='down' ref={ref} {...props} />;
 });
 
-const WarningModal = ({ description }) => {
-  const [open, setOpen] = React.useState(true);
+const WarningModal = ({
+  title = 'Warning',
+  description,
+  isOpen = true,
+  handleClose,
+  handleSubmit,
+  isLoading,
+}) => {
   const classes = useStyles();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <div>
       <Dialog
-        open={open}
+        open={isOpen}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
@@ -96,7 +91,7 @@ const WarningModal = ({ description }) => {
             id='alert-dialog-slide-title'
             classes={{ root: classes.title }}
           >
-            Warning
+            {title}
           </DialogTitle>
         </div>
         <DialogContent classes={{ root: classes.contentWrapper }}>
@@ -110,10 +105,17 @@ const WarningModal = ({ description }) => {
         <DialogActions
           classes={{ root: classes.actions, spacing: classes.actionsSpacing }}
         >
-          <Button color='primary' classes={{ root: classes.btn }}>
-            Yes
+          <Button
+            color='primary'
+            classes={{ root: classes.btn }}
+            onClick={handleSubmit}
+            disabled={isLoading}
+          >
+            Yes {isLoading && <ButtonLoader />}
           </Button>
-          <Button classes={{ root: classes.btn }}>No</Button>
+          <Button classes={{ root: classes.btn }} onClick={handleClose}>
+            No
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { FilledInput } from '@material-ui/core';
+import { forwardRef } from 'react';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -28,8 +29,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Input = ({ ...other }) => {
+const Input = forwardRef(({ ...other }) => {
   const classes = useStyles();
+
   return (
     <FilledInput
       disableUnderline={true}
@@ -39,6 +41,6 @@ const Input = ({ ...other }) => {
       {...other}
     />
   );
-};
+});
 
 export default Input;

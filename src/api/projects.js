@@ -2,16 +2,25 @@ import axios from 'axios';
 
 const projectsAPI = {
   fetchProjects() {
-    return axios.get('/api/projects');
+    return axios.get(`/api/projects`);
   },
-  addProject(project) {
-    return axios.post('/api/projects', project);
+  fetchProjectById(id) {
+    console.log('id', id);
+    return axios.get(`/api/project/${id}`);
   },
-  editProject(project) {
-    return axios.patch('/api/projects', project);
+  addProject(payload) {
+    return axios.post('/api/project', payload);
   },
-  deleteProject(id) {
-    return axios.delete(`/api/projects/${id}`);
+  editProject(payload) {
+    return axios.patch(`/api/project`, payload);
+  },
+  editProjectStatus(payload) {
+    const { id, type } = payload;
+    return axios.patch(`/api/project/${type}/${id}`);
+  },
+  deleteProjectById(payload) {
+    const { id } = payload;
+    return axios.delete(`/api/project/${id}`);
   },
 };
 

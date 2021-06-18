@@ -1,31 +1,60 @@
 import faker from 'faker';
-import { createServer, Factory, Model } from 'miragejs';
+import {
+  createServer,
+  Factory,
+  hasMany,
+  Model,
+  RestSerializer,
+} from 'miragejs';
+
+import { MODAL } from './router/ModalSwitcher';
 
 export function makeServer({ environment = 'test' }) {
   return createServer({
     environment,
+    serializers: {
+      project: RestSerializer.extend({
+        include: ['users'],
+        embed: true,
+      }),
+      user: RestSerializer.extend({
+        include: ['project'],
+        embed: true,
+      }),
+    },
     models: {
-      project: Model,
-      user: Model,
+      user: Model.extend({}),
+      project: Model.extend({
+        users: hasMany(),
+      }),
     },
     factories: {
       project: Factory.extend({
         projectName(i) {
           return `Project ${i}`;
         },
-        startDate() {
-          return faker.date.past().toLocaleDateString();
+        startDate(i) {
+          const random = faker.datatype.boolean();
+          return random ? faker.date.past().toLocaleDateString() : null;
         },
-        endDate() {
-          return faker.date.past().toLocaleDateString();
+        endDate(i, project) {
+          const random = faker.datatype.boolean();
+          const endDate = this.startDate
+            ? random && faker.date.future().toLocaleDateString()
+            : null;
+
+          return endDate;
         },
         status(i) {
           const status = ['Idle', 'In Progress', 'Finished'];
           return status[i % status.length];
         },
-        team(i) {
-          const team = ['UA', 'BU', 'NL', 'USA'];
-          return team[i % team.length];
+        afterCreate(project, server) {
+          if (!project.users.length) {
+            project.update({
+              users: server.createList('user', faker.datatype.number(4)),
+            });
+          }
         },
       }),
       user: Factory.extend({
@@ -39,15 +68,10 @@ export function makeServer({ environment = 'test' }) {
           const role = ['Admin', 'Guest', 'Developer', 'QA', 'Manager'];
           return role[i % role.length];
         },
-        projects(i) {
-          const project = ['project'];
-          return project[i % project.length];
-        },
       }),
     },
     seeds(server) {
-      server.createList('project', 15);
-      server.createList('user', 35);
+      server.createList('project', 22);
     },
 
     routes() {
@@ -63,11 +87,21 @@ export function makeServer({ environment = 'test' }) {
       this.get('/projects', (schema) => {
         return schema.projects.all();
       });
-      this.post('/projects', (schema, { requestBody }) => {
-        console.log(requestBody);
+      this.get('/project/:id', (schema, { params }) => {
+        console.log('params', params);
+        const project = schema.projects.find(params.id);
+        project.destroy();
+
+        return schema.projects.all();
+      });
+      this.post('/project', (schema, { requestBody }) => {
         const project = JSON.parse(requestBody);
+        const users = project.users.map((user) =>
+          schema.users.findBy({ id: user.id })
+        );
         schema.projects.create({
-          ...project,
+          projectName: project.projectName,
+          users,
           startDate: null,
           endDate: null,
           status: 'Idle',
@@ -75,14 +109,34 @@ export function makeServer({ environment = 'test' }) {
 
         return schema.projects.all();
       });
-      this.patch('/projects', (schema, { requestBody }) => {
+      this.patch('/project', (schema, { requestBody }) => {
         const response = JSON.parse(requestBody);
+        console.log(response);
         const project = schema.projects.find(response.id);
-        project.update(response);
 
         return schema.projects.all();
       });
-      this.delete('/projects/:id', (schema, { requestBody, params }) => {
+      this.patch('/project/:status/:id', (schema, { params }) => {
+        const { id, status } = params;
+        const project = schema.projects.find(id);
+
+        switch (status) {
+          case MODAL.START:
+            const past = faker.date.past().toLocaleDateString();
+            project.update('startDate', past);
+            break;
+          case MODAL.FINISH:
+            const recent = faker.date.recent().toLocaleDateString();
+            project.update({ endDate: recent });
+            break;
+          default:
+            return null;
+        }
+
+        return schema.projects.all();
+      });
+
+      this.delete('/project/:id', (schema, { params }) => {
         const project = schema.projects.find(params.id);
         project.destroy();
 

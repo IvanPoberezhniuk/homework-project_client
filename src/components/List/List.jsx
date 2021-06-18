@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
   avatarWrapper: {
     display: 'flex',
     alignItems: 'center',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light,
+      cursor: 'pointer',
+    },
   },
   avatarName: {
     paddingLeft: '16px',
@@ -46,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const List = ({ items, placeholder, onClickItemHandler, ...props }) => {
+const List = ({ items = [], placeholder, onClickItemHandler, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -71,9 +75,7 @@ const List = ({ items, placeholder, onClickItemHandler, ...props }) => {
               <Avatar>
                 {(item.firstName[0] + item.lastName[0]).toUpperCase()}
               </Avatar>
-              <p className={classes.avatarName}>
-                {item.firstName} {item.lastName}
-              </p>
+              <p className={classes.avatarName}>{item.firstName}</p>
             </Grid>
           );
         })}

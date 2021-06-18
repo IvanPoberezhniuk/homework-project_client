@@ -9,7 +9,7 @@ import {
   Slide,
 } from '@material-ui/core';
 
-import { Button, Avatar } from '../index';
+import { Button, Avatar } from '..';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -58,13 +58,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='down' ref={ref} {...props} />;
 });
 
-const TeamModal = ({ teamList, ...props }) => {
+const TeamModal = ({ teamList, isLoading, ...props }) => {
   const [open, setOpen] = React.useState(true);
   const classes = useStyles();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);

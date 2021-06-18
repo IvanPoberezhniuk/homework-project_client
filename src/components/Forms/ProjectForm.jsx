@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress } from '@material-ui/core/';
 
-import { Button, Input, List } from '..';
+import { Button, Input, List, ButtonLoader } from '..';
+import { ListItemSecondaryAction } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -23,12 +23,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '16px',
   },
   hideBtn: {
-    marginTop: '8px',
+    padding: '8px 0 0 0 ',
     textDecoration: 'underline',
-    color: '#000',
-    fontWeight: 600,
+    fontWeight: 500,
     fontSize: '12px',
-    textAlign: 'right',
+    float: 'right',
+    '&:hover': {
+      cursor: 'pointer',
+      color: theme.palette.primary.main,
+    },
   },
   btn: {
     minWidth: '300px',
@@ -48,25 +51,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProjectForm = ({
-  projectName = 'New Project',
-  availableItems,
-  selectedItems,
+  availableItems = [],
+  selectedItems = [],
   submitHandler,
   closeHandler,
   isLoading,
+  project = {},
   ...other
 }) => {
   const classes = useStyles();
 
   const [items, setItems] = useState([]);
-  const [selected, setSelectedItems] = useState(selectedItems);
+  const [selected, setSelected] = useState([]);
 
   const selectEmployee = (id) => {
     const index = items.findIndex((item) => item.id === id);
     const newArr = [...items];
     newArr.splice(index, 1);
 
-    setSelectedItems([...selected, items[index]]);
+    setSelected([...selected, items[index]]);
     setItems(newArr);
   };
 
@@ -76,16 +79,22 @@ const ProjectForm = ({
     newArr.splice(index, 1);
 
     setItems([...items, selected[index]]);
-    setSelectedItems(newArr);
+    setSelected(newArr);
   };
 
   useEffect(() => {
-    setItems(availableItems);
-  }, [availableItems]);
+    if (availableItems !== items) setItems(availableItems);
+  });
+
+  useEffect(() => {
+    if (selectedItems !== selected) setSelected(selectedItems);
+  });
+
+  useEffect(() => textInput.current.focus(), []);
 
   const { getFieldProps, handleSubmit } = useFormik({
     initialValues: {
-      projectName: projectName,
+      projectName: project?.projectName || '',
     },
     validationSchema: Yup.object().shape({
       projectName: Yup.string()
@@ -94,13 +103,20 @@ const ProjectForm = ({
         .trim(),
     }),
     onSubmit(values) {
-      submitHandler({ ...values, team: [...selected] });
+      submitHandler({ ...values, users: [...selected] });
     },
   });
 
+  const textInput = useRef(null);
+
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      <Input placeholder='Project Name' {...getFieldProps('projectName')} />
+      <Input
+        placeholder='Project Name'
+        {...getFieldProps('projectName')}
+        inputRef={textInput}
+        autoComplete='off'
+      />
       <div className={classes.listWrapper}>
         <List
           placeholder='Start to add user by clicking on their preview below'
@@ -116,7 +132,7 @@ const ProjectForm = ({
           onClickItemHandler={selectEmployee}
         />
       </div>
-      <div className={classes.hideBtn}>Hide busy coworkers</div>
+      <span className={classes.hideBtn}>Hide busy coworkers</span>
       <div className={classes.btnsWrapper}>
         <Button
           type='submit'
@@ -125,14 +141,12 @@ const ProjectForm = ({
           disabled={isLoading}
         >
           Save
-          {isLoading && (
-            <CircularProgress size={24} className={classes.buttonProgress} />
-          )}
+          {isLoading && <ButtonLoader />}
         </Button>
         <Button
           color='secondary'
-          classes={{ root: classes.btn }}
           onClick={closeHandler}
+          classes={{ root: classes.btn }}
         >
           Close
         </Button>

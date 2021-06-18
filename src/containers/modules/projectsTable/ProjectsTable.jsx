@@ -1,6 +1,6 @@
-import React from 'react';
+import { useState } from 'react';
 
-import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import {
   LinearProgress,
@@ -8,23 +8,24 @@ import {
   Table,
   TableBody,
   TableRow,
-  TableSortLabel,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
   TableCell,
   TableContainer,
-  TableHead,
   TableTeamAvatar,
 } from '../../../components';
 import {
   EditIcon,
   FinishIcon,
+  MoreIcon,
   StartIcon,
   TrashIcon,
 } from '../../../components/shared/icons';
 import { getComparator, stableSort } from '../../../helpers/table';
+import { MODAL } from '../../../router/ModalSwitcher';
+import EnhancedTableHead from '../table/EnchanedTableHead';
 
 const headCells = [
   {
@@ -43,47 +44,6 @@ const headCells = [
   { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
   { id: 'team', numeric: false, disablePadding: false, label: 'Team' },
 ];
-
-const EnhancedTableHead = ({ classes, order, orderBy, onRequestSort }) => {
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-        <TableCell />
-      </TableRow>
-    </TableHead>
-  );
-};
-
-EnhancedTableHead.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -111,14 +71,16 @@ const useStyles = makeStyles((theme) => ({
   },
   teamCell: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
     border: 'none',
+    alignItems: 'center',
+    position: 'relative',
   },
-  moreIcon: {
-    padding: '0 10px',
+  avatar: {
+    position: 'absolute',
+  },
+  avatar__container: {
+    position: 'relative',
     display: 'flex',
-    justifyContent: 'center',
   },
   optionsCell: {
     padding: '0 10px',
@@ -130,12 +92,22 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
   },
+
+  trashIcon: {
+    '&:hover': {
+      cursor: 'pointer',
+      fill: theme.palette.error.main,
+    },
+  },
 }));
 
 const EnhancedTable = ({ rows, isLoading }) => {
   const classes = useStyles();
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('projectName');
+  const history = useHistory();
+  const location = useLocation();
+
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('projectName');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -159,6 +131,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              headCells={headCells}
             />
             <TableBody className={classes.tableBody}>
               {stableSort(rows, getComparator(order, orderBy)).map(
@@ -178,17 +151,74 @@ const EnhancedTable = ({ rows, isLoading }) => {
                       <TableCell>{row.endDate || '-'}</TableCell>
                       <TableCell>{row.status}</TableCell>
                       <TableCell className={classes.teamCell}>
-                        <TableTeamAvatar className={classes.moreIcon}>
-                          TE
-                        </TableTeamAvatar>
-                        <div className={classes.moreIcon}></div>
+                        <div className={classes.avatar__container}>
+                          {row.users.slice(0, 4).map((person, index) => (
+                            <TableTeamAvatar
+                              key={person.id}
+                              classes={{ root: classes.avatar }}
+                              style={{ left: 16 * index + 'px' }}
+                              size={30}
+                            >
+                              {person.firstName[0] + person.lastName[0]}
+                            </TableTeamAvatar>
+                          ))}
+                          <MoreIcon
+                            className={classes.moreIcon}
+                            style={{
+                              marginLeft:
+                                row.users.length &&
+                                row.users.length * 16 + 32 + 'px',
+                            }}
+                          />
+                        </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell size='small'>
                         <div className={classes.optionsCell}>
-                          <FinishIcon />
-                          <EditIcon />
-                          <TrashIcon />
-                          <StartIcon />
+                          {row.startDate ? (
+                            <FinishIcon
+                              className={classes.finishIcon}
+                              onClick={() => {
+                                history.push(
+                                  `/project/${MODAL.FINISH}/${row.id}`,
+                                  {
+                                    background: location,
+                                  }
+                                );
+                              }}
+                            />
+                          ) : (
+                            <StartIcon
+                              className={classes.startIcon}
+                              onClick={() => {
+                                history.push(
+                                  `/project/${MODAL.START}/${row.id}`,
+                                  {
+                                    background: location,
+                                  }
+                                );
+                              }}
+                            />
+                          )}
+
+                          <EditIcon
+                            className={classes.editIcon}
+                            onClick={() => {
+                              history.push(`/project/${MODAL.EDIT}/${row.id}`, {
+                                background: location,
+                              });
+                            }}
+                          />
+                          <TrashIcon
+                            className={classes.trashIcon}
+                            onClick={() => {
+                              history.push(
+                                `/project/${MODAL.DELETE}/${row.id}`,
+                                {
+                                  background: location,
+                                }
+                              );
+                            }}
+                          />
                         </div>
                       </TableCell>
                     </TableRow>

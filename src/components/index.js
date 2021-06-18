@@ -9,6 +9,7 @@ import ProjectForm from './Forms/ProjectForm';
 import ProjectTitle from './Forms/ProjectTitle';
 import Input from './input/Input';
 import List from './list/List';
+import ButtonLoader from './loaders/ButtonLoader';
 import Menu from './menu/Menu';
 import CreateProjectModal from './modals/CreateProjectModal';
 import EditProjectModal from './modals/EditProjectModal';
@@ -29,6 +30,7 @@ export {
   AppBar,
   Avatar,
   Button,
+  ButtonLoader,
   Checkbox,
   CreateProjectModal,
   EditProjectModal,
