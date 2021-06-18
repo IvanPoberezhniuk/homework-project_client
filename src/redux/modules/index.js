@@ -1,5 +1,5 @@
 import auth from './auth';
-import projectsTable from './projectsTable';
-import usersTable from './usersTable';
+import projects from './projects';
+import users from './users';
 
-export { auth, usersTable, projectsTable };
+export { auth, users, projects };

@@ -18,7 +18,7 @@ const Users = () => {
   useEffect(() => {
     fetch('/api/users')
       .then((response) => response.json())
-      .then((json) => setUsers(json));
+      .then((json) => setUsers(json.users));
   }, []);
 
   return (

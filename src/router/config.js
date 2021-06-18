@@ -1,46 +1,58 @@
 import React, { lazy } from 'react';
 
-export const routes = [
+import ModalSwitcher from './ModalSwitcher';
+
+const routes = [
   {
     path: '/signup',
     component: lazy(() => import('../containers/pages/Signup')),
-    exact: false,
+    exact: true,
     private: false,
     fallback: <div> Loading... </div>,
   },
   {
     path: '/signin',
     component: lazy(() => import('../containers/pages/Signin')),
-    exact: false,
+    exact: true,
     private: false,
     fallback: <div> Loading... </div>,
   },
   {
     path: '/users',
     component: lazy(() => import('../containers/pages/Users')),
-    exact: false,
+    exact: true,
     private: true,
     fallback: <div> Loading... </div>,
   },
   {
     path: '/projects',
     component: lazy(() => import('../containers/pages/Projects')),
-    exact: false,
-    private: true,
+    exact: true,
+    private: false,
     fallback: <div> Loading... </div>,
   },
   {
     path: '/profile',
     component: lazy(() => import('../containers/pages/Profile')),
-    exact: false,
+    exact: true,
     private: false,
     fallback: <div> Loading... </div>,
   },
   {
     path: '*',
     component: lazy(() => import('../containers/pages/PageNotFound')),
-    exact: false,
+    exact: true,
     private: false,
     fallback: <div> Loading... </div>,
   },
 ];
+
+const modalRoute = {
+  path: '/project/:type/:id?',
+  private: false,
+  fallback: <div>...loading</div>,
+  component: ModalSwitcher,
+  exact: true,
+};
+
+export { modalRoute, routes };

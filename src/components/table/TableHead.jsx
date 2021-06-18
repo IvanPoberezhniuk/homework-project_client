@@ -11,7 +11,7 @@ const TableHead = ({ children, ...other }) => {
   const classes = useStyles();
   return (
     <MUITableHead className={classes.root} {...other}>
-      {children}
+      {children} 
     </MUITableHead>
   );
 };

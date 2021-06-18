@@ -1,16 +1,16 @@
-import Router from './router/Router';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Header, Sidebar } from './components/';
-import { routes } from './router/config';
+import { Header, Sidebar } from './components';
 import { makeServer } from './mirage';
+import Router from './router/Router';
 
 makeServer({ environment: 'development' });
 
 const useStyles = makeStyles((theme) => ({
   main: {
-    padding: '48px',
+    padding: '128px 48px 48px 48px',
     flexBasis: '100%',
   },
   container: {
@@ -20,17 +20,14 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  //if auth -> dashboard
-  //else -> signin
 
-  // return <Router routes={routes} />;
   return (
     <>
       <Header />
       <div className={classes.container}>
         <Sidebar />
         <main className={classes.main}>
-          <Router routes={routes} />
+          <Router />
         </main>
       </div>
     </>

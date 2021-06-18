@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Avatar } from '..';
 
@@ -34,32 +34,36 @@ const useStyles = makeStyles((theme) => ({
   avatarWrapper: {
     display: 'flex',
     alignItems: 'center',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light,
+      cursor: 'pointer',
+    },
   },
   avatarName: {
     paddingLeft: '16px',
-    fontWeight: 600,
+    fontWeight: 500,
     fontSize: '18px',
     color: '#000',
     margin: 0,
-  }
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
 }));
 
-const List = ({ items, placeholder, onClickItemHandler, ...props }) => {
+const List = ({ items = [], placeholder, onClickItemHandler, ...props }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
-      {!items.length ? (
-        <p className={classes.placeholder}>{placeholder}</p>
-      ) : (
-        <Grid
-          container
-          spacing={3}
-          classes={{ container: classes.gridContainer }}
-        >
-          {items.map((item) => (
+      {!items.length && <p className={classes.placeholder}>{placeholder}</p>}
+      <Grid
+        container
+        spacing={3}
+        classes={{ container: classes.gridContainer }}
+      >
+        {items.map((item) => {
+          return (
             <Grid
-              Grid
               item
               xs={3}
               key={item.id}
@@ -68,12 +72,14 @@ const List = ({ items, placeholder, onClickItemHandler, ...props }) => {
               }}
               className={classes.avatarWrapper}
             >
-              <Avatar>{(item.firstName[0] + item.lastName[0]).toUpperCase()}</Avatar>
-              <p className={classes.avatarName}>{item.firstName} {item.lastName}</p>
+              <Avatar>
+                {(item.firstName[0] + item.lastName[0]).toUpperCase()}
+              </Avatar>
+              <p className={classes.avatarName}>{item.firstName}</p>
             </Grid>
-          ))}
-        </Grid>
-      )}
+          );
+        })}
+      </Grid>
     </div>
   );
 };

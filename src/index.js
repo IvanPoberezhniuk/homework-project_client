@@ -1,18 +1,19 @@
+import './index.css';
+
 import React from 'react';
-
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { Provider } from 'react-redux';
 
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+
 import App from './App';
-import './index.css';
-import theme from './theme';
-import reportWebVitals from './reportWebVitals';
 import store from './redux/configureStore';
+import reportWebVitals from './reportWebVitals';
+import theme from './theme';
 
 const muTheme = createMuiTheme(theme);
 

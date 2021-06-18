@@ -5,13 +5,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '32px',
     height: '32px',
-    fontSize: '18px',
+    fontSize: '14px',
+    backgroundColor: theme.palette.primary.main,
   },
 }));
 
-const TableTeamAvatar = ({ children, ...other }) => {
+const TableTeamAvatar = ({ children, className, ...other }) => {
   const classes = useStyles();
-
   return (
     <Avatar
       alt='Remy Sharp'

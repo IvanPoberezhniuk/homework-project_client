@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField } from '@material-ui/core';
+import { FilledInput } from '@material-ui/core';
+import { forwardRef } from 'react';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -34,8 +35,9 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Input = ({ ...other }) => {
+const Input = forwardRef(({ ...other }) => {
   const classes = useStyles();
+
   return (
     <TextField
       margin='none'
@@ -58,6 +60,6 @@ const Input = ({ ...other }) => {
       {...other}
     />
   );
-};
+});
 
 export default Input;

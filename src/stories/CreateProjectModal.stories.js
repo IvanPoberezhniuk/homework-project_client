@@ -1,16 +1,27 @@
 import React from 'react';
 
-import { CreateProjectModal } from '../components/';
+import { ProjectModal, ProjectTitle, ProjectForm } from '../components';
 
 export default {
   title: 'Main/Modals',
-  component: CreateProjectModal,
+  component: ProjectModal,
 };
 
-const Template = (args) => <CreateProjectModal {...args} />;
+const Template = (args) => (
+  <ProjectModal {...args}>
+    <ProjectTitle>Create New Project</ProjectTitle>
+    <ProjectForm
+      projectName='test'
+      availableItems={[]}
+      selectedItems={args.availableItems}
+      closeHandler={() => {}}
+    />
+  </ProjectModal>
+);
 
 export const CreateProject = Template.bind({});
 CreateProject.args = {
+  isOpen: true,
   availableItems: [
     { id: 1, firstName: 'test 1', lastName: 'user' },
     { id: 2, firstName: 'test 2', lastName: 'user' },

@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
 
-import ProjectsTable from '../modules/projectsTable/ProjectsTable';
 import { Button } from '../../components';
-import {
-  fetchProjects,
-  FETCH_PROJECTS,
-} from '../../redux/modules/projectsTable';
+import { fetchProjects } from '../../redux/modules/projects';
+import { MODAL } from '../../router/ModalSwitcher';
+import ProjectsTable from '../modules/projectsTable/ProjectsTable';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,14 +22,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Projects = () => {
-  const classes = useStyles();
-  const projects = useSelector((state) => state.projectsTable.list);
-  const isLoading = useSelector((state) => state.projectsTable.isLoading);
-
+  const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
+  const classes = useStyles();
+  const projects = useSelector((state) => state.projects.list);
+  const isLoading = useSelector((state) => state.projects.isLoading);
 
   useEffect(() => {
-    dispatch(fetchProjects(FETCH_PROJECTS));
+    dispatch(fetchProjects());
   }, [dispatch]);
 
   return (
@@ -43,7 +44,15 @@ const Projects = () => {
         <Typography variant='h5' component='h1'>
           Projects
         </Typography>
-        <Button color='primary' className={classes.buttonRoot}>
+        <Button
+          color='primary'
+          className={classes.buttonRoot}
+          onClick={() => {
+            history.push(`/project/${MODAL.ADD}`, {
+              background: location,
+            });
+          }}
+        >
           Create Project
         </Button>
       </Grid>

@@ -1,7 +1,7 @@
 import MUIButton from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     color: '#FFFFFF',
     height: '37px',
@@ -12,17 +12,26 @@ const useStyles = makeStyles(() => ({
   hover: {
     background: '#02CC67',
   },
+  containedSecondary: {
+    background: theme.palette.secondary.darker,
+  },
 }));
 
-const Button = ({ children, ...other }) => {
-  const classes = useStyles();
+const Button = ({ children, classes = {}, ...other }) => {
+  const classes1 = useStyles();
   return (
-    <MUIButton className={classes.root} variant='contained' {...other}>
+    <MUIButton
+      classes={{
+        root: classes1.root,
+        containedSecondary: classes1.containedSecondary,
+        ...classes,
+      }}
+      variant='contained'
+      {...other}
+    >
       {children}
     </MUIButton>
   );
 };
-
-Button.propTypes = {};
 
 export default Button;
