@@ -2,10 +2,6 @@ import MUIAvatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-  },
   avatar: {
     background: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,

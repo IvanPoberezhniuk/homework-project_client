@@ -46,6 +46,7 @@ const Transition = forwardRef(function Transition({ ref, ...other }) {
   return <Slide direction='down' ref={ref} {...other} />;
 });
 
+
 const EditProjectModal = ({
   children,
   isOpen = true,

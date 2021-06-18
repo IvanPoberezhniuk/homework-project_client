@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, ButtonLoader } from '..';
 import { ReactComponent as WarningIcon } from '../../assets/icons/warning.svg';
 
+
 const useStyles = makeStyles(() => ({
   paper: {
     padding: '40px 32px',
