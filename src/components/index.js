@@ -6,6 +6,8 @@ import Button from './button/Button';
 import Checkbox from './checkbox/Checkbox';
 import ProjectForm from './forms/ProjectForm';
 import ProjectTitle from './forms/ProjectTitle';
+import SigninForm from './forms/signinForm/SigninForm';
+import SignupForm from './forms/signupForm/SignupForm';
 import Input from './input/Input';
 import List from './list/List';
 import ButtonLoader from './loaders/ButtonLoader';
@@ -16,9 +18,6 @@ import TeamModal from './modals/TeamModal';
 import WarningModal from './modals/WarningModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import Paper from './paper/Paper';
-import SigninForm from './forms/signinForm/SigninForm';
-import SignupForm from './forms/signupForm/SignupForm';
-
 // Shared
 import Header from './shared/header/Header';
 import Sidebar from './shared/sidebar/Sidebar';
@@ -45,12 +44,12 @@ export {
   ProjectForm,
   ProjectTitle,
   Sidebar,
+  SigninForm,
+  SignupForm,
   TableCell,
   TableContainer,
   TableHead,
   TableTeamAvatar,
   TeamModal,
   WarningModal,
-  SigninForm,
-  SignupForm,
 };

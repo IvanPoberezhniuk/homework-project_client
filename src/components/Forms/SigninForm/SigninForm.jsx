@@ -1,8 +1,9 @@
+import clsx from 'clsx';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+
 import { FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 
 import { Button, Checkbox, Input } from '../..';
 
@@ -61,8 +62,8 @@ const SigninForm = ({ handleSubmitting }) => {
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Input
-        type="email"
-        placeholder="Email"
+        type='email'
+        placeholder='Email'
         className={clsx(
           classes.inputWrapper,
           touched.email && errors.email && classes.inputWrapperWithError
@@ -72,8 +73,8 @@ const SigninForm = ({ handleSubmitting }) => {
         {...getFieldProps('email')}
       />
       <Input
-        type="password"
-        placeholder="Password"
+        type='password'
+        placeholder='Password'
         className={clsx(
           classes.inputWrapper,
           touched.password && errors.password && classes.inputWrapperWithError
@@ -84,10 +85,10 @@ const SigninForm = ({ handleSubmitting }) => {
       />
       <FormControlLabel
         control={<Checkbox {...getFieldProps('rememberMe')} />}
-        label="Remember me?"
+        label='Remember me?'
         classes={{ root: classes.checkbox, label: classes.checkboxLabel }}
       />
-      <Button type="submit" color="primary" classes={{ root: classes.btn }}>
+      <Button type='submit' color='primary' classes={{ root: classes.btn }}>
         Sign In
       </Button>
     </form>

@@ -5,7 +5,6 @@ const projectsAPI = {
     return axios.get(`/api/projects`);
   },
   fetchProjectById(id) {
-    console.log('id', id);
     return axios.get(`/api/project/${id}`);
   },
   addProject(payload) {

@@ -1,20 +1,12 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import {
-  Button,
-  ButtonLoader,
-  Input,
-  List,
-} from '..';
+import { Button, ButtonLoader, Input, List } from '..';
+import { findDiffernt } from '../../helpers/base';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -59,18 +51,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProjectForm = ({
-  availableItems = [],
-  selectedItems = [],
+  availableItems,
+  selectedItems,
   submitHandler,
   closeHandler,
   isLoading,
-  project = {},
+  projectName = '',
   ...other
 }) => {
   const classes = useStyles();
 
-  const [items, setItems] = useState([]);
-  const [selected, setSelected] = useState([]);
+  const [items, setItems] = useState(
+    findDiffernt(availableItems, selectedItems)
+  );
+  const [selected, setSelected] = useState(selectedItems);
 
   const selectEmployee = (id) => {
     const index = items.findIndex((item) => item.id === id);
@@ -90,19 +84,11 @@ const ProjectForm = ({
     setSelected(newArr);
   };
 
-  useEffect(() => {
-    if (availableItems !== items) setItems(availableItems);
-  });
-
-  useEffect(() => {
-    if (selectedItems !== selected) setSelected(selectedItems);
-  });
-
   useEffect(() => textInput.current.focus(), []);
 
   const { getFieldProps, handleSubmit } = useFormik({
     initialValues: {
-      projectName: project?.projectName || '',
+      projectName: projectName,
     },
     validationSchema: Yup.object().shape({
       projectName: Yup.string()

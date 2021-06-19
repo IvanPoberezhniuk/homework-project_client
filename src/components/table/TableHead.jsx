@@ -1,5 +1,5 @@
-import MUITableHead from '@material-ui/core/TableHead';
 import { makeStyles } from '@material-ui/core/styles';
+import MUITableHead from '@material-ui/core/TableHead';
 
 const useStyles = makeStyles({
   root: {
@@ -11,7 +11,7 @@ const TableHead = ({ children, ...other }) => {
   const classes = useStyles();
   return (
     <MUITableHead className={classes.root} {...other}>
-      {children} 
+      {children}
     </MUITableHead>
   );
 };

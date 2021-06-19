@@ -1,5 +1,5 @@
+import authAPI from './auth';
 import projectsAPI from './projects';
 import usersAPI from './users';
-import authAPI from './auth';
 
-export { projectsAPI, usersAPI, authAPI };
+export { authAPI, projectsAPI, usersAPI };

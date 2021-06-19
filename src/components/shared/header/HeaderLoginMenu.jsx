@@ -1,7 +1,7 @@
+import { Grid, IconButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, IconButton } from '@material-ui/core';
 
-import { Button, Menu } from '../../';
+import { Button, Menu } from '../..';
 import ArrowDown from '../../../assets/icons/arrow-down.svg';
 
 const useStyles = makeStyles((theme) => ({

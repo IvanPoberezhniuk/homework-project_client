@@ -1,5 +1,5 @@
-import MUIAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import MUIAlert from '@material-ui/lab/Alert';
 
 const styledBy = (property, mapping) => (props) => mapping[props[property]];
 

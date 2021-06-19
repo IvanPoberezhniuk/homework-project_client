@@ -24,14 +24,7 @@ export const usersTableSlice = createSlice({
     list: [],
     isLoading: false,
   },
-  reducers: {
-    addUser: (state, action) => {
-      state.users += 1;
-    },
-    deleteUser: (state, action) => {},
-    editUser: (state, action) => {},
-    setIsLoading: (state, action) => {},
-  },
+  reducers: {},
   extraReducers: {
     [fetchUsers.pending]: (state) => {
       state.isLoading = true;

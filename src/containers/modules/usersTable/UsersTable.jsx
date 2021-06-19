@@ -107,7 +107,7 @@ const EnhancedTable = ({ rows }) => {
                       key={row.name}
                     >
                       <TableCell component='th' id={labelId} scope='row'>
-                        {row.name}
+                        {row.firstName} {row.lastName}
                       </TableCell>
                       <TableCell>{row.role}</TableCell>
                       <TableCell>

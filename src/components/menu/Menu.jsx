@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
 import MUImenu from '@material-ui/core/Menu';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -28,12 +28,7 @@ const Menu = ({ children, ...other }) => {
   const classes = useStyles();
 
   return (
-    <MUImenu
-      className={{ paper: classes.paper }}
-      classes={{ paper: classes.paper }}
-      elevation={0}
-      {...other}
-    >
+    <MUImenu classes={{ paper: classes.paper }} elevation={0} {...other}>
       {children}
     </MUImenu>
   );

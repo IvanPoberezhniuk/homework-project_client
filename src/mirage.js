@@ -40,7 +40,7 @@ export function makeServer({ environment = 'test' }) {
         },
         endDate(i, project) {
           const random = faker.datatype.boolean();
-          const endDate = this.startDate
+          const endDate = this.startDateА
             ? random && faker.date.future().toLocaleDateString()
             : null;
 
@@ -69,41 +69,38 @@ export function makeServer({ environment = 'test' }) {
           const role = ['admin', 'guest', 'developer', 'qa', 'manager'];
           return role[i % role.length];
         },
+        email(i) {
+          const email = !i ? 'admin@admin.com' : faker.internet.email();
+          return email;
+        },
+        password(i) {
+          const password = !i ? 'admin' : faker.internet.email();
+          return password;
+        },
       }),
     },
     seeds(server) {
       server.createList('project', 22);
     },
 
-    //     seeds(server) {
-    //       server.create('user', {
-    //         firstName: 'Admin',
-    //         lastName: 'Admin',
-    //         role: 'admin',
-    //         email: 'admin@gmail.com',
-    //         password: 'Admin123',
-    //         token: 'adminToken',
-    //       })
-    // },
-
     routes() {
       this.namespace = 'api';
-      this.timing = 500;
-      this.resource('movie');
+      this.timing = 1000;
       //  users
       this.get('/users', (schema) => {
         return schema.users.all();
       });
-
-      //  projects
+      // projects
+      this.get(
+        '/project/:id',
+        (schema, { params }) => {
+          const project = schema.projects.find(params.id);
+          return project;
+        },
+        { timing: 11 }
+      );
+      //  project
       this.get('/projects', (schema) => {
-        return schema.projects.all();
-      });
-      this.get('/project/:id', (schema, { params }) => {
-        console.log('params', params);
-        const project = schema.projects.find(params.id);
-        project.destroy();
-
         return schema.projects.all();
       });
       this.post('/project', (schema, { requestBody }) => {
@@ -122,9 +119,10 @@ export function makeServer({ environment = 'test' }) {
         return schema.projects.all();
       });
       this.patch('/project', (schema, { requestBody }) => {
-        const response = JSON.parse(requestBody);
-        console.log(response);
-        const project = schema.projects.find(response.id);
+        const { id, projectName } = JSON.parse(requestBody);
+        const project = schema.projects.find(id);
+
+        project.update('projectName', projectName);
 
         return schema.projects.all();
       });
@@ -155,9 +153,7 @@ export function makeServer({ environment = 'test' }) {
         return schema.projects.all();
       });
       this.post('/signin', (schema, request) => {
-        console.log('signin');
         let attrs = JSON.parse(request.requestBody);
-        console.log(attrs);
         let user = schema.users.findBy({
           email: attrs.email,
           password: attrs.password,

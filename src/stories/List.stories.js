@@ -1,5 +1,6 @@
 import React from 'react';
-import { List } from './../components/';
+
+import { List } from '../components';
 
 export default {
   title: 'Main/List',
