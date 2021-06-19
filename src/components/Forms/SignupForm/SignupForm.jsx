@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
-import { Button, Input } from '../../';
+import { Button, Input } from '../..';
 
 const useStyles = makeStyles(() => ({
   form: {

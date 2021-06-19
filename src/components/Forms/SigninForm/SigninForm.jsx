@@ -4,7 +4,7 @@ import { FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
-import { Button, Checkbox, Input } from '../../';
+import { Button, Checkbox, Input } from '../..';
 
 const useStyles = makeStyles(() => ({
   form: {

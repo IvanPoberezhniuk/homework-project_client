@@ -1,10 +1,11 @@
-import { Redirect } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography, Link } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { signup } from '../../redux/modules/auth';
+import { Redirect } from 'react-router-dom';
 
-import { SignupForm, Alert } from './../../components';
+import { Link, Paper, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { Alert, SignupForm } from '../../components';
+import { signup } from '../../redux/modules/auth';
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -57,13 +58,13 @@ const Signup = () => {
 
   const body = (
     <div className={classes.container}>
-      <Typography variant="h1" component="h2" className={classes.title}>
+      <Typography variant='h1' component='h2' className={classes.title}>
         Sign Up
       </Typography>
       <div className={classes.content}>
         {serverErrorMsg && (
           <div className={classes.alert}>
-            <Alert severity="error">{serverErrorMsg}</Alert>
+            <Alert severity='error'>{serverErrorMsg}</Alert>
           </div>
         )}
         <SignupForm
@@ -74,7 +75,7 @@ const Signup = () => {
       </div>
       <div className={classes.footer}>
         Already have an account?{' '}
-        <Link href="/signin" color="primary" underline="always">
+        <Link href='/signin' color='primary' underline='always'>
           Sign In
         </Link>
       </div>

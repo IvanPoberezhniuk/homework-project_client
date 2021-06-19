@@ -7,14 +7,14 @@ export const AUTHME = 'auth/AUTHME';
 
 export const signup = createAsyncThunk(
   SIGNUP,
-  async (credentials, {rejectWithValue}) => {
+  async (credentials, { rejectWithValue }) => {
     try {
       return await authAPI.signup(credentials);
-    } catch(e) {
+    } catch (e) {
       return rejectWithValue(e.response.data);
     }
   }
-)
+);
 
 export const signin = createAsyncThunk(
   SIGNIN,
@@ -22,7 +22,7 @@ export const signin = createAsyncThunk(
     try {
       let data = await authAPI.signin(credentials);
       if (data.status_code === 4) {
-        dispatch(authMe({ token: data.token }))
+        dispatch(authMe({ token: data.token }));
       }
       return data;
     } catch (e) {
@@ -54,17 +54,15 @@ export const auth = createSlice({
   },
   reducers: {
     setToken: (state, action) => {
-      debugger;
       console.log(action.payload);
       state.token = action.payload.token;
-    }
+    },
   },
   extraReducers: {
     [signup.rejected]: (state, action) => {
       if (!action.payload) {
-        state.serverErrorMsg = 'Server isn\'t available now, try later';
-      }
-      else if (action.payload.status_code === 2) {
+        state.serverErrorMsg = "Server isn't available now, try later";
+      } else if (action.payload.status_code === 2) {
         state.serverErrorMsg = 'User is already exist';
       }
       state.isSuccessRegister = false;
@@ -80,9 +78,8 @@ export const auth = createSlice({
     },
     [signin.rejected]: (state, action) => {
       if (!action.payload) {
-        state.serverErrorMsg = 'Server isn\'t available now, try later';
-      }
-      else if (action.payload.status_code === 3) {
+        state.serverErrorMsg = "Server isn't available now, try later";
+      } else if (action.payload.status_code === 3) {
         state.serverErrorMsg = 'Incorrect login or password';
       }
     },
@@ -103,16 +100,9 @@ export const auth = createSlice({
         state.isAuth = true;
       }
     },
-  }
+  },
 });
 
-export const {
-  addProject,
-  editProject,
-  deleteProject,
-  startProject,
-  finishProject,
-  setToken,
-} = auth.actions;
+export const { setToken } = auth.actions;
 
 export default auth.reducer;

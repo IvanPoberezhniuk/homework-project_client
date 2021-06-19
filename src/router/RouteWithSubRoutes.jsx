@@ -1,10 +1,11 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import DashboardContainer from '../containers/pages/DashboardContainer';
 
 const RouteWithSubRoutes = ({ ...route }) => {
-  // LOGGED IN MOCK
-  const authenticated = true;
-  // LOGGED IN MOCK
+  const authenticated = useSelector((state) => state.auth.isAuth);
+
   return (
     <Suspense fallback={route.fallback}>
       {route.redirect ? (
@@ -13,10 +14,15 @@ const RouteWithSubRoutes = ({ ...route }) => {
         </Route>
       ) : route.private ? (
         authenticated ? (
-          route.component && <Route {...route} />
+          route.component &&
+          !route?.partition && (
+            <Route path={route.path} {...route}>
+              <DashboardContainer route={route} />
+            </Route>
+          )
         ) : (
-          <Route path={route.path}>
-            <Redirect to={route.redirect} />
+          <Route>
+            <Redirect to={'/signin'} />
           </Route>
         )
       ) : (

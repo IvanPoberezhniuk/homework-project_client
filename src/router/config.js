@@ -36,7 +36,7 @@ const routes = [
     path: '/projects',
     component: lazy(() => import('../containers/pages/Projects')),
     exact: true,
-    private: false,
+    private: true,
     fallback: <div> Loading... </div>,
   },
   {

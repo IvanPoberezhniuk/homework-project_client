@@ -1,12 +1,11 @@
 // Basic components
 import Alert from './alert/Alert';
-import ValidationErrorMsg from './alert/ValidationErrorMsg';
 import AppBar from './appBar/AppBar';
 import Avatar from './avatar/Avatar';
 import Button from './button/Button';
 import Checkbox from './checkbox/Checkbox';
-import ProjectForm from './Forms/ProjectForm';
-import ProjectTitle from './Forms/ProjectTitle';
+import ProjectForm from './forms/ProjectForm';
+import ProjectTitle from './forms/ProjectTitle';
 import Input from './input/Input';
 import List from './list/List';
 import ButtonLoader from './loaders/ButtonLoader';
@@ -17,11 +16,8 @@ import TeamModal from './modals/TeamModal';
 import WarningModal from './modals/WarningModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import Paper from './paper/Paper';
-import CreateProjectModal from './modals/CreateProjectModal';
-import List from './list/List';
-import ValidationErrorMsg from './alert/ValidationErrorMsg';
-import SigninForm from '../components/Forms/SigninForm/SigninForm';
-import SignupForm from '../components/Forms/SignupForm/SignupForm';
+import SigninForm from './forms/signinForm/SigninForm';
+import SignupForm from './forms/signupForm/SignupForm';
 
 // Shared
 import Header from './shared/header/Header';
@@ -54,7 +50,6 @@ export {
   TableHead,
   TableTeamAvatar,
   TeamModal,
-  ValidationErrorMsg,
   WarningModal,
   SigninForm,
   SignupForm,
