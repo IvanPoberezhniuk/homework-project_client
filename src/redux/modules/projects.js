@@ -4,6 +4,7 @@ import { projectsAPI } from '../../api';
 
 // Actions types
 export const FETCH_PROJECTS = 'projectsTable/FETCH_PROJECTS';
+export const FETCH_PROJECT = 'projectsTable/FETCH_PROJECT';
 export const ADD_PROJECT = 'projectsTable/ADD_PROJECT';
 export const EDIT_PROJECT = 'projectsTable/EDIT_PROJECT';
 export const EDIT_PROJECT_STATUS = 'projectsTable/EDIT_PROJECT_STATUS';
@@ -25,12 +26,12 @@ export const fetchProjects = createAsyncThunk(
 );
 
 export const fetchProject = createAsyncThunk(
-  FETCH_PROJECTS,
+  FETCH_PROJECT,
   async (project, thunkApi) => {
     const { id } = project;
     try {
       const response = await projectsAPI.fetchProjectById(id);
-      return response.data.projects;
+      return response.data.project;
     } catch (err) {
       return thunkApi.rejectedWithValue(err.response.data);
     }
@@ -115,6 +116,11 @@ export const projectsTableSlice = createSlice({
     isLoading: false,
     current: {},
   },
+  reducers: {
+    eraseCurrentProject(state) {
+      state.current = {};
+    },
+  },
   extraReducers: {
     // fetchProjects
     [fetchProjects.pending]: (state) => {
@@ -124,7 +130,18 @@ export const projectsTableSlice = createSlice({
       state.list = action.payload;
       state.isLoading = false;
     },
-    [fetchProjects.rejected]: (state, action) => {
+    [fetchProjects.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    // fetchProject
+    [fetchProject.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchProject.fulfilled]: (state, action) => {
+      state.current = action.payload;
+      state.isLoading = false;
+    },
+    [fetchProject.rejected]: (state, action) => {
       state.isLoading = false;
     },
     // addProject
@@ -133,10 +150,9 @@ export const projectsTableSlice = createSlice({
     },
     [addProject.fulfilled]: (state, action) => {
       state.list = action.payload;
-      console.log(action);
       state.isLoading = false;
     },
-    [addProject.rejected]: (state, action) => {
+    [addProject.rejected]: (state) => {
       state.isLoading = false;
     },
     // editProject
@@ -158,14 +174,14 @@ export const projectsTableSlice = createSlice({
       state.list = action.payload;
       state.isLoading = false;
     },
-    [deleteProject.rejected]: (state, action) => {
+    [deleteProject.rejected]: (state) => {
       state.isLoading = false;
     },
     // startProject
     [startProject.pending]: (state) => {
       state.isLoading = true;
     },
-    [startProject.rejected]: (state, action) => {
+    [startProject.rejected]: (state) => {
       state.isLoading = false;
     },
     [startProject.fulfilled]: (state, action) => {
@@ -180,10 +196,12 @@ export const projectsTableSlice = createSlice({
       state.list = action.payload;
       state.isLoading = false;
     },
-    [finishProject.rejected]: (state, action) => {
+    [finishProject.rejected]: (state) => {
       state.isLoading = false;
     },
   },
 });
+
+export const { eraseCurrentProject } = projectsTableSlice.actions;
 
 export default projectsTableSlice.reducer;

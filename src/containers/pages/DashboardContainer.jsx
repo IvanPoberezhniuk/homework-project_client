@@ -4,7 +4,7 @@ import { Header, Sidebar } from '../../components';
 
 const useStyles = makeStyles((theme) => ({
   main: {
-    padding: '48px',
+    padding: '128px 48px',
     flexBasis: '100%',
   },
   container: {

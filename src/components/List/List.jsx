@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     height: '100%',
+    maxWidth: '713px',
     background: '#F4F4F4',
     border: '1px solid #CCCCCC',
     overflowY: 'auto',

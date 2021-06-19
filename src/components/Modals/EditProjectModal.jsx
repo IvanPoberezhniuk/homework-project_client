@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Dialog, DialogContent, DialogTitle, Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Skeleton } from '@material-ui/lab';
 
 import { ProjectForm, ProjectTitle } from '..';
 import { editProject, fetchProject } from '../../redux/modules/projects';
@@ -28,6 +29,7 @@ const useStyles = makeStyles(() => ({
     marginTop: '35px',
     padding: 0,
     textAlign: 'center',
+    minWidth: '713px',
   },
   actions: {
     padding: 0,
@@ -37,8 +39,16 @@ const useStyles = makeStyles(() => ({
       marginLeft: '33px',
     },
   },
-  paperWidthMd: {
-    maxWidth: '713px',
+
+  skeletonContainer: {
+    minHeight: '649px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  skeletonButtonsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }));
 
@@ -49,8 +59,10 @@ const Transition = forwardRef(function Transition({ ref, ...other }) {
 const EditProjectModal = ({
   children,
   isOpen = true,
-  handleClose = () => {},
+  handleClose,
+  handleSubmit,
   isLoading = false,
+  id,
   ...other
 }) => {
   const dispatch = useDispatch();
@@ -60,12 +72,11 @@ const EditProjectModal = ({
 
   useEffect(() => {
     dispatch(fetchUsers());
-    dispatch(fetchProject());
+    dispatch(fetchProject({ id }));
   }, [dispatch]);
 
-  const submit = async (project) => {
-    await dispatch(editProject(project));
-    await handleClose();
+  const submit = (project) => {
+    handleSubmit(project);
   };
 
   return (
@@ -90,14 +101,26 @@ const EditProjectModal = ({
         <ProjectTitle>Edit Project</ProjectTitle>
       </DialogTitle>
       <DialogContent classes={{ root: classes.contentWrapper }}>
-        <ProjectForm
-          availableItems={users}
-          selectedItems={currentProject?.users}
-          closeHandler={handleClose}
-          submitHandler={submit}
-          isLoading={isLoading}
-          project={currentProject}
-        />
+        {currentProject?.id && users.length ? (
+          <ProjectForm
+            availableItems={users}
+            selectedItems={currentProject.users}
+            closeHandler={handleClose}
+            submitHandler={submit}
+            isLoading={isLoading}
+            projectName={currentProject.projectName}
+          />
+        ) : (
+          <div className={classes.skeletonContainer}>
+            <Skeleton component='div' variant='rect' height={40} />
+            <Skeleton component='div' variant='rect' height={240} />
+            <Skeleton component='div' variant='rect' height={240} />
+            <div className={classes.skeletonButtonsContainer}>
+              <Skeleton variant='rect' width={331} height={40} />
+              <Skeleton variant='rect' width={331} height={40} />
+            </div>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );

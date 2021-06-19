@@ -34,7 +34,7 @@ export const signin = createAsyncThunk(
 
 export const authMe = createAsyncThunk(
   AUTHME,
-  async (credentials, { rejectWithValue, dispatch }) => {
+  async (credentials, { rejectWithValue }) => {
     try {
       return await authAPI.authMe(credentials.token);
     } catch (e) {
@@ -49,13 +49,12 @@ export const auth = createSlice({
     isShowServerError: false,
     isSuccessRegister: false,
     serverErrorMsg: '',
-    isAuth: false,
+    isAuth: true,
     token: null,
     profile: null,
   },
   reducers: {
     setToken: (state, action) => {
-      console.log(action.payload);
       state.token = action.payload.token;
     },
   },
@@ -86,7 +85,6 @@ export const auth = createSlice({
     },
     [signin.fulfilled]: (state, action) => {
       if (action.payload.status_code === 4) {
-        state.serverErrorMsg = '';
         state.token = action.payload.token;
       } else {
         state.serverErrorMsg = 'Some server error';

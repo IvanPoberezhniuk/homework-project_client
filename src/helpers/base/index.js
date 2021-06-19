@@ -1,7 +1,14 @@
 const getChildComponent = (children, key) =>
   children.filter((comp) => {
-    console.log(comp.type.name);
     return comp.type.name === key;
   });
 
-export { getChildComponent };
+const findDiffernt = (firstObject, secondObject) =>
+  firstObject.filter(
+    (firstObjectItem) =>
+      !secondObject.some(
+        (secondObjectItem) => firstObjectItem.id === secondObjectItem.id
+      )
+  );
+
+export { getChildComponent, findDiffernt };

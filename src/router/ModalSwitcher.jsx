@@ -14,6 +14,7 @@ import {
   editProject,
   finishProject,
   startProject,
+  eraseCurrentProject,
 } from '../redux/modules/projects';
 
 export const MODAL = {
@@ -54,9 +55,15 @@ const ModalSwitcher = ({ ...other }) => {
         return (
           <EditProjectModal
             isLoading={isLoadingProject}
-            handleClose={goBack}
+            handleClose={() => {
+              dispatch(eraseCurrentProject());
+              goBack();
+            }}
             id={id}
-            handleSubmit={() => submit(editProject, id)}
+            handleSubmit={async (project) => {
+              await dispatch(editProject({ ...project, id }));
+              await history.goBack();
+            }}
           />
         );
       case MODAL.DELETE:

@@ -23,7 +23,7 @@ const RouteWithSubRoutes = ({ ...route }) => {
             </Route>
           )
         ) : (
-          <Route>
+          <Route key={route.key}>
             <Redirect to={'/signin'} />
           </Route>
         )
