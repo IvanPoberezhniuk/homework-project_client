@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { routes } from './router/config';
-import { makeServer } from './mirage';
-import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
+
+import { makeServer } from './mirage';
 import { authMe, setToken } from './redux/modules/auth';
+import { routes } from './router/config';
 import Router from './router/Router';
 
 makeServer({ environment: 'development' });

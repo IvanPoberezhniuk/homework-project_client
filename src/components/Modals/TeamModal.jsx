@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Dialog,
   DialogActions,
@@ -8,9 +7,9 @@ import {
   DialogTitle,
   Slide,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { Button, Avatar } from '..';
-
+import { Avatar, Button } from '..';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -53,7 +52,7 @@ const useStyles = makeStyles(() => ({
   avatarWrapper: {
     padding: '8px 0',
     display: 'flex',
-    alignItems:'center'
+    alignItems: 'center',
   },
   avatarName: {
     paddingLeft: '16px',
@@ -61,7 +60,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '18px',
     color: '#000',
     margin: 0,
-  }
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -79,8 +78,12 @@ const TeamModal = ({ teamList, isLoading, ...props }) => {
   let team = teamList.map((employee) => (
     <div className={classes.itemWrapper}>
       <div className={classes.avatarWrapper}>
-        <Avatar>{(employee.firstName[0] + employee.lastName[0]).toUpperCase()}</Avatar>
-        <p className={classes.avatarName}>{employee.firstName} {employee.lastName}</p>
+        <Avatar>
+          {(employee.firstName[0] + employee.lastName[0]).toUpperCase()}
+        </Avatar>
+        <p className={classes.avatarName}>
+          {employee.firstName} {employee.lastName}
+        </p>
       </div>
     </div>
   ));

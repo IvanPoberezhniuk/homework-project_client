@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import { Toolbar } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-import HeaderLoginMenu from './HeaderLoginMenu';
-import { Button } from '../../';
+import { Button } from '../..';
 import AppBar from '../../appBar/AppBar';
+import HeaderLoginMenu from './HeaderLoginMenu';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EditProjectModal } from '../components/';
+import { EditProjectModal } from '../components';
 
 export default {
   title: 'Main/Modals',

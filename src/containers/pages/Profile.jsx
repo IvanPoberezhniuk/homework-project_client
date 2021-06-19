@@ -1,9 +1,10 @@
-import { makeStyles } from '@material-ui/styles';
-import { Typography } from '@material-ui/core';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { Input, Button, MultiSelectInput } from '../../components';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+
+import { Button, Input, MultiSelectInput } from '../../components';
 
 const useStyles = makeStyles(() => ({
   container: {

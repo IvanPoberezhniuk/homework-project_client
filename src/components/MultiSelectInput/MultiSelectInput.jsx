@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
 import { Clear as ClearIcon } from '@material-ui/icons/Clear';
+import { Autocomplete } from '@material-ui/lab';
 
 const useStyles = makeStyles(() => ({
   chip: {

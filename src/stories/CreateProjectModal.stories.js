@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ProjectModal, ProjectTitle, ProjectForm } from '../components';
+import { ProjectForm, ProjectModal, ProjectTitle } from '../components';
 
 export default {
   title: 'Main/Modals',

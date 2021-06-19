@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+
 import { useSelector } from 'react-redux';
-import { Header, Sidebar } from '../components';
-import Dashboard from '../containers/pages/Dashboard';
+import { Redirect, Route } from 'react-router-dom';
+
 import DashboardContainer from '../containers/pages/DashboardContainer';
 
 const RouteWithSubRoutes = (route) => {
@@ -18,11 +18,13 @@ const RouteWithSubRoutes = (route) => {
             isAuth ? (
               route.component && (
                 <>
-                  {!route?.partition && <DashboardContainer route={route} {...props} /> }
+                  {!route?.partition && (
+                    <DashboardContainer route={route} {...props} />
+                  )}
                 </>
               )
             ) : (
-              <Redirect to="/signin" />
+              <Redirect to='/signin' />
             )
           ) : (
             route.component && (

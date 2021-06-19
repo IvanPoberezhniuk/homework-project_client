@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CustomPaper } from '../components/';
+import { CustomPaper } from '../components';
 
 export default {
   title: 'Main/Paper',
