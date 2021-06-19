@@ -5,34 +5,31 @@ import { Redirect, Route } from 'react-router-dom';
 
 import DashboardContainer from '../containers/pages/DashboardContainer';
 
-const RouteWithSubRoutes = (route) => {
-  const isAuth = useSelector((state) => state.auth.isAuth);
+const RouteWithSubRoutes = ({ ...route }) => {
+  const authenticated = useSelector((state) => state.auth.isAuth);
+
   return (
     <Suspense fallback={route.fallback}>
-      <Route
-        path={route.path}
-        render={(props) =>
-          route.redirect ? (
-            <Redirect to={route.redirect} />
-          ) : route.private ? (
-            isAuth ? (
-              route.component && (
-                <>
-                  {!route?.partition && (
-                    <DashboardContainer route={route} {...props} />
-                  )}
-                </>
-              )
-            ) : (
-              <Redirect to='/signin' />
-            )
-          ) : (
-            route.component && (
-              <route.component {...props} routes={route.routes} />
-            )
+      {route.redirect ? (
+        <Route path={route.path} {...route}>
+          <Redirect to={route.redirect} />
+        </Route>
+      ) : route.private ? (
+        authenticated ? (
+          route.component &&
+          !route?.partition && (
+            <Route path={route.path} {...route}>
+              <DashboardContainer route={route} />
+            </Route>
           )
-        }
-      />
+        ) : (
+          <Route>
+            <Redirect to={'/signin'} />
+          </Route>
+        )
+      ) : (
+        route.component && <Route {...route} />
+      )}
     </Suspense>
   );
 };
