@@ -1,28 +1,29 @@
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 
+import { Fallback } from '../components';
 import ModalSwitcher from './ModalSwitcher';
 
 const routes = [
   {
     path: '/',
-    component: lazy(() => import('../containers/pages/Dashboard')),
+    component: Fallback,
     exact: true,
-    private: true,
-    fallback: <div> Loading... </div>,
+    private: false,
+    fallback: Fallback,
   },
   {
     path: '/signup',
     component: lazy(() => import('../containers/pages/Signup')),
     exact: true,
     private: false,
-    fallback: <div> Loading... </div>,
+    fallback: Fallback,
   },
   {
     path: '/signin',
     component: lazy(() => import('../containers/pages/Signin')),
     exact: true,
     private: false,
-    fallback: <div> Loading... </div>,
+    fallback: Fallback,
     partition: true,
   },
   {
@@ -30,36 +31,36 @@ const routes = [
     component: lazy(() => import('../containers/pages/Users')),
     exact: true,
     private: true,
-    fallback: <div> Loading... </div>,
+    fallback: Fallback,
   },
   {
     path: '/projects',
     component: lazy(() => import('../containers/pages/Projects')),
     exact: true,
     private: true,
-    fallback: <div> Loading... </div>,
+    fallback: Fallback,
   },
   {
     path: '/profile',
     component: lazy(() => import('../containers/pages/Profile')),
     exact: false,
     private: true,
-    fallback: <div> Loading... </div>,
+    fallback: Fallback,
   },
   {
     path: '*',
     component: lazy(() => import('../containers/pages/PageNotFound')),
     exact: true,
     private: false,
-    fallback: <div> Loading... </div>,
+    fallback: Fallback,
   },
 ];
 
 const modalRoute = {
   path: '/project/:type/:id?',
-  private: false,
-  fallback: <div>...loading</div>,
   component: ModalSwitcher,
+  private: true,
+  fallback: Fallback,
   exact: true,
 };
 

@@ -1,0 +1,11 @@
+$primary-color: #02CC67;
+// $my-brand-color: red;
+
+@import 'loaders.css/src/animations/pacman.scss';
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
+}

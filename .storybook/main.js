@@ -5,7 +5,8 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
     '@react-theming/storybook-addon',
+    '@storybook-formik/register',
+    '@storybook-mirage',
     '@storybook-addon-material-ui',
-    'storybook-formik/register',
   ],
 };

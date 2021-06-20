@@ -4,6 +4,7 @@ import AppBar from './appBar/AppBar';
 import Avatar from './avatar/Avatar';
 import Button from './button/Button';
 import Checkbox from './checkbox/Checkbox';
+import Fallback from './fallback/Fallback';
 import ProjectForm from './forms/ProjectForm';
 import ProjectTitle from './forms/ProjectTitle';
 import SigninForm from './forms/signinForm/SigninForm';
@@ -35,6 +36,7 @@ export {
   Checkbox,
   CreateProjectModal,
   EditProjectModal,
+  Fallback,
   Header,
   Input,
   List,
