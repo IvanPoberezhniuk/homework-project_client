@@ -81,6 +81,15 @@ export function makeServer({ environment = 'test' }) {
     },
     seeds(server) {
       server.createList('project', 22);
+
+      server.create('user', {
+        firstName: 'Admin',
+        lastName: 'Admin',
+        role: 'admin',
+        email: 'admin@gmail.com',
+        password: 'Admin123',
+        token: 'adminToken',
+      });
     },
 
     routes() {

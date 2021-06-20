@@ -15,8 +15,10 @@ const App = () => {
 
   useEffect(() => {
     const token = Cookies.get('token');
-    dispatch(authMe({ token: token }));
-    dispatch(setToken({ token: token }));
+    if (token) {
+      dispatch(authMe({ token: token }));
+      dispatch(setToken({ token: token }));
+    }
   }, [dispatch]);
 
   return <Router routes={routes} />;
