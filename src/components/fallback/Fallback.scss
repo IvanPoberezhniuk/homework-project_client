@@ -1,4 +1,4 @@
-$primary-color: #02CC67;
+$primary-color: #02cc67;
 // $my-brand-color: red;
 
 @import 'loaders.css/src/animations/pacman.scss';
@@ -8,4 +8,5 @@ $primary-color: #02CC67;
 }
 .loader-active {
   display: block;
+  padding-left: '30px';
 }
