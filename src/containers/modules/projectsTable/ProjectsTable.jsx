@@ -163,6 +163,11 @@ const EnhancedTable = ({ rows, isLoading }) => {
                             </TableTeamAvatar>
                           ))}
                           <MoreIcon
+                            onClick={() => {
+                              history.push(`/project/${MODAL.TEAM}/${row.id}`, {
+                                background: location,
+                              });
+                            }}
                             className={classes.moreIcon}
                             style={{
                               marginLeft:

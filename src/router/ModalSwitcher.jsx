@@ -6,15 +6,16 @@ import { useHistory, useParams } from 'react-router-dom';
 import {
   CreateProjectModal,
   EditProjectModal,
+  TeamModal,
   WarningModal,
 } from '../components';
 import {
   addProject,
   deleteProject,
   editProject,
+  eraseCurrentProject,
   finishProject,
   startProject,
-  eraseCurrentProject,
 } from '../redux/modules/projects';
 
 export const MODAL = {
@@ -23,11 +24,13 @@ export const MODAL = {
   DELETE: 'delete',
   FINISH: 'finish',
   START: 'start',
+  TEAM: 'team',
 };
 
 const ModalSwitcher = ({ ...other }) => {
   const history = useHistory();
   const isLoadingProject = useSelector((state) => state.projects.isLoading);
+
   const dispatch = useDispatch();
   const { id, type } = useParams();
 
@@ -93,6 +96,8 @@ const ModalSwitcher = ({ ...other }) => {
             handleSubmit={() => submit(finishProject, id)}
           />
         );
+      case MODAL.TEAM:
+        return <TeamModal teamList={[]} id={id} handleClose={goBack} />;
       default:
         return null;
     }

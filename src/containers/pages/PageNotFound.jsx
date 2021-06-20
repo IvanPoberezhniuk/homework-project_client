@@ -43,7 +43,7 @@ const PageNotFound = () => {
         setTextToType((prevState) => prevState + letter);
       }, 85 * index);
     });
-  }, []);
+  }, [text]);
 
   return (
     <div className={classes.container}>

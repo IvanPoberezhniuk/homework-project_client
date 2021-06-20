@@ -49,7 +49,7 @@ export const auth = createSlice({
     isShowServerError: false,
     isSuccessRegister: false,
     serverErrorMsg: '',
-    isAuth: false,
+    isAuth: true,
     token: null,
     profile: null,
   },

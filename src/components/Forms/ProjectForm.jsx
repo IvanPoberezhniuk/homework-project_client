@@ -61,18 +61,20 @@ const ProjectForm = ({
 }) => {
   const classes = useStyles();
 
-  const [items, setItems] = useState(
+  const [itemsToShow, setItemsToShow] = useState(
     findDiffernt(availableItems, selectedItems)
   );
+
   const [selected, setSelected] = useState(selectedItems);
+  const [busy, setBusy] = useState(false);
 
   const selectEmployee = (id) => {
-    const index = items.findIndex((item) => item.id === id);
-    const newArr = [...items];
+    const index = itemsToShow.findIndex((item) => item.id === id);
+    const newArr = [...itemsToShow];
     newArr.splice(index, 1);
 
-    setSelected([...selected, items[index]]);
-    setItems(newArr);
+    setSelected([...selected, itemsToShow[index]]);
+    setItemsToShow(newArr);
   };
 
   const deselectEmployee = (id) => {
@@ -80,8 +82,18 @@ const ProjectForm = ({
     const newArr = [...selected];
     newArr.splice(index, 1);
 
-    setItems([...items, selected[index]]);
+    setItemsToShow([...itemsToShow, selected[index]]);
     setSelected(newArr);
+  };
+
+  const selectBusy = (status) => {
+    if (status) {
+      setItemsToShow((prevState) => prevState.filter((item) => !item.busy));
+      setBusy(status);
+      return;
+    }
+    setItemsToShow(findDiffernt(availableItems, selected));
+    setBusy(status);
   };
 
   useEffect(() => textInput.current.focus(), []);
@@ -122,11 +134,13 @@ const ProjectForm = ({
       <div className={classes.listWrapper}>
         <List
           name='employees'
-          items={items}
+          items={itemsToShow}
           onClickItemHandler={selectEmployee}
         />
       </div>
-      <span className={classes.hideBtn}>Hide busy coworkers</span>
+      <span onClick={() => selectBusy(!busy)} className={classes.hideBtn}>
+        {busy ? 'Show all coworkers' : 'Hide busy coworkers'}
+      </span>
       <div className={classes.btnsWrapper}>
         <Button
           type='submit'

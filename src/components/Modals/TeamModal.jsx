@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { useSelector } from 'react-redux';
 
 import {
   Dialog,
@@ -12,9 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Button } from '..';
 
 const useStyles = makeStyles(() => ({
-  container: {
-    background: '#bfbfbf',
-  },
   paper: {
     padding: '40px 32px',
     margin: 0,
@@ -67,26 +66,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='down' ref={ref} {...props} />;
 });
 
-const TeamModal = ({ teamList, isLoading, ...props }) => {
-  const [open, setOpen] = React.useState(true);
+const TeamModal = ({
+  open = true,
+  teamList,
+  handleClose,
+  isLoading,
+  id,
+  ...props
+}) => {
   const classes = useStyles();
+  const projects = useSelector((state) => state.projects.list);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  let team = teamList.map((employee) => (
-    <div className={classes.itemWrapper}>
-      <div className={classes.avatarWrapper}>
-        <Avatar>
-          {(employee.firstName[0] + employee.lastName[0]).toUpperCase()}
-        </Avatar>
-        <p className={classes.avatarName}>
-          {employee.firstName} {employee.lastName}
-        </p>
-      </div>
-    </div>
-  ));
+  const [currentProject, setCurrentProject] = useState(null);
+  useEffect(() => {
+    setCurrentProject(() => {
+      const index = projects.findIndex((project) => +project.id === +id);
+      return projects[index];
+    });
+  }, [id, projects]);
 
   return (
     <div>
@@ -97,7 +94,7 @@ const TeamModal = ({ teamList, isLoading, ...props }) => {
         onClose={handleClose}
         aria-labelledby='alert-dialog-slide-title'
         aria-describedby='alert-dialog-slide-description'
-        classes={{ paper: classes.paper, container: classes.container }}
+        classes={{ paper: classes.paper }}
       >
         <DialogTitle
           id='alert-dialog-slide-title'
@@ -106,7 +103,21 @@ const TeamModal = ({ teamList, isLoading, ...props }) => {
           Team
         </DialogTitle>
         <DialogContent classes={{ root: classes.contentWrapper }}>
-          {team}
+          {currentProject &&
+            currentProject.users.map((employee) => (
+              <div className={classes.itemWrapper}>
+                <div className={classes.avatarWrapper}>
+                  <Avatar key={employee.id}>
+                    {(
+                      employee.firstName[0] + employee.lastName[0]
+                    ).toUpperCase()}
+                  </Avatar>
+                  <p className={classes.avatarName}>
+                    {employee.firstName} {employee.lastName}
+                  </p>
+                </div>
+              </div>
+            ))}
         </DialogContent>
         <DialogActions
           classes={{ root: classes.actions, spacing: classes.actionsSpacing }}
