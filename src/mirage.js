@@ -76,11 +76,56 @@ export function makeServer({ environment = 'test' }) {
         password(i) {
           const password = !i ? 'Admin1234' : faker.internet.email();
           return password;
-        },
+        }
       }),
     },
     seeds(server) {
       server.createList('project', 22);
+
+      server.create('user', {
+        firstName: 'admin',
+        lastName: 'admin',
+        email: 'admin@gmail.com',
+        password: 'Admin123',
+        token: 'adminToken',
+        role: 'admin',
+      })
+
+      server.create('user', {
+        firstName: 'manager',
+        lastName: 'manager',
+        email: 'manager@gmail.com',
+        password: 'Manager123',
+        token: 'managerToken',
+        role: 'manager',
+      });
+
+      server.create('user', {
+        firstName: 'developer',
+        lastName: 'developer',
+        email: 'developer@gmail.com',
+        password: 'Developer123',
+        token: 'developerToken',
+        role: 'developer',
+      });
+
+      server.create('user', {
+        firstName: 'qa',
+        lastName: 'qa',
+        email: 'qa@gmail.com',
+        password: 'Qa1234',
+        token: 'qaToken',
+        role: 'qa',
+      });
+
+      server.create('user', {
+        firstName: 'guest',
+        lastName: 'guest',
+        email: 'guest@gmail.com',
+        password: 'Guest123',
+        token: 'guestToken',
+        role: 'guest',
+      });
     },
 
     routes() {

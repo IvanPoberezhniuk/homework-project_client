@@ -1,0 +1,9 @@
+  feat/auth-logic[m
+  feat/create-authorization-pages[m
+  feat/create-project-modal[m
+  feat/create-team-modal[m
+  fix/avatar-component[m
+* [32mfix/header-sidebar[m
+  fix/input-component-validation-message[m
+  fix/start-auth[m
+  master[m

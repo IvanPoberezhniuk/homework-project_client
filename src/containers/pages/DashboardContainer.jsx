@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 
 import { Header, Sidebar } from '../../components';
 
@@ -14,9 +15,17 @@ const useStyles = makeStyles((theme) => ({
 
 const DashboardContainer = ({ route, ...props }) => {
   const classes = useStyles();
+  const profile = useSelector((state) => state.auth.profile);
+
   return (
     <>
-      <Header />
+      <Header
+        user={{
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+          role: profile.role,
+        }}
+      />
       <div className={classes.container}>
         <Sidebar />
         <main className={classes.main}>
