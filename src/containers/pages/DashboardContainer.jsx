@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
+import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { Header, Sidebar } from '../../components';
 
@@ -17,6 +19,13 @@ const DashboardContainer = ({ route, ...props }) => {
   const classes = useStyles();
   const profile = useSelector((state) => state.auth.profile);
 
+  const history = useHistory();
+
+  const signOut = () => {
+    Cookies.remove('token')
+    history.go();
+  };
+
   return (
     <>
       <Header
@@ -25,6 +34,7 @@ const DashboardContainer = ({ route, ...props }) => {
           lastName: profile.lastName,
           role: profile.role,
         }}
+        signOutHandler={signOut}
       />
       <div className={classes.container}>
         <Sidebar />

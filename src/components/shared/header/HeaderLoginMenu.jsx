@@ -36,6 +36,7 @@ const HeaderLoginMenu = ({
   name,
   iconLabel,
   role,
+  signOutHandler,
 }) => {
   const classes = useStyles();
 
@@ -93,7 +94,7 @@ const HeaderLoginMenu = ({
               )}
             </Grid>
             <Grid item>
-              <Button color="primary" fullWidth>
+              <Button color="primary" fullWidth onClick={signOutHandler}>
                 Sign Out
               </Button>
             </Grid>

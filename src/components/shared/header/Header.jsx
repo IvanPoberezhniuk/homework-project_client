@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ user }) => {
+const Header = ({ user, signOutHandler }) => {
   const name = 'TestUser';
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -42,6 +42,7 @@ const Header = ({ user }) => {
           role={user.role}
           open={open}
           anchorEl={anchorEl}
+          signOutHandler={signOutHandler}
         />
       </Toolbar>
     </AppBar>
