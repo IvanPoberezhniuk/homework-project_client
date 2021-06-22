@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ isAuth = true }) => {
+const Header = ({ user, signOutHandler }) => {
   const name = 'TestUser';
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -32,19 +32,18 @@ const Header = ({ isAuth = true }) => {
   };
 
   return (
-    <AppBar position='fixed' color='default' className={classes.root}>
+    <AppBar position="fixed" color="default" className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        {isAuth ? (
-          <HeaderLoginMenu
-            handleMenu={handleMenu}
-            handleClose={handleClose}
-            name={name}
-            open={open}
-            anchorEl={anchorEl}
-          />
-        ) : (
-          <Button color='primary'>LogIn</Button>
-        )}
+        <HeaderLoginMenu
+          handleMenu={handleMenu}
+          handleClose={handleClose}
+          name={`${user.firstName} ${user.lastName}`}
+          iconLabel={`${user.firstName[0]}${user.lastName[0]}`.toUpperCase()}
+          role={user.role}
+          open={open}
+          anchorEl={anchorEl}
+          signOutHandler={signOutHandler}
+        />
       </Toolbar>
     </AppBar>
   );

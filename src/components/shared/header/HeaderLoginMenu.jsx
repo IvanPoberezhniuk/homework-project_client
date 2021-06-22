@@ -1,7 +1,8 @@
+import { useHistory } from 'react-router-dom';
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Button, Menu } from '../..';
+import { Button, Menu, Avatar } from '../..';
 import ArrowDown from '../../../assets/icons/arrow-down.svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,24 +28,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderLoginMenu = ({ handleMenu, handleClose, open, anchorEl, name }) => {
+const HeaderLoginMenu = ({
+  handleMenu,
+  handleClose,
+  open,
+  anchorEl,
+  name,
+  iconLabel,
+  role,
+  signOutHandler,
+}) => {
   const classes = useStyles();
+
+  const history = useHistory();
 
   return (
     <div>
       <IconButton
-        aria-label='account of current user'
-        aria-controls='menu-appbar'
-        aria-haspopup='true'
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
         onClick={handleMenu}
-        color='inherit'
+        color="inherit"
       >
-        <div className={classes.avatar}>IP</div>
-        <img src={ArrowDown} className={classes.arrowDown} alt='drop down' />
+        <Avatar>{iconLabel}</Avatar>
+        <img src={ArrowDown} className={classes.arrowDown} alt="drop down" />
       </IconButton>
       <Menu
         elevation={0}
-        id='menu-appbar'
+        id="menu-appbar"
         anchorEl={anchorEl}
         keepMounted
         open={open}
@@ -55,27 +67,35 @@ const HeaderLoginMenu = ({ handleMenu, handleClose, open, anchorEl, name }) => {
       >
         <Grid
           container
-          direction='column'
-          justify='space-between'
-          alignItems='center'
+          direction="column"
+          justify="space-between"
+          alignItems="center"
           className={classes.container}
         >
           <Grid container>
             <Grid item>
-              <Typography variant='h6' noWrap>
+              <Typography variant="h6" noWrap>
                 Hello, {name}
               </Typography>
             </Grid>
           </Grid>
-          <Grid container direction='column' spacing={1}>
+          <Grid container direction="column" spacing={1}>
             <Grid item>
-              <Button color='primary' fullWidth>
-                Edit Profile
-              </Button>
+              {role !== 'admin' && (
+                <Button
+                  color="primary"
+                  fullWidth
+                  onClick={() => {
+                    history.push('/profile');
+                  }}
+                >
+                  Edit Profile
+                </Button>
+              )}
             </Grid>
             <Grid item>
-              <Button color='primary' fullWidth>
-                Sign In
+              <Button color="primary" fullWidth onClick={signOutHandler}>
+                Sign Out
               </Button>
             </Grid>
           </Grid>

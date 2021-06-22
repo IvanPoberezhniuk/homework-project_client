@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Avatar = ({ firstName, lastName, isShowName, children, ...other }) => {
+const Avatar = ({ children, ...other }) => {
   const classes = useStyles();
   return (
     <MUIAvatar className={classes.avatar} {...other}>
