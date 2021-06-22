@@ -40,48 +40,91 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideBar = () => {
+const SideBar = ({ role }) => {
   const classes = useStyles();
+
+  const AdminMenu = (
+    <>
+      <ListItem
+        className={classes.button}
+        button
+        key={Projects}
+        component={NavLink}
+        to="/projects"
+        exact
+        activeClassName={classes.selected}
+      >
+        <Avatar variant="square" src={Projects} />
+        <ListItemText className={classes.listItemText} primary="Projects" />
+      </ListItem>
+      <ListItem
+        classes={{ root: classes.button }}
+        button
+        key={Users}
+        component={NavLink}
+        activeClassName={classes.selected}
+        to="/users"
+        exact
+      >
+        <Avatar variant="square" src={Users} />
+        <ListItemText className={classes.listItemText} primary="Users" />
+      </ListItem>
+    </>
+  );
+
+  const ManagerDeveloperQaMenu = (
+    <>
+      <ListItem
+        className={classes.button}
+        button
+        key={Projects}
+        component={NavLink}
+        to="/projects"
+        exact
+        activeClassName={classes.selected}
+      >
+        <Avatar variant="square" src={Projects} />
+        <ListItemText className={classes.listItemText} primary="Projects" />
+      </ListItem>
+      <ListItem
+        classes={{ root: classes.button }}
+        button
+        key={User}
+        component={NavLink}
+        activeClassName={classes.selected}
+        to="/profile"
+        exact
+      >
+        <Avatar variant="square" src={User} />
+        <ListItemText className={classes.listItemText} primary="Profile" />
+      </ListItem>
+    </>
+  );
+
+  const GuestMenu = (
+    <>
+      <ListItem
+        classes={{ root: classes.button }}
+        button
+        key={User}
+        component={NavLink}
+        activeClassName={classes.selected}
+        to="/profile"
+        exact
+      >
+        <Avatar variant="square" src={User} />
+        <ListItemText className={classes.listItemText} primary="Profile" />
+      </ListItem>
+    </>
+  );
 
   return (
     <aside className={classes.aside}>
       <List className={classes.root}>
-        <ListItem
-          classes={{ root: classes.button }}
-          button
-          key={Users}
-          component={NavLink}
-          activeClassName={classes.selected}
-          to='/users'
-          exact
-        >
-          <Avatar variant='square' src={Users} />
-          <ListItemText className={classes.listItemText} primary='Users' />
-        </ListItem>
-        <ListItem
-          className={classes.button}
-          button
-          key={Projects}
-          component={NavLink}
-          to='/projects'
-          exact
-          activeClassName={classes.selected}
-        >
-          <Avatar variant='square' src={Projects} />
-          <ListItemText className={classes.listItemText} primary='Projects' />
-        </ListItem>
-        <ListItem
-          className={classes.button}
-          button
-          key={User}
-          component={NavLink}
-          to='/profile'
-          exact
-          activeClassName={classes.selected}
-        >
-          <Avatar variant='square' src={User} />
-          <ListItemText className={classes.listItemText} primary='Profile' />
-        </ListItem>
+        {role === 'admin' && AdminMenu}
+        {role === 'guest' && GuestMenu}
+        {(role === 'manager' || role === 'developer' || role === 'qa') &&
+          ManagerDeveloperQaMenu}
       </List>
     </aside>
   );

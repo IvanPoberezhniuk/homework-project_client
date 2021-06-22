@@ -37,7 +37,7 @@ const DashboardContainer = ({ route, ...props }) => {
         signOutHandler={signOut}
       />
       <div className={classes.container}>
-        <Sidebar />
+        <Sidebar role={profile.role} />
         <main className={classes.main}>
           <route.component routes={route.routes} {...props} />
         </main>
