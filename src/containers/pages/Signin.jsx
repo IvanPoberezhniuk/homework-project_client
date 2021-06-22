@@ -72,13 +72,13 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
 
   const body = (
     <div className={classes.container}>
-      <Typography variant='h1' component='h2' className={classes.title}>
+      <Typography variant="h1" component="h2" className={classes.title}>
         Sign In
       </Typography>
       <div className={classes.content}>
         {serverErrorMsg && (
           <div className={classes.alert}>
-            <Alert severity='error'>{serverErrorMsg}</Alert>
+            <Alert severity="error">{serverErrorMsg}</Alert>
           </div>
         )}
         <SigninForm
@@ -89,7 +89,8 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
         />
       </div>
       <div className={classes.footer}>
-        <Link href='/signup' color='primary' underline='always'>
+        Don’t have an account yet?{' '}
+        <Link href="/signup" color="primary" underline="always">
           Sign Up
         </Link>
       </div>

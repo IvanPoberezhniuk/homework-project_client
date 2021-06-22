@@ -6,9 +6,9 @@ import ModalSwitcher from './ModalSwitcher';
 const routes = [
   {
     path: '/',
-    component: Fallback,
+    component: lazy(() => import('../containers/pages/Dashboard')),
     exact: true,
-    private: false,
+    private: true,
     fallback: Fallback,
     redirect: '/projects',
   },
