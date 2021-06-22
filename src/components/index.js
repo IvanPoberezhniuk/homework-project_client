@@ -18,8 +18,10 @@ import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import CreateProjectModal from './modals/CreateProjectModal';
 import List from './list/List';
 import ValidationErrorMsg from './alert/ValidationErrorMsg';
-import SigninForm from '../components/Forms/SigninForm/SigninForm';
-import SignupForm from '../components/Forms/SignupForm/SignupForm';
+import SigninForm from '../components/forms/signinForm/SigninForm';
+import SignupForm from '../components/forms/signupForm/SignupForm';
+import ProjectForm from '../components/forms/ProjectForm';
+import ProjectModal from '../components/modals/ProjectModal';
 
 // Shared
 import Header from './shared/header/Header';
@@ -43,10 +45,12 @@ export {
   TeamModal,
   EditProjectModal,
   CreateProjectModal,
+  ProjectModal,
   Paper,
   Header,
   Sidebar,
   ValidationErrorMsg,
   SigninForm,
   SignupForm,
+  ProjectForm
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import ProjectForm from '../Forms/ProjectForm';
-import ProjectModal from './ProjectModal';
+import { ProjectForm, ProjectModal } from '../';
 
 const CreateProjectModal = ({ availableItems, ...props }) => {
   const [open, setOpen] = React.useState(true);
