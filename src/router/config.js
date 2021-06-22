@@ -10,6 +10,7 @@ const routes = [
     exact: true,
     private: true,
     fallback: Fallback,
+    redirect: '/projects',
   },
   {
     path: '/signup',

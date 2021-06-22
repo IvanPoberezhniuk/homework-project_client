@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
 
 import { ProjectForm, ProjectTitle } from '..';
-import { editProject, fetchProject } from '../../redux/modules/projects';
+import { fetchProject } from '../../redux/modules/projects';
 import { fetchUsers } from '../../redux/modules/users';
 
 const useStyles = makeStyles(() => ({
@@ -73,7 +73,7 @@ const EditProjectModal = ({
   useEffect(() => {
     dispatch(fetchUsers());
     dispatch(fetchProject({ id }));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const submit = (project) => {
     handleSubmit(project);

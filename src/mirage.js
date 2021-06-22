@@ -76,7 +76,10 @@ export function makeServer({ environment = 'test' }) {
         password(i) {
           const password = !i ? 'Admin1234' : faker.internet.email();
           return password;
-        }
+        },
+        busy() {
+          return faker.datatype.boolean();
+        }, 
       }),
     },
     seeds(server) {
@@ -142,7 +145,7 @@ export function makeServer({ environment = 'test' }) {
           const project = schema.projects.find(params.id);
           return project;
         },
-        { timing: 11111 }
+        { timing: 111 }
       );
       //  project
       this.get('/projects', (schema) => {
