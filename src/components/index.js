@@ -15,10 +15,12 @@ import ButtonLoader from './loaders/ButtonLoader';
 import Menu from './menu/Menu';
 import CreateProjectModal from './modals/CreateProjectModal';
 import EditProjectModal from './modals/EditProjectModal';
+import EditRoleModal from './modals/EditRoleModal';
 import TeamModal from './modals/TeamModal';
 import WarningModal from './modals/WarningModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import Paper from './paper/Paper';
+import Select from './select/Select';
 // Shared
 import Header from './shared/header/Header';
 import Sidebar from './shared/sidebar/Sidebar';
@@ -36,6 +38,7 @@ export {
   Checkbox,
   CreateProjectModal,
   EditProjectModal,
+  EditRoleModal,
   Fallback,
   Header,
   Input,
@@ -45,6 +48,7 @@ export {
   Paper,
   ProjectForm,
   ProjectTitle,
+  Select,
   Sidebar,
   SigninForm,
   SignupForm,

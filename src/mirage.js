@@ -79,7 +79,10 @@ export function makeServer({ environment = 'test' }) {
         },
         busy() {
           return faker.datatype.boolean();
-        }, 
+        },
+        token() {
+          return 'adminToken';
+        },
       }),
     },
     seeds(server) {
@@ -92,7 +95,7 @@ export function makeServer({ environment = 'test' }) {
         password: 'Admin123',
         token: 'adminToken',
         role: 'admin',
-      })
+      });
 
       server.create('user', {
         firstName: 'manager',
