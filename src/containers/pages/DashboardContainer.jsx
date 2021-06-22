@@ -9,6 +9,8 @@ const useStyles = makeStyles((theme) => ({
   main: {
     padding: '128px 48px',
     flexBasis: '100%',
+    background: '#fff',
+    height: '100vh'
   },
   container: {
     display: 'flex',

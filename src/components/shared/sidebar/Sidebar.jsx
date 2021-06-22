@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 import { Avatar, List, ListItem, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,12 +11,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '105px',
     position: 'fixed',
-    height: '100vh',
+    //height: '100vh',
     margin: '80px 0 0 0',
   },
   aside: {
     minWidth: '100px',
-    backgroundColor: theme.palette.secondary.main,
+    background: '#F8F8F8',
     position: 'relative',
   },
   button: {
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    background: '#EEEEEE',
   },
   selected: {
     backgroundColor: theme.palette.primary.light,
@@ -120,7 +121,7 @@ const SideBar = ({ role }) => {
 
   return (
     <aside className={classes.aside}>
-      <List className={classes.root}>
+      <List classes={{ root: classes.root }}>
         {role === 'admin' && AdminMenu}
         {role === 'guest' && GuestMenu}
         {(role === 'manager' || role === 'developer' || role === 'qa') &&
