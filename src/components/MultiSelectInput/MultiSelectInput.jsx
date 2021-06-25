@@ -20,14 +20,9 @@ const useStyles = makeStyles(() => ({
     color: '#FFF',
   },
   inputRoot: {
-    background: '#F4F4F4',
-    borderRadius: 0,
     '&[class*="MuiOutlinedInput-root"]': {
       padding: '4px 12px',
     },
-  },
-  input: {
-    height: '100%',
   },
   chipIconClear: {
     color: '#fff',

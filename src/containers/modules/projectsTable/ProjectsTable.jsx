@@ -24,7 +24,7 @@ import {
   TrashIcon,
 } from '../../../components/shared/icons';
 import { getComparator, stableSort } from '../../../helpers/table';
-import { MODAL } from '../../../router/ModalSwitcher';
+import { MODAL_PROJECT } from '../../../router/ModalSwitcher';
 import EnhancedTableHead from '../table/EnchanedTableHead';
 
 const headCells = [
@@ -164,9 +164,12 @@ const EnhancedTable = ({ rows, isLoading }) => {
                           ))}
                           <MoreIcon
                             onClick={() => {
-                              history.push(`/project/${MODAL.TEAM}/${row.id}`, {
-                                background: location,
-                              });
+                              history.push(
+                                `/project/${MODAL_PROJECT.TEAM}/${row.id}`,
+                                {
+                                  background: location,
+                                }
+                              );
                             }}
                             className={classes.moreIcon}
                             style={{
@@ -184,7 +187,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                               className={classes.finishIcon}
                               onClick={() => {
                                 history.push(
-                                  `/project/${MODAL.FINISH}/${row.id}`,
+                                  `/project/${MODAL_PROJECT.FINISH}/${row.id}`,
                                   {
                                     background: location,
                                   }
@@ -196,7 +199,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                               className={classes.startIcon}
                               onClick={() => {
                                 history.push(
-                                  `/project/${MODAL.START}/${row.id}`,
+                                  `/project/${MODAL_PROJECT.START}/${row.id}`,
                                   {
                                     background: location,
                                   }
@@ -208,16 +211,19 @@ const EnhancedTable = ({ rows, isLoading }) => {
                           <EditIcon
                             className={classes.editIcon}
                             onClick={() => {
-                              history.push(`/project/${MODAL.EDIT}/${row.id}`, {
-                                background: location,
-                              });
+                              history.push(
+                                `/project/${MODAL_PROJECT.EDIT}/${row.id}`,
+                                {
+                                  background: location,
+                                }
+                              );
                             }}
                           />
                           <TrashIcon
                             className={classes.trashIcon}
                             onClick={() => {
                               history.push(
-                                `/project/${MODAL.DELETE}/${row.id}`,
+                                `/project/${MODAL_PROJECT.DELETE}/${row.id}`,
                                 {
                                   background: location,
                                 }

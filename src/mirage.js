@@ -1,5 +1,6 @@
 import faker from 'faker';
 import {
+  belongsTo,
   createServer,
   Factory,
   hasMany,
@@ -8,7 +9,7 @@ import {
   RestSerializer,
 } from 'miragejs';
 
-import { MODAL } from './router/ModalSwitcher';
+import { MODAL_PROJECT } from './router/ModalSwitcher';
 
 export function makeServer({ environment = 'test' }) {
   return createServer({
@@ -24,7 +25,9 @@ export function makeServer({ environment = 'test' }) {
       }),
     },
     models: {
-      user: Model.extend({}),
+      user: Model.extend({
+        project: belongsTo(),
+      }),
       project: Model.extend({
         users: hasMany(),
       }),
@@ -32,7 +35,7 @@ export function makeServer({ environment = 'test' }) {
     factories: {
       project: Factory.extend({
         projectName(i) {
-          return `Project ${i}`;
+          return faker.company.companyName();
         },
         startDate(i) {
           const random = faker.datatype.boolean();
@@ -74,12 +77,15 @@ export function makeServer({ environment = 'test' }) {
           return email;
         },
         password(i) {
-          const password = !i ? 'Admin1234' : faker.internet.email();
+          const password = !i ? 'Admin1234' : faker.internet.password();
           return password;
         },
         busy() {
           return faker.datatype.boolean();
-        }, 
+        },
+        token() {
+          return 'adminToken';
+        },
       }),
     },
     seeds(server) {
@@ -92,7 +98,7 @@ export function makeServer({ environment = 'test' }) {
         password: 'Admin123',
         token: 'adminToken',
         role: 'admin',
-      })
+      });
 
       server.create('user', {
         firstName: 'manager',
@@ -133,20 +139,33 @@ export function makeServer({ environment = 'test' }) {
 
     routes() {
       this.namespace = 'api';
-      this.timing = 1000;
+      this.timing = 300;
       //  users
       this.get('/users', (schema) => {
         return schema.users.all();
       });
-      // projects
-      this.get(
-        '/project/:id',
-        (schema, { params }) => {
-          const project = schema.projects.find(params.id);
-          return project;
+      this.patch(
+        '/user',
+        (schema, { requestBody }) => {
+          const updatedUser = JSON.parse(requestBody);
+          const user = schema.users.find(updatedUser.id);
+          user.update('role', updatedUser.role);
+
+          return schema.users.all();
         },
-        { timing: 111 }
+        { timing: 4000 }
       );
+      this.delete('/user/:id', (schema, { params }) => {
+        const user = schema.users.find(params.id);
+        user.destroy();
+
+        return schema.users.all();
+      });
+      // projects
+      this.get('/project/:id', (schema, { params }) => {
+        const project = schema.projects.find(params.id);
+        return project;
+      });
       //  project
       this.get('/projects', (schema) => {
         return schema.projects.all();
@@ -179,11 +198,11 @@ export function makeServer({ environment = 'test' }) {
         const project = schema.projects.find(id);
 
         switch (status) {
-          case MODAL.START:
+          case MODAL_PROJECT.START:
             const past = faker.date.past().toLocaleDateString();
             project.update('startDate', past);
             break;
-          case MODAL.FINISH:
+          case MODAL_PROJECT.FINISH:
             const recent = faker.date.recent().toLocaleDateString();
             project.update({ endDate: recent });
             break;
@@ -200,6 +219,7 @@ export function makeServer({ environment = 'test' }) {
 
         return schema.projects.all();
       });
+      // AUTH
       this.post('/signin', (schema, request) => {
         let attrs = JSON.parse(request.requestBody);
         let user = schema.users.findBy({
@@ -214,10 +234,6 @@ export function makeServer({ environment = 'test' }) {
             { status_code: 3, message: 'Password or login is incorrect' }
           );
         }
-
-        /* user.update({
-          token: generateToken(),
-        }) */
 
         return new Response(
           200,
@@ -279,7 +295,6 @@ export function makeServer({ environment = 'test' }) {
           }
         );
       });
-      this.get('/users');
     },
   });
 }

@@ -4,16 +4,6 @@ import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-  root: {
-    background: '#F4F4F4',
-    height: '40px',
-    borderRadius: 0,
-    border: '1px solid #CCCCCC',
-    color: '#000000',
-    fontFamily: 'Roboto',
-    fontWeight: 400,
-    fontSize: '18px',
-  },
   input: {
     padding: '9px 16px 10px',
     fontSize: '18px',
@@ -55,7 +45,6 @@ const Input = forwardRef(({ ...other }) => {
         },
       }}
       classes={{
-        root: classes.root,
         error: classes.error,
       }}
       {...other}

@@ -49,9 +49,14 @@ export const auth = createSlice({
     isShowServerError: false,
     isSuccessRegister: false,
     serverErrorMsg: '',
-    isAuth: true,
+    isAuth: false,
     token: null,
     profile: null,
+    //  {
+    //   firstName: 'NotLogged',
+    //   lastName: 'NotLogged',
+    //   role: 'NotLogged',
+    // },
   },
   reducers: {
     setToken: (state, action) => {

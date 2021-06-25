@@ -43,9 +43,7 @@ const Profile = () => {
         .max(15, 'Max length 15 characters')
         .trim(),
     }),
-    onSubmit(values) {
-      console.log('submitted form', values);
-    },
+    onSubmit(values) {},
   });
 
   return (
