@@ -90,11 +90,15 @@ const ProjectsModal = ({
           id='alert-dialog-slide-title'
           classes={{ root: classes.title }}
         >
-          Team
+          Projects
         </DialogTitle>
         <DialogContent classes={{ root: classes.contentWrapper }}>
-          {user.projects &&
-            user.projects.map((project) => (
+          {user.project &&
+            [
+              { projectName: 'project 1' },
+              { projectName: 'project 2' },
+              { projectName: 'project 3' },
+            ].map((project) => (
               <div className={classes.itemWrapper}>
                 <div className={classes.avatarWrapper}>
                   <Avatar key={project.id}>
