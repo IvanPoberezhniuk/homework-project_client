@@ -4,14 +4,14 @@ const usersAPI = {
   fetchUsers() {
     return axios.get('/api/users');
   },
-  addUser(User) {
-    return axios.post('/api/users', User);
+  addUser(user) {
+    return axios.post('/api/users', user);
   },
-  editUser(User) {
-    return axios.patch('/api/users', User);
+  editUser(user) {
+    return axios.patch('/api/user', user);
   },
   deleteUser(id) {
-    return axios.delete(`/api/users/${id}`);
+    return axios.delete(`/api/user/${id}`);
   },
 };
 

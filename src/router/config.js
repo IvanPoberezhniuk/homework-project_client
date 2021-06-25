@@ -57,12 +57,21 @@ const routes = [
   },
 ];
 
-const modalRoute = {
-  path: '/project/:type/:id?',
-  component: ModalSwitcher,
-  private: true,
-  fallback: Fallback,
-  exact: true,
-};
+const modalRoutes = [
+  {
+    path: '/project/:type/:id?',
+    component: ModalSwitcher,
+    private: true,
+    fallback: Fallback,
+    exact: true,
+  },
+  {
+    path: '/user/:type/:id?',
+    component: ModalSwitcher,
+    private: true,
+    fallback: Fallback,
+    exact: true,
+  },
+];
 
-export { modalRoute, routes };
+export { modalRoutes, routes };

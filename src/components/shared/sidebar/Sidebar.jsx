@@ -1,4 +1,4 @@
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { Avatar, List, ListItem, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '105px',
     position: 'fixed',
-    //height: '100vh',
     margin: '80px 0 0 0',
   },
   aside: {
@@ -51,12 +50,12 @@ const SideBar = ({ role }) => {
         button
         key={Projects}
         component={NavLink}
-        to="/projects"
+        to='/projects'
         exact
         activeClassName={classes.selected}
       >
-        <Avatar variant="square" src={Projects} />
-        <ListItemText className={classes.listItemText} primary="Projects" />
+        <Avatar variant='square' src={Projects} />
+        <ListItemText className={classes.listItemText} primary='Projects' />
       </ListItem>
       <ListItem
         classes={{ root: classes.button }}
@@ -64,11 +63,11 @@ const SideBar = ({ role }) => {
         key={Users}
         component={NavLink}
         activeClassName={classes.selected}
-        to="/users"
+        to='/users'
         exact
       >
-        <Avatar variant="square" src={Users} />
-        <ListItemText className={classes.listItemText} primary="Users" />
+        <Avatar variant='square' src={Users} />
+        <ListItemText className={classes.listItemText} primary='Users' />
       </ListItem>
     </>
   );
@@ -80,12 +79,12 @@ const SideBar = ({ role }) => {
         button
         key={Projects}
         component={NavLink}
-        to="/projects"
+        to='/projects'
         exact
         activeClassName={classes.selected}
       >
-        <Avatar variant="square" src={Projects} />
-        <ListItemText className={classes.listItemText} primary="Projects" />
+        <Avatar variant='square' src={Projects} />
+        <ListItemText className={classes.listItemText} primary='Projects' />
       </ListItem>
       <ListItem
         classes={{ root: classes.button }}
@@ -93,11 +92,11 @@ const SideBar = ({ role }) => {
         key={User}
         component={NavLink}
         activeClassName={classes.selected}
-        to="/profile"
+        to='/profile'
         exact
       >
-        <Avatar variant="square" src={User} />
-        <ListItemText className={classes.listItemText} primary="Profile" />
+        <Avatar variant='square' src={User} />
+        <ListItemText className={classes.listItemText} primary='Profile' />
       </ListItem>
     </>
   );
@@ -110,11 +109,11 @@ const SideBar = ({ role }) => {
         key={User}
         component={NavLink}
         activeClassName={classes.selected}
-        to="/profile"
+        to='/profile'
         exact
       >
-        <Avatar variant="square" src={User} />
-        <ListItemText className={classes.listItemText} primary="Profile" />
+        <Avatar variant='square' src={User} />
+        <ListItemText className={classes.listItemText} primary='Profile' />
       </ListItem>
     </>
   );

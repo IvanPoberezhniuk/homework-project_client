@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useHistory, useLocation } from 'react-router-dom';
+
 import {
   LinearProgress,
   Paper,
@@ -16,11 +18,12 @@ import {
   TrashIcon,
 } from '../../../components/shared/icons';
 import { getComparator, stableSort } from '../../../helpers/table';
+import { MODAL_USER } from '../../../router/ModalSwitcher';
 import EnhancedTableHead from '../table/EnchanedTableHead';
 
 const headCells = [
   {
-    id: 'name',
+    id: 'firstName',
     numeric: false,
     disablePadding: true,
     label: 'Name',
@@ -67,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
 
 const EnhancedTable = ({ rows }) => {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
 
@@ -98,7 +104,6 @@ const EnhancedTable = ({ rows }) => {
               {stableSort(rows, getComparator(order, orderBy)).map(
                 (row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <TableRow
                       hover
@@ -111,12 +116,42 @@ const EnhancedTable = ({ rows }) => {
                       </TableCell>
                       <TableCell>{row.role}</TableCell>
                       <TableCell>
-                        <MoreIcon />
+                        <MoreIcon
+                          onClick={() => {
+                            history.push(
+                              `/user/${MODAL_USER.PROJECTS}/${row.id}`,
+                              {
+                                background: location,
+                                user: row,
+                              }
+                            );
+                          }}
+                        />
                       </TableCell>
                       <TableCell>
                         <div className={classes.optionsCell}>
-                          <EditIcon />
-                          <TrashIcon />
+                          <EditIcon
+                            onClick={() => {
+                              history.push(
+                                `/user/${MODAL_USER.EDIT}/${row.id}`,
+                                {
+                                  background: location,
+                                  user: row,
+                                }
+                              );
+                            }}
+                          />
+                          <TrashIcon
+                            onClick={() => {
+                              history.push(
+                                `/user/${MODAL_USER.DELETE}/${row.id}`,
+                                {
+                                  background: location,
+                                  user: row,
+                                }
+                              );
+                            }}
+                          />
                         </div>
                       </TableCell>
                     </TableRow>

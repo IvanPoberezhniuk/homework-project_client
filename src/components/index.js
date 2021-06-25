@@ -16,6 +16,7 @@ import Menu from './menu/Menu';
 import CreateProjectModal from './modals/CreateProjectModal';
 import EditProjectModal from './modals/EditProjectModal';
 import EditRoleModal from './modals/EditRoleModal';
+import ProjectsModal from './modals/ProjectsModal';
 import TeamModal from './modals/TeamModal';
 import WarningModal from './modals/WarningModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
@@ -47,6 +48,7 @@ export {
   MultiSelectInput,
   Paper,
   ProjectForm,
+  ProjectsModal,
   ProjectTitle,
   Select,
   Sidebar,
