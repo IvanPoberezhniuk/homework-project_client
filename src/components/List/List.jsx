@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const List = ({ items = [], placeholder, onClickItemHandler, ...props }) => {
+const List = ({ items = [], placeholder, onClickItemHandler }) => {
   const classes = useStyles();
 
   return (

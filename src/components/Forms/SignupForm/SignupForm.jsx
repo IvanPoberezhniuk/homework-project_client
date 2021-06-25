@@ -18,9 +18,6 @@ const useStyles = makeStyles(() => ({
   inputWrapper: {
     marginTop: '16px',
   },
-  inputWrapperWithError: {
-    marginBottom: '30px',
-  },
 }));
 
 const SignupForm = ({ handleSubmitting }) => {
@@ -71,10 +68,7 @@ const SignupForm = ({ handleSubmitting }) => {
       <Input
         type='text'
         placeholder='First Name'
-        className={clsx(
-          classes.inputWrapper,
-          touched.firstName && errors.firstName && classes.inputWrapperWithError
-        )}
+        className={clsx(classes.inputWrapper)}
         error={errors.firstName && touched.firstName}
         helperText={touched.firstName && errors.firstName}
         {...getFieldProps('firstName')}

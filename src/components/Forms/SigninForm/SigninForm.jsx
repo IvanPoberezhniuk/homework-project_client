@@ -30,9 +30,6 @@ const useStyles = makeStyles(() => ({
   inputWrapper: {
     marginTop: '16px',
   },
-  inputWrapperWithError: {
-    marginBottom: '30px',
-  },
 }));
 
 const SigninForm = ({ handleSubmitting }) => {
@@ -64,10 +61,7 @@ const SigninForm = ({ handleSubmitting }) => {
       <Input
         type='email'
         placeholder='Email'
-        className={clsx(
-          classes.inputWrapper,
-          touched.email && errors.email && classes.inputWrapperWithError
-        )}
+        className={clsx(classes.inputWrapper)}
         error={errors.email && touched.email}
         helperText={touched.email && errors.email}
         {...getFieldProps('email')}

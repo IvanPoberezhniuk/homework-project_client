@@ -105,7 +105,7 @@ const TeamModal = ({
         <DialogContent classes={{ root: classes.contentWrapper }}>
           {currentProject &&
             currentProject.users.map((employee) => (
-              <div className={classes.itemWrapper}>
+              <div className={classes.itemWrapper}  key={employee.id}>
                 <div className={classes.avatarWrapper}>
                   <Avatar key={employee.id}>
                     {(

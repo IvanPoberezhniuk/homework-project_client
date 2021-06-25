@@ -44,7 +44,7 @@ const ModalSwitcher = ({ ...other }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { id, type } = useParams();
-  const { user } = location.state && location.state;
+  const { payload } = location.state && location.state;
 
   const goBack = () => history.goBack();
 
@@ -55,6 +55,7 @@ const ModalSwitcher = ({ ...other }) => {
       history.goBack();
     }
   };
+  console.log(payload);
 
   const getModal = (type) => {
     switch (type) {
@@ -85,7 +86,7 @@ const ModalSwitcher = ({ ...other }) => {
         return (
           <WarningModal
             isLoading={isLoadingProject}
-            description='Are you sure you want to delete {projectName}?'
+            description={`Are you sure you want to delete ${payload.projectName}?`}
             handleClose={goBack}
             handleSubmit={() => submit(deleteProject, id)}
           />
@@ -94,7 +95,7 @@ const ModalSwitcher = ({ ...other }) => {
         return (
           <WarningModal
             isLoading={isLoadingProject}
-            description='Are you sure you want to start {projectName}?'
+            description={`Are you sure you want to start ${payload.projectName}?`}
             handleClose={goBack}
             handleSubmit={() => submit(startProject, id)}
           />
@@ -103,29 +104,29 @@ const ModalSwitcher = ({ ...other }) => {
         return (
           <WarningModal
             isLoading={isLoadingProject}
-            description='Are you sure you want to finish {projectName}?'
+            description={`Are you sure you want to finish ${payload.projectName}?`}
             handleClose={goBack}
             handleSubmit={() => submit(finishProject, id)}
           />
         );
       case MODAL_PROJECT.TEAM:
-        return <TeamModal teamList={[]} id={id} handleClose={goBack} />;
+        return <TeamModal id={id} handleClose={goBack} />;
       case MODAL_USER.PROJECTS:
-        return <ProjectsModal user={user} handleClose={goBack} />;
+        return <ProjectsModal user={payload} handleClose={goBack} />;
       case MODAL_USER.EDIT:
         return (
           <EditRoleModal
             isOpen={true}
-            handleSubmit={() => submit(editUser, user)}
+            handleSubmit={() => submit(editUser, payload)}
             handleClose={goBack}
-            user={user}
+            user={payload}
           />
         );
       case MODAL_USER.DELETE:
         return (
           <WarningModal
             isLoading={isLoadingUser}
-            description={`Are you sure you want to remove ${user.firstName} ${user.lastName}?`}
+            description={`Are you sure you want to remove ${payload.firstName} ${payload.lastName}?`}
             handleClose={goBack}
             handleSubmit={() => submit(deleteUser, id)}
           />

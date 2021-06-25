@@ -57,7 +57,6 @@ const ProjectForm = ({
   closeHandler,
   isLoading,
   projectName = '',
-  ...other
 }) => {
   const classes = useStyles();
 
@@ -98,7 +97,7 @@ const ProjectForm = ({
 
   useEffect(() => textInput.current.focus(), []);
 
-  const { getFieldProps, handleSubmit } = useFormik({
+  const { getFieldProps, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       projectName: projectName,
     },
@@ -119,9 +118,11 @@ const ProjectForm = ({
     <form className={classes.form} onSubmit={handleSubmit}>
       <Input
         placeholder='Project Name'
-        {...getFieldProps('projectName')}
         inputRef={textInput}
         autoComplete='off'
+        error={errors.projectName && touched.projectName}
+        helperText={touched.projectName && errors.projectName}
+        {...getFieldProps('projectName')}
       />
       <div className={classes.listWrapper}>
         <List
