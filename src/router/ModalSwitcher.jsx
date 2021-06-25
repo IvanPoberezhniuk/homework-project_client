@@ -55,7 +55,6 @@ const ModalSwitcher = ({ ...other }) => {
       history.goBack();
     }
   };
-  console.log(payload);
 
   const getModal = (type) => {
     switch (type) {
