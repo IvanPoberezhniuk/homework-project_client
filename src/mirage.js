@@ -76,7 +76,20 @@ export function makeServer({ environment = 'test' }) {
         password(i) {
           const password = !i ? 'Admin1234' : faker.internet.email();
           return password;
-        }
+        },
+        skills(i) {
+          const skills = [
+            { id: 1, name: 'js' },
+            { id: 2, name: 'css' },
+            { id: 3, name: 'php' },
+            { id: 4, name: 'c++' },
+            { id: 5, name: 'Жыве Беларусь!' },
+            { id: 6, name: 'БЧБ!' },
+            { id: 7, name: 'Pascal' },
+            { id: 8, name: 'Уверенный пользователь ПК' },
+          ];
+          return skills[i % skills.length];
+        },
       }),
     },
     seeds(server) {
@@ -89,12 +102,16 @@ export function makeServer({ environment = 'test' }) {
         password: 'Admin123',
         token: 'adminToken',
         role: 'admin',
-      })
+      });
 
       server.create('user', {
-        firstName: 'manager',
+        firstName: 'manager45',
         lastName: 'manager',
         email: 'manager@gmail.com',
+        skills: [
+          { id: 1, name: 'js' },
+          { id: 2, name: 'css' },
+        ],
         password: 'Manager123',
         token: 'managerToken',
         role: 'manager',
@@ -272,11 +289,43 @@ export function makeServer({ environment = 'test' }) {
               firstName: user.firstName,
               lastName: user.lastName,
               role: user.role,
+              skills: user.skills,
             },
           }
         );
       });
       this.get('/users');
+      this.patch('/profile', (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        let user = schema.users.find(attrs.id);
+
+        user.update({
+          firstName: attrs.firstName,
+          lastName: attrs.lastName,
+          skills: [...attrs.skills],
+        });
+
+        return new Response(
+          200,
+          {},
+          {
+            status_code: 4,
+            message: 'Success',
+          }
+        );
+      });
+      this.get('/skills', () => {
+        return [
+          { id: 1, name: 'js' },
+          { id: 2, name: 'css' },
+          { id: 3, name: 'php' },
+          { id: 4, name: 'c++' },
+          { id: 5, name: 'Жыве Беларусь!' },
+          { id: 6, name: 'БЧБ!' },
+          { id: 7, name: 'Pascal' },
+          { id: 8, name: 'Уверенный пользователь ПК' },
+        ];
+      });
     },
   });
 }
