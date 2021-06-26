@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import UsersTable from '../modules/usersTable/UsersTable';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUsers } from '../../redux/modules/users';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,13 +15,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Users = () => {
   const classes = useStyles();
-  const [users, setUsers] = useState([]);
+  const dispatch = useDispatch();
 
+  const users = useSelector((state) => state.users.list);
   useEffect(() => {
-    fetch('/api/users')
-      .then((response) => response.json())
-      .then((json) => setUsers(json.users));
-  }, []);
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   return (
     <>

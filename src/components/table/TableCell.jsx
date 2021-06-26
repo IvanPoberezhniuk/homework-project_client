@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 const TableCell = ({ children, ...other }) => {
   const classes = useStyles();
   return (
-    <MUITableCell className={classes.root} {...other}>
+    <MUITableCell classes={{ root: classes.root }} {...other}>
       {children}
     </MUITableCell>
   );

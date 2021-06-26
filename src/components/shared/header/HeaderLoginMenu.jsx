@@ -45,18 +45,18 @@ const HeaderLoginMenu = ({
   return (
     <div>
       <IconButton
-        aria-label="account of current user"
-        aria-controls="menu-appbar"
-        aria-haspopup="true"
+        aria-label='account of current user'
+        aria-controls='menu-appbar'
+        aria-haspopup='true'
         onClick={handleMenu}
-        color="inherit"
+        color='inherit'
       >
         <Avatar>{iconLabel}</Avatar>
-        <img src={ArrowDown} className={classes.arrowDown} alt="drop down" />
+        <img src={ArrowDown} className={classes.arrowDown} alt='drop down' />
       </IconButton>
       <Menu
         elevation={0}
-        id="menu-appbar"
+        id='menu-appbar'
         anchorEl={anchorEl}
         keepMounted
         open={open}
@@ -67,23 +67,23 @@ const HeaderLoginMenu = ({
       >
         <Grid
           container
-          direction="column"
-          justify="space-between"
-          alignItems="center"
+          direction='column'
+          justify='space-between'
+          alignItems='center'
           className={classes.container}
         >
           <Grid container>
             <Grid item>
-              <Typography variant="h6" noWrap>
+              <Typography variant='h6' noWrap>
                 Hello, {name}
               </Typography>
             </Grid>
           </Grid>
-          <Grid container direction="column" spacing={1}>
+          <Grid container direction='column' spacing={1}>
             <Grid item>
               {role !== 'admin' && (
                 <Button
-                  color="primary"
+                  color='primary'
                   fullWidth
                   onClick={() => {
                     history.push('/profile');
@@ -94,7 +94,7 @@ const HeaderLoginMenu = ({
               )}
             </Grid>
             <Grid item>
-              <Button color="primary" fullWidth onClick={signOutHandler}>
+              <Button color='primary' fullWidth onClick={signOutHandler}>
                 Sign Out
               </Button>
             </Grid>

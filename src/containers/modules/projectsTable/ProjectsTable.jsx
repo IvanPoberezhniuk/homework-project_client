@@ -24,7 +24,7 @@ import {
   TrashIcon,
 } from '../../../components/shared/icons';
 import { getComparator, stableSort } from '../../../helpers/table';
-import { MODAL } from '../../../router/ModalSwitcher';
+import { MODAL_PROJECT } from '../../../router/ModalSwitcher';
 import EnhancedTableHead from '../table/EnchanedTableHead';
 
 const headCells = [
@@ -42,13 +42,16 @@ const headCells = [
   },
   { id: 'endDate', numeric: false, disablePadding: false, label: 'End Date' },
   { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
-  { id: 'team', numeric: false, disablePadding: false, label: 'Team' },
+  {
+    id: 'team',
+    numeric: false,
+    disablePadding: false,
+    label: 'Team',
+    sortable: false,
+  },
 ];
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
   paper: {
     width: '100%',
     marginBottom: theme.spacing(2),
@@ -58,19 +61,7 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 750,
   },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1,
-  },
   teamCell: {
-    display: 'flex',
     border: 'none',
     alignItems: 'center',
     position: 'relative',
@@ -82,22 +73,19 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     display: 'flex',
   },
-  optionsCell: {
-    padding: '0 10px',
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  test: {
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-  },
-
   trashIcon: {
     '&:hover': {
       cursor: 'pointer',
       fill: theme.palette.error.main,
     },
+  },
+  actions__container: {
+    border: 'none',
+    display: 'grid',
+    gridTemplateColumns: 'auto 58px 58px',
+    gridTemplateRows: '52px',
+    alignItems: 'center',
+    justifyItems: 'end',
   },
 }));
 
@@ -116,120 +104,134 @@ const EnhancedTable = ({ rows, isLoading }) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <TableContainer>
-          {isLoading && <LinearProgress />}
-          <Table
-            className={classes.table}
-            aria-labelledby='tableTitle'
-            aria-label='enhanced table'
-          >
-            <EnhancedTableHead
-              classes={classes}
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-              headCells={headCells}
-            />
-            <TableBody className={classes.tableBody}>
-              {stableSort(rows, getComparator(order, orderBy)).map(
-                (row, index) => {
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  return (
-                    <TableRow
-                      hover
-                      role='checkbox'
-                      tabIndex={-1}
-                      key={`${row.name} ${index}`}
-                    >
-                      <TableCell component='th' id={labelId} scope='row'>
-                        {row.projectName}
-                      </TableCell>
-                      <TableCell>{row.startDate || '-'}</TableCell>
-                      <TableCell>{row.endDate || '-'}</TableCell>
-                      <TableCell>{row.status}</TableCell>
-                      <TableCell className={classes.teamCell}>
-                        <div className={classes.avatar__container}>
-                          {row.users.slice(0, 4).map((person, index) => (
-                            <TableTeamAvatar
-                              key={person.id}
-                              classes={{ root: classes.avatar }}
-                              style={{ left: 16 * index + 'px' }}
-                              size={30}
-                            >
-                              {person.firstName[0] + person.lastName[0]}
-                            </TableTeamAvatar>
-                          ))}
-                          <MoreIcon
-                            className={classes.moreIcon}
-                            style={{
-                              marginLeft:
-                                row.users.length &&
-                                row.users.length * 16 + 32 + 'px',
-                            }}
-                          />
-                        </div>
-                      </TableCell>
-                      <TableCell size='small'>
-                        <div className={classes.optionsCell}>
-                          {row.startDate ? (
-                            <FinishIcon
-                              className={classes.finishIcon}
-                              onClick={() => {
-                                history.push(
-                                  `/project/${MODAL.FINISH}/${row.id}`,
-                                  {
-                                    background: location,
-                                  }
-                                );
-                              }}
-                            />
-                          ) : (
-                            <StartIcon
-                              className={classes.startIcon}
-                              onClick={() => {
-                                history.push(
-                                  `/project/${MODAL.START}/${row.id}`,
-                                  {
-                                    background: location,
-                                  }
-                                );
-                              }}
-                            />
-                          )}
-
-                          <EditIcon
-                            className={classes.editIcon}
-                            onClick={() => {
-                              history.push(`/project/${MODAL.EDIT}/${row.id}`, {
+    <Paper className={classes.paper}>
+      <TableContainer>
+        {isLoading && <LinearProgress />}
+        <Table
+          className={classes.table}
+          aria-labelledby='tableTitle'
+          aria-label='enhanced table'
+        >
+          <EnhancedTableHead
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={rows.length}
+            headCells={headCells}
+          />
+          <TableBody className={classes.tableBody}>
+            {stableSort(rows, getComparator(order, orderBy)).map(
+              (row, index) => {
+                const labelId = `enhanced-table-checkbox-${index}`;
+                return (
+                  <TableRow
+                    hover
+                    role='checkbox'
+                    tabIndex={-1}
+                    key={`${row.id}`}
+                  >
+                    <TableCell id={labelId} scope='row'>
+                      {row.projectName}
+                    </TableCell>
+                    <TableCell>{row.startDate || '-'}</TableCell>
+                    <TableCell>{row.endDate || '-'}</TableCell>
+                    <TableCell>{row.status}</TableCell>
+                    <TableCell className={classes.teamCell}>
+                      <div className={classes.avatar__container}>
+                        {row.users.slice(0, 4).map((person, index) => (
+                          <TableTeamAvatar
+                            key={person.id}
+                            classes={{ root: classes.avatar }}
+                            style={{ left: 16 * index + 'px' }}
+                            size={30}
+                          >
+                            {person.firstName[0] + person.lastName[0]}
+                          </TableTeamAvatar>
+                        ))}
+                        <MoreIcon
+                          onClick={() => {
+                            history.push(
+                              `/project/${MODAL_PROJECT.TEAM}/${row.id}`,
+                              {
                                 background: location,
-                              });
-                            }}
-                          />
-                          <TrashIcon
-                            className={classes.trashIcon}
-                            onClick={() => {
-                              history.push(
-                                `/project/${MODAL.DELETE}/${row.id}`,
-                                {
-                                  background: location,
-                                }
-                              );
-                            }}
-                          />
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                }
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </div>
+                                payload: row,
+                              }
+                            );
+                          }}
+                          className={classes.moreIcon}
+                          style={{
+                            marginLeft:
+                              row.users.length &&
+                              row.users.length * 16 + 32 + 'px',
+                          }}
+                        />
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      size='small'
+                      className={classes.actions__container}
+                    >
+                      {row.startDate ? (
+                        <FinishIcon
+                          className={classes.finishIcon}
+                          onClick={() => {
+                            history.push(
+                              `/project/${MODAL_PROJECT.FINISH}/${row.id}`,
+                              {
+                                background: location,
+                                payload: row,
+                              }
+                            );
+                          }}
+                        />
+                      ) : (
+                        <StartIcon
+                          className={classes.startIcon}
+                          onClick={() => {
+                            history.push(
+                              `/project/${MODAL_PROJECT.START}/${row.id}`,
+                              {
+                                background: location,
+                                payload: row,
+                              }
+                            );
+                          }}
+                        />
+                      )}
+
+                      <EditIcon
+                        className={classes.editIcon}
+                        onClick={() => {
+                          history.push(
+                            `/project/${MODAL_PROJECT.EDIT}/${row.id}`,
+                            {
+                              background: location,
+                              payload: row,
+                            }
+                          );
+                        }}
+                      />
+                      <TrashIcon
+                        className={classes.trashIcon}
+                        onClick={() => {
+                          history.push(
+                            `/project/${MODAL_PROJECT.DELETE}/${row.id}`,
+                            {
+                              background: location,
+                              payload: row,
+                            }
+                          );
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              }
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 };
 

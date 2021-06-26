@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-
-import { useSelector } from 'react-redux';
+import React from 'react';
 
 import {
   Dialog,
@@ -66,24 +64,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='down' ref={ref} {...props} />;
 });
 
-const TeamModal = ({
+const ProjectsModal = ({
   open = true,
-  teamList,
   handleClose,
   isLoading,
-  id,
+  user,
   ...props
 }) => {
   const classes = useStyles();
-  const projects = useSelector((state) => state.projects.list);
-
-  const [currentProject, setCurrentProject] = useState(null);
-  useEffect(() => {
-    setCurrentProject(() => {
-      const index = projects.findIndex((project) => +project.id === +id);
-      return projects[index];
-    });
-  }, [id, projects]);
 
   return (
     <div>
@@ -100,21 +88,21 @@ const TeamModal = ({
           id='alert-dialog-slide-title'
           classes={{ root: classes.title }}
         >
-          Team
+          Projects
         </DialogTitle>
         <DialogContent classes={{ root: classes.contentWrapper }}>
-          {currentProject &&
-            currentProject.users.map((employee) => (
-              <div className={classes.itemWrapper}  key={employee.id}>
+          {user.project &&
+            [
+              { projectName: 'project 1' },
+              { projectName: 'project 2' },
+              { projectName: 'project 3' },
+            ].map((project) => (
+              <div className={classes.itemWrapper}>
                 <div className={classes.avatarWrapper}>
-                  <Avatar key={employee.id}>
-                    {(
-                      employee.firstName[0] + employee.lastName[0]
-                    ).toUpperCase()}
+                  <Avatar key={project.id}>
+                    {project.projectName[0].toUpperCase()}
                   </Avatar>
-                  <p className={classes.avatarName}>
-                    {employee.firstName} {employee.lastName}
-                  </p>
+                  <p className={classes.avatarName}>{project.projectName}</p>
                 </div>
               </div>
             ))}
@@ -135,4 +123,4 @@ const TeamModal = ({
   );
 };
 
-export default TeamModal;
+export default ProjectsModal;

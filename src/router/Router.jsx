@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Switch, useLocation } from 'react-router-dom';
 
-import { modalRoute, routes } from './config';
+import { modalRoutes, routes } from './config';
 import RouteWithSubRoutes from './RouteWithSubRoutes';
 
 const Router = ({ ...other }) => {
@@ -17,9 +17,10 @@ const Router = ({ ...other }) => {
             <RouteWithSubRoutes key={route.path} {...route} />
           ))}
       </Switch>
-      {background && (
-        <RouteWithSubRoutes key={modalRoute.path} {...modalRoute} />
-      )}
+      {background &&
+        modalRoutes.map((route) => {
+          return <RouteWithSubRoutes key={route.path} {...route} />;
+        })}
     </>
   );
 };

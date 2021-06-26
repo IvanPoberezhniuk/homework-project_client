@@ -43,7 +43,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Transition = forwardRef(function Transition({ ref, ...other }) {
-  return <Slide direction='down' ref={ref} {...other} />;
+  return <Slide ref={ref} {...other} />;
 });
 
 const CreateProjectModal = ({
@@ -72,8 +72,8 @@ const CreateProjectModal = ({
       TransitionComponent={Transition}
       keepMounted
       onClose={handleClose}
-      aria-labelledby='alert-dialog-slide-title'
-      aria-describedby='alert-dialog-slide-description'
+      aria-labelledby='alert-dialog-create-project'
+      aria-describedby='alert-dialog-slide-create-new-project'
       classes={{
         paper: classes.paper,
         container: classes.container,
@@ -82,7 +82,7 @@ const CreateProjectModal = ({
       maxWidth='md'
     >
       <DialogTitle
-        id='alert-dialog-slide-title'
+        id='alert-dialog-project-title'
         classes={{ root: classes.title }}
       >
         <ProjectTitle>Create new Project</ProjectTitle>

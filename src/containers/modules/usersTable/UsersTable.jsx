@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useHistory, useLocation } from 'react-router-dom';
+
 import {
   LinearProgress,
   Paper,
@@ -16,11 +18,12 @@ import {
   TrashIcon,
 } from '../../../components/shared/icons';
 import { getComparator, stableSort } from '../../../helpers/table';
+import { MODAL_USER } from '../../../router/ModalSwitcher';
 import EnhancedTableHead from '../table/EnchanedTableHead';
 
 const headCells = [
   {
-    id: 'name',
+    id: 'firstName',
     numeric: false,
     disablePadding: true,
     label: 'Name',
@@ -31,13 +34,16 @@ const headCells = [
     disablePadding: false,
     label: 'Role',
   },
-  { id: 'projects', numeric: false, disablePadding: false, label: 'Projects' },
+  {
+    id: 'projects',
+    numeric: false,
+    disablePadding: false,
+    label: 'Projects',
+    sortable: false,
+  },
 ];
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
   paper: {
     width: '100%',
     marginBottom: theme.spacing(2),
@@ -47,26 +53,26 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 750,
   },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1,
+
+  actions__container: {
+    border: 'none',
+    display: 'grid',
+    gridTemplateColumns: 'auto 58px 58px',
+    gridTemplateRows: '52px',
+    alignItems: 'center',
+    justifyItems: 'end',
   },
-  optionsCell: {
-    padding: '0 10px',
+  moreIcon__container: {
     display: 'flex',
-    justifyContent: 'space-around',
+    alignItems: 'center',
   },
 }));
 
 const EnhancedTable = ({ rows }) => {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
 
@@ -77,57 +83,75 @@ const EnhancedTable = ({ rows }) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <TableContainer>
-          {!rows.length && <LinearProgress />}
-          <Table
-            className={classes.table}
-            aria-labelledby='tableTitle'
-            aria-label='enhanced table'
-          >
-            <EnhancedTableHead
-              classes={classes}
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-              headCells={headCells}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy)).map(
-                (row, index) => {
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
-                  return (
-                    <TableRow
-                      hover
-                      role='checkbox'
-                      tabIndex={-1}
-                      key={row.name}
+    <Paper className={classes.paper}>
+      <TableContainer>
+        {!rows.length && <LinearProgress />}
+        <Table
+          className={classes.table}
+          aria-labelledby='tableTitle'
+          aria-label='enhanced table'
+        >
+          <EnhancedTableHead
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={rows.length}
+            headCells={headCells}
+          />
+          <TableBody>
+            {stableSort(rows, getComparator(order, orderBy)).map(
+              (row, index) => {
+                const labelId = `enhanced-table-checkbox-${index}`;
+                return (
+                  <TableRow hover role='checkbox' tabIndex={-1} key={row.id}>
+                    <TableCell id={labelId} scope='row'>
+                      {row.firstName} {row.lastName}
+                    </TableCell>
+                    <TableCell>{row.role}</TableCell>
+                    <TableCell>
+                      <div className={classes.moreIcon__container}>
+                        <MoreIcon
+                          onClick={() => {
+                            history.push(
+                              `/user/${MODAL_USER.PROJECTS}/${row.id}`,
+                              {
+                                background: location,
+                                payload: row,
+                              }
+                            );
+                          }}
+                        />
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      size='small'
+                      className={classes.actions__container}
                     >
-                      <TableCell component='th' id={labelId} scope='row'>
-                        {row.firstName} {row.lastName}
-                      </TableCell>
-                      <TableCell>{row.role}</TableCell>
-                      <TableCell>
-                        <MoreIcon />
-                      </TableCell>
-                      <TableCell>
-                        <div className={classes.optionsCell}>
-                          <EditIcon />
-                          <TrashIcon />
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                }
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </div>
+                      <EditIcon
+                        onClick={() => {
+                          history.push(`/user/${MODAL_USER.EDIT}/${row.id}`, {
+                            background: location,
+                            payload: row,
+                          });
+                        }}
+                      />
+                      <TrashIcon
+                        onClick={() => {
+                          history.push(`/user/${MODAL_USER.DELETE}/${row.id}`, {
+                            background: location,
+                            payload: row,
+                          });
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              }
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 };
 

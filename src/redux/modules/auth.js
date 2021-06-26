@@ -55,6 +55,12 @@ export const auth = createSlice({
     isAuth: false,
     token: null,
     isLoading: false,
+    profile: null,
+    //  {
+    //   firstName: 'NotLogged',
+    //   lastName: 'NotLogged',
+    //   role: 'NotLogged',
+    // },
   },
   reducers: {
     setToken: (state, action) => {

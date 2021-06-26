@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Button } from '../../components';
 import { fetchProjects } from '../../redux/modules/projects';
-import { MODAL } from '../../router/ModalSwitcher';
+import { MODAL_PROJECT } from '../../router/ModalSwitcher';
 import ProjectsTable from '../modules/projectsTable/ProjectsTable';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +48,7 @@ const Projects = () => {
           color='primary'
           className={classes.buttonRoot}
           onClick={() => {
-            history.push(`/project/${MODAL.ADD}`, {
+            history.push(`/project/${MODAL_PROJECT.ADD}`, {
               background: location,
             });
           }}
