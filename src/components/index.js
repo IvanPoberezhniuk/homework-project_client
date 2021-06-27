@@ -21,6 +21,7 @@ import TeamModal from './modals/TeamModal';
 import WarningModal from './modals/WarningModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import Paper from './paper/Paper';
+import ProfileForm from './forms/profileForm/ProfileForm';
 import Select from './select/Select';
 // Shared
 import Header from './shared/header/Header';
@@ -60,4 +61,5 @@ export {
   TableTeamAvatar,
   TeamModal,
   WarningModal,
+  ProfileForm,
 };

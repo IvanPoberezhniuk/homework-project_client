@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
 
 const DashboardContainer = ({ route, ...props }) => {
   const classes = useStyles();
-  const profile = useSelector((state) => state.auth.profile);
-
+  const isLoading = useSelector((state) => state.profile.isLoading);
+  const profile = useSelector((state) => state.profile.profile);
   const history = useHistory();
 
   const signOut = () => {
