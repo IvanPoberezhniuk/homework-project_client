@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { WarningIcon } from '../../components/shared/icons';
-
 import {
   Dialog,
   DialogActions,
@@ -13,6 +11,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button, ButtonLoader } from '..';
+import { WarningIcon } from '../../components/shared/icons';
 
 const useStyles = makeStyles(() => ({
   paper: {
