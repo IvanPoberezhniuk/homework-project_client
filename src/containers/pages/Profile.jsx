@@ -4,7 +4,13 @@ import * as Yup from 'yup';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
-import { Button, Input, MultiSelectInput } from '../../components';
+import { Fallback, ProfileForm } from '../../components';
+import { useSelector, useDispatch } from 'react-redux';
+import { editProfile, getAvailableSkills } from '../../redux/modules/profile';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -16,6 +22,9 @@ const useStyles = makeStyles(() => ({
   role: {
     fontWeight: 500,
   },
+  roleName: {
+    textDecoration: 'underline',
+  },
   profileContent: {
     padding: '40px 0 34px',
   },
@@ -26,66 +35,55 @@ const useStyles = makeStyles(() => ({
 
 const Profile = () => {
   const classes = useStyles();
-  const { getFieldProps, handleSubmit } = useFormik({
-    initialValues: {
-      firstName: '',
-      secondName: '',
-      skills: [],
-    },
-    validationSchema: Yup.object().shape({
-      firstName: Yup.string()
-        .required('Enter your name')
-        .min(1, 's')
-        .max(15, 'Max length 15 characters')
-        .trim(),
-      secondName: Yup.string()
-        .required('Enter comment text')
-        .max(15, 'Max length 15 characters')
-        .trim(),
-    }),
-    onSubmit(values) {},
-  });
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const profile = useSelector((state) => state.profile.profile);
+  const allSkills = useSelector((state) => state.profile.availableSkills);
+  const isLoading = useSelector((state) => state.profile.isLoading);
+  
+  useEffect(async () => {
+    await dispatch(getAvailableSkills());
+  }, []);
 
-  return (
+  const editProfileHandleSubmit = async (firstName, lastName, skills) => {
+    await dispatch(
+      editProfile({ id: profile.id, firstName, lastName, skills })
+    );
+    history.push('/profile');
+  };
+
+  const role = () => {
+    if (profile.role === 'manager') return 'Manager';
+    if (profile.role === 'developer') return 'Developer';
+    if (profile.role === 'qa') return 'Qa';
+    if (profile.role === 'guest') return 'Guest';
+  };
+  return isLoading ? (
+    <Fallback />
+  ) : (
     <article className={classes.container}>
       <header>
-        <Typography variant='h5' component='h1'>
+        <Typography variant="h5" component="h1">
           Profile
         </Typography>
       </header>
-      <form onSubmit={handleSubmit}>
-        <section className={classes.profileContent}>
-          <p className={classes.role}>Your current Role is:</p>
-          <Input
-            placeholder='Name'
-            className={classes.profileItem}
-            {...getFieldProps('firstName')}
-          />
-
-          <Input
-            placeholder='Second Name'
-            className={classes.profileItem}
-            {...getFieldProps('secondName')}
-          />
-          <MultiSelectInput
-            className={classes.profileItem}
-            options={[
-              { name: 'js' },
-              { name: 'css' },
-              { name: 'php' },
-              { name: 'c++' },
-              { name: 'Жыве Беларусь!' },
-              { name: 'БЧБ!' },
-              { name: 'Pascal' },
-              { name: 'Уверенный пользователь ПК' },
-            ]}
-            placeholder='Select your skills'
-          />
-        </section>
-        <Button fullWidth color='primary' type='submit'>
-          Save
-        </Button>
-      </form>
+      <section className={classes.profileContent}>
+        <p className={classes.role}>
+          Your current Role is:{' '}
+          <span className={classes.roleName}>{role()}</span>
+        </p>
+        <ProfileForm
+          allSkills={allSkills}
+          user={{
+            firstName: profile.firstName,
+            lastName: profile.lastName,
+            skills: profile.skills,
+          }}
+          handleSubmitting={(firstName, lastName, skills) =>
+            editProfileHandleSubmit(firstName, lastName, skills)
+          }
+        />
+      </section>
     </article>
   );
 };

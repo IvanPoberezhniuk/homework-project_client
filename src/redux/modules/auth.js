@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { authAPI } from '../../api';
+import { setProfile } from './profile';
 
 export const SIGNUP = 'auth/SIGNUP';
 export const SIGNIN = 'auth/SIGNIN';
@@ -34,9 +35,11 @@ export const signin = createAsyncThunk(
 
 export const authMe = createAsyncThunk(
   AUTHME,
-  async (credentials, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue, dispatch }) => {
     try {
-      return await authAPI.authMe(credentials.token);
+      const data = await authAPI.authMe(credentials.token);
+      dispatch(setProfile({ ...data.profile }));
+      return data;
     } catch (e) {
       return rejectWithValue(e.response.data);
     }
@@ -51,6 +54,7 @@ export const auth = createSlice({
     serverErrorMsg: '',
     isAuth: false,
     token: null,
+    isLoading: false,
     profile: null,
   },
   reducers: {
@@ -97,10 +101,7 @@ export const auth = createSlice({
       state.isAuth = false;
     },
     [authMe.fulfilled]: (state, action) => {
-      state.profile = action.payload.profile;
-      if (state.profile) {
-        state.isAuth = true;
-      }
+      state.isAuth = true;
     },
   },
 });
