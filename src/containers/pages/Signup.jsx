@@ -55,6 +55,7 @@ const Signup = () => {
   const isSuccessRegister = useSelector(
     (state) => state.auth.isSuccessRegister
   );
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
   const body = (
     <div className={classes.container}>
@@ -71,6 +72,7 @@ const Signup = () => {
           handleSubmitting={(firstName, lastName, email, password) => {
             dispatch(signup({ firstName, lastName, email, password }));
           }}
+          isLoading={isLoading}
         />
       </div>
       <div className={classes.footer}>

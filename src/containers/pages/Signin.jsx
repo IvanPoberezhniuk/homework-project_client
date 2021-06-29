@@ -61,6 +61,7 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const token = useSelector((state) => state.auth.token);
   const [rememberMe, setRememberMe] = useState(false);
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
   useEffect(() => {
     if (rememberMe) {
@@ -72,13 +73,13 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
 
   const body = (
     <div className={classes.container}>
-      <Typography variant='h1' component='h2' className={classes.title}>
+      <Typography variant="h1" component="h2" className={classes.title}>
         Sign In
       </Typography>
       <div className={classes.content}>
         {serverErrorMsg && (
           <div className={classes.alert}>
-            <Alert severity='error'>{serverErrorMsg}</Alert>
+            <Alert severity="error">{serverErrorMsg}</Alert>
           </div>
         )}
         <SigninForm
@@ -86,11 +87,12 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
             setRememberMe(rememberMe);
             await dispatch(signin({ email, password }));
           }}
+          isLoading={isLoading}
         />
       </div>
       <div className={classes.footer}>
         Don’t have an account yet?{' '}
-        <Link href='/signup' color='primary' underline='always'>
+        <Link href="/signup" color="primary" underline="always">
           Sign Up
         </Link>
       </div>
