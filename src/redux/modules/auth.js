@@ -56,11 +56,6 @@ export const auth = createSlice({
     token: null,
     isLoading: false,
     profile: null,
-    //  {
-    //   firstName: 'NotLogged',
-    //   lastName: 'NotLogged',
-    //   role: 'NotLogged',
-    // },
   },
   reducers: {
     setToken: (state, action) => {
@@ -68,6 +63,7 @@ export const auth = createSlice({
     },
   },
   extraReducers: {
+    // signUp
     [signup.rejected]: (state, action) => {
       if (!action.payload) {
         state.serverErrorMsg = "Server isn't available now, try later";
@@ -85,6 +81,7 @@ export const auth = createSlice({
         state.isSuccessRegister = false;
       }
     },
+    //  signIn
     [signin.rejected]: (state, action) => {
       if (!action.payload) {
         state.serverErrorMsg = "Server isn't available now, try later";
@@ -99,6 +96,7 @@ export const auth = createSlice({
         state.serverErrorMsg = 'Some server error';
       }
     },
+    // authMe
     [authMe.rejected]: (state, action) => {
       state.isAuth = false;
     },

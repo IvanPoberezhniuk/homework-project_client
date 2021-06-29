@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { WarningIcon } from '../../components/shared/icons';
+
 import {
   Dialog,
   DialogActions,
@@ -7,12 +9,10 @@ import {
   DialogContentText,
   DialogTitle,
   Slide,
-  SvgIcon,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button, ButtonLoader } from '..';
-import { ReactComponent as WarningIcon } from '../../assets/icons/warning.svg';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -84,9 +84,7 @@ const WarningModal = ({
         classes={{ paper: classes.paper, container: classes.container }}
       >
         <div className={classes.titleWrapper}>
-          <SvgIcon>
-            <WarningIcon />
-          </SvgIcon>
+          <WarningIcon />
           <DialogTitle
             id='alert-dialog-slide-title'
             classes={{ root: classes.title }}

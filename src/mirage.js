@@ -1,6 +1,5 @@
 import faker from 'faker';
 import {
-  belongsTo,
   createServer,
   Factory,
   hasMany,
@@ -25,9 +24,7 @@ export function makeServer({ environment = 'test' }) {
       }),
     },
     models: {
-      user: Model.extend({
-        project: belongsTo(),
-      }),
+      user: Model.extend({}),
       project: Model.extend({
         users: hasMany(),
       }),
@@ -35,7 +32,7 @@ export function makeServer({ environment = 'test' }) {
     factories: {
       project: Factory.extend({
         projectName(i) {
-          return faker.company.companyName();
+          return `Project ${i}`;
         },
         startDate(i) {
           const random = faker.datatype.boolean();
@@ -77,7 +74,7 @@ export function makeServer({ environment = 'test' }) {
           return email;
         },
         password(i) {
-          const password = !i ? 'Admin1234' : faker.internet.password();
+          const password = !i ? 'Admin1234' : faker.internet.email();
           return password;
         },
         skills(i) {
@@ -156,33 +153,20 @@ export function makeServer({ environment = 'test' }) {
 
     routes() {
       this.namespace = 'api';
-      this.timing = 300;
+      this.timing = 400;
       //  users
       this.get('/users', (schema) => {
         return schema.users.all();
       });
-      this.patch(
-        '/user',
-        (schema, { requestBody }) => {
-          const updatedUser = JSON.parse(requestBody);
-          const user = schema.users.find(updatedUser.id);
-          user.update('role', updatedUser.role);
-
-          return schema.users.all();
-        },
-        { timing: 4000 }
-      );
-      this.delete('/user/:id', (schema, { params }) => {
-        const user = schema.users.find(params.id);
-        user.destroy();
-
-        return schema.users.all();
-      });
       // projects
-      this.get('/project/:id', (schema, { params }) => {
-        const project = schema.projects.find(params.id);
-        return project;
-      });
+      this.get(
+        '/project/:id',
+        (schema, { params }) => {
+          const project = schema.projects.find(params.id);
+          return project;
+        },
+        { timing: 111 }
+      );
       //  project
       this.get('/projects', (schema) => {
         return schema.projects.all();
@@ -236,7 +220,6 @@ export function makeServer({ environment = 'test' }) {
 
         return schema.projects.all();
       });
-      // AUTH
       this.post('/signin', (schema, request) => {
         let attrs = JSON.parse(request.requestBody);
         let user = schema.users.findBy({
@@ -251,6 +234,10 @@ export function makeServer({ environment = 'test' }) {
             { status_code: 3, message: 'Password or login is incorrect' }
           );
         }
+
+        /* user.update({
+          token: generateToken(),
+        }) */
 
         return new Response(
           200,
@@ -314,6 +301,7 @@ export function makeServer({ environment = 'test' }) {
         );
       });
       this.get('/users');
+
       this.patch('/profile', (schema, request) => {
         let attrs = JSON.parse(request.requestBody);
         let user = schema.users.find(attrs.id);

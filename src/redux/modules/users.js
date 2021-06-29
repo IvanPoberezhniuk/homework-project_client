@@ -45,6 +45,7 @@ export const usersTableSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    // fetchUsers
     [fetchUsers.pending]: (state) => {
       state.isLoading = true;
     },
@@ -55,6 +56,7 @@ export const usersTableSlice = createSlice({
     [fetchUsers.rejected]: (state) => {
       state.isLoading = false;
     },
+    // editUser
     [editUser.pending]: (state) => {
       state.isLoading = true;
     },
@@ -65,6 +67,7 @@ export const usersTableSlice = createSlice({
     [editUser.rejected]: (state) => {
       state.isLoading = false;
     },
+    // deleteUser
     [deleteUser.pending]: (state) => {
       state.isLoading = true;
     },
