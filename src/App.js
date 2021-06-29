@@ -1,31 +1,27 @@
-import Router from './router/Router';
-import '@fontsource/roboto';
+import React, { useEffect } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
 
-import Header from './components/shared/header/Header';
-import Sidebar from './components/shared/sidebar/Sidebar';
+import { makeServer } from './mirage';
+import { authMe, setToken } from './redux/modules/auth';
 import { routes } from './router/config';
+import Router from './router/Router';
 
-const useStyles = makeStyles((theme) => ({
-  main: {
-    padding: '48px 48px 48px 147px',
-  },
-}));
+makeServer({ environment: 'development' });
 
 const App = () => {
-  const classes = useStyles();
-  return (
-    <div>
-      <Header />
-      <aside>
-        <Sidebar />
-      </aside>
-      <main className={classes.main}>
-        <Router routes={routes} />
-      </main>
-    </div>
-  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      dispatch(authMe({ token: token }));
+      dispatch(setToken({ token: token }));
+    }
+  }, [dispatch]);
+
+  return <Router routes={routes} />;
 };
 
 export default App;

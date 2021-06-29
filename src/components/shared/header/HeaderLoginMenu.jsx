@@ -1,12 +1,8 @@
-import React from 'react';
-
+import { useHistory } from 'react-router-dom';
+import { Grid, IconButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
 
-import Menu from '../../menu/Menu';
-import { Button } from '../../button/Button';
+import { Button, Menu, Avatar } from '../..';
 import ArrowDown from '../../../assets/icons/arrow-down.svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,8 +28,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderLoginMenu = ({ handleMenu, handleClose, open, anchorEl, name }) => {
+const HeaderLoginMenu = ({
+  handleMenu,
+  handleClose,
+  open,
+  anchorEl,
+  name,
+  iconLabel,
+  role,
+  signOutHandler,
+}) => {
   const classes = useStyles();
+
+  const history = useHistory();
 
   return (
     <div>
@@ -44,7 +51,7 @@ const HeaderLoginMenu = ({ handleMenu, handleClose, open, anchorEl, name }) => {
         onClick={handleMenu}
         color='inherit'
       >
-        <div className={classes.avatar}>IP</div>
+        <Avatar>{iconLabel}</Avatar>
         <img src={ArrowDown} className={classes.arrowDown} alt='drop down' />
       </IconButton>
       <Menu
@@ -57,7 +64,6 @@ const HeaderLoginMenu = ({ handleMenu, handleClose, open, anchorEl, name }) => {
         getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-        className={classes.menu}
       >
         <Grid
           container
@@ -66,7 +72,7 @@ const HeaderLoginMenu = ({ handleMenu, handleClose, open, anchorEl, name }) => {
           alignItems='center'
           className={classes.container}
         >
-          <Grid container xs={12}>
+          <Grid container>
             <Grid item>
               <Typography variant='h6' noWrap>
                 Hello, {name}
@@ -75,13 +81,21 @@ const HeaderLoginMenu = ({ handleMenu, handleClose, open, anchorEl, name }) => {
           </Grid>
           <Grid container direction='column' spacing={1}>
             <Grid item>
-              <Button color='primary' fullWidth>
-                Edit Profile
-              </Button>
+              {role !== 'admin' && (
+                <Button
+                  color='primary'
+                  fullWidth
+                  onClick={() => {
+                    history.push('/profile');
+                  }}
+                >
+                  Edit Profile
+                </Button>
+              )}
             </Grid>
             <Grid item>
-              <Button color='primary' fullWidth>
-                Sign In
+              <Button color='primary' fullWidth onClick={signOutHandler}>
+                Sign Out
               </Button>
             </Grid>
           </Grid>

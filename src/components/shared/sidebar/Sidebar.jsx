@@ -1,78 +1,22 @@
-import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-import clsx from 'clsx';
+import { Avatar, List, ListItem, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
 
 import Projects from '../../../assets/icons/projects.svg';
-import Users from '../../../assets/icons/users.svg';
 import User from '../../../assets/icons/user.svg';
-
-const drawerWidth = 240;
+import Users from '../../../assets/icons/users.svg';
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+  root: {
+    maxWidth: '105px',
+    position: 'fixed',
+    margin: '80px 0 0 0',
   },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: '100px',
-    zIndex: '-1',
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    // position: 'relative',
-  },
-  drawerOpen: {
-    width: '100px',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerClose: {
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    [theme.breakpoints.up('sm')]: {},
-  },
-  toolbar: {
-    height: '96px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  paperAnchorDockedLeft: {
-    zIndex: -1,
-    width: '100px',
+  aside: {
+    minWidth: '100px',
+    background: '#F8F8F8',
+    position: 'relative',
   },
   button: {
     margin: '8px 0',
@@ -83,9 +27,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    '&$selected': {
-      backgroundColor: theme.palette.primary.light,
-    },
+    background: '#EEEEEE',
   },
   selected: {
     backgroundColor: theme.palette.primary.light,
@@ -93,43 +35,98 @@ const useStyles = makeStyles((theme) => ({
   listItemText: {
     flex: 0,
   },
+  active: {
+    backgroundColor: theme.palette.primary.light,
+  },
 }));
 
-const SideBar = () => {
+const SideBar = ({ role }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+
+  const AdminMenu = (
+    <>
+      <ListItem
+        className={classes.button}
+        button
+        key={Projects}
+        component={NavLink}
+        to='/projects'
+        exact
+        activeClassName={classes.selected}
+      >
+        <Avatar variant='square' src={Projects} />
+        <ListItemText className={classes.listItemText} primary='Projects' />
+      </ListItem>
+      <ListItem
+        classes={{ root: classes.button }}
+        button
+        key={Users}
+        component={NavLink}
+        activeClassName={classes.selected}
+        to='/users'
+        exact
+      >
+        <Avatar variant='square' src={Users} />
+        <ListItemText className={classes.listItemText} primary='Users' />
+      </ListItem>
+    </>
+  );
+
+  const ManagerDeveloperQaMenu = (
+    <>
+      <ListItem
+        className={classes.button}
+        button
+        key={Projects}
+        component={NavLink}
+        to='/projects'
+        exact
+        activeClassName={classes.selected}
+      >
+        <Avatar variant='square' src={Projects} />
+        <ListItemText className={classes.listItemText} primary='Projects' />
+      </ListItem>
+      <ListItem
+        classes={{ root: classes.button }}
+        button
+        key={User}
+        component={NavLink}
+        activeClassName={classes.selected}
+        to='/profile'
+        exact
+      >
+        <Avatar variant='square' src={User} />
+        <ListItemText className={classes.listItemText} primary='Profile' />
+      </ListItem>
+    </>
+  );
+
+  const GuestMenu = (
+    <>
+      <ListItem
+        classes={{ root: classes.button }}
+        button
+        key={User}
+        component={NavLink}
+        activeClassName={classes.selected}
+        to='/profile'
+        exact
+      >
+        <Avatar variant='square' src={User} />
+        <ListItemText className={classes.listItemText} primary='Profile' />
+      </ListItem>
+    </>
+  );
 
   return (
-    <Drawer
-      variant='permanent'
-      classes={{
-        paper: clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        }),
-      }}
-    >
-      <div className={classes.toolbar}></div>
-      <List>
-        <ListItem
-          classes={{ root: classes.button, selected: classes.selected }}
-          button
-          key={Users}
-          selected
-        >
-          <Avatar variant='square' src={Users}></Avatar>
-          <ListItemText className={classes.listItemText} primary='Users' />
-        </ListItem>
-        <ListItem className={classes.button} button key={Projects}>
-          <Avatar variant='square' src={Projects}></Avatar>
-          <ListItemText className={classes.listItemText} primary='Projects' />
-        </ListItem>
-        <ListItem className={classes.button} button key={User}>
-          <Avatar variant='square' src={User}></Avatar>
-          <ListItemText className={classes.listItemText} primary='Profile' />
-        </ListItem>
+    <aside className={classes.aside}>
+      <List classes={{ root: classes.root }}>
+        {role === 'admin' && AdminMenu}
+        {role === 'guest' && GuestMenu}
+        {(role === 'manager' || role === 'developer' || role === 'qa') &&
+          ManagerDeveloperQaMenu}
       </List>
-    </Drawer>
+    </aside>
   );
 };
 

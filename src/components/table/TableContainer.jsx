@@ -1,6 +1,5 @@
-import React from 'react';
-import MUITableContainer from '@material-ui/core/TableContainer';
 import { makeStyles } from '@material-ui/core/styles';
+import MUITableContainer from '@material-ui/core/TableContainer';
 
 const useStyles = makeStyles({
   root: {

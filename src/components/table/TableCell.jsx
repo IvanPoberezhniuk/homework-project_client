@@ -1,6 +1,5 @@
-import React from 'react';
-import MUITableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
+import MUITableCell from '@material-ui/core/TableCell';
 
 const useStyles = makeStyles({
   root: {
@@ -11,7 +10,7 @@ const useStyles = makeStyles({
 const TableCell = ({ children, ...other }) => {
   const classes = useStyles();
   return (
-    <MUITableCell className={classes.root} {...other}>
+    <MUITableCell classes={{ root: classes.root }} {...other}>
       {children}
     </MUITableCell>
   );

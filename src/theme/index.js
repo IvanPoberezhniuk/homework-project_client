@@ -11,6 +11,7 @@ const theme = {
       contrastText: '#ffffff',
     },
     secondary: {
+      darker: '#e0e0e0',
       main: '#F4F4F4',
       contrastText: '#ffffff',
     },
@@ -24,6 +25,23 @@ const theme = {
   typography: {
     fontSize: 18,
     fontFamily: ['Roboto', 'serif'].join(','),
+  },
+  overrides: {
+    MuiInput: {
+      root: {
+        fontWeight: 400,
+        background: '#F4F4F4',
+        border: '1px solid #CCCCCC',
+        borderRadius: 0,
+      },
+    },
+    MuiOutlinedInput: {
+      root: {
+        background: '#F4F4F4',
+        borderRadius: 0,
+        padding: '4px 12px',
+      },
+    },
   },
 };
 

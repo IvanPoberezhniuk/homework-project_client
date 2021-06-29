@@ -1,21 +1,22 @@
 import React from 'react';
 
+import { Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
 
-import HeaderLoginMenu from './HeaderLoginMenu';
-import { Button } from '../../button/Button';
 import AppBar from '../../appBar/AppBar';
+import HeaderLoginMenu from './HeaderLoginMenu';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    zIndex: 111111,
+  },
   toolbar: {
     justifyContent: 'flex-end',
     height: '80px',
   },
 }));
 
-const Header = ({ isAuth }) => {
-  const name = 'TestUser';
+const Header = ({ user, signOutHandler }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -29,19 +30,18 @@ const Header = ({ isAuth }) => {
   };
 
   return (
-    <AppBar position='static' color='default'>
+    <AppBar position='fixed' color='default' className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        {isAuth ? (
-          <HeaderLoginMenu
-            handleMenu={handleMenu}
-            handleClose={handleClose}
-            name={name}
-            open={open}
-            anchorEl={anchorEl}
-          />
-        ) : (
-          <Button color='primary'>LogIn</Button>
-        )}
+        <HeaderLoginMenu
+          handleMenu={handleMenu}
+          handleClose={handleClose}
+          name={`${user?.firstName} ${user?.lastName}`}
+          iconLabel={`${user?.firstName[0]}${user?.lastName[0]}`.toUpperCase()}
+          role={user?.role}
+          open={open}
+          anchorEl={anchorEl}
+          signOutHandler={signOutHandler}
+        />
       </Toolbar>
     </AppBar>
   );

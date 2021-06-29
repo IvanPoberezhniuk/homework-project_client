@@ -1,6 +1,7 @@
+import clsx from 'clsx';
+
 import MUICheckbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,14 +40,19 @@ const useStyles = makeStyles((theme) => ({
 
 const Checkbox = ({ children, ...other }) => {
   const classes = useStyles();
+
   return (
-    <MUICheckbox
-      checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-      icon={<span className={classes.icon} />}
-      {...other}
-    >
-      {children}
-    </MUICheckbox>
+    <>
+      <MUICheckbox
+        checkedIcon={
+          <span className={clsx(classes.icon, classes.checkedIcon)} />
+        }
+        icon={<span className={classes.icon} />}
+        {...other}
+      >
+        {children}
+      </MUICheckbox>
+    </>
   );
 };
 

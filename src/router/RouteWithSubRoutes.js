@@ -1,32 +1,35 @@
 import React, { Suspense } from 'react';
+
+import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
-const RouteWithSubRoutes = (route) => {
-  // LOGGED IN MOCK
-  const authenticated = true;
-  // LOGGED IN MOCK
+import DashboardContainer from '../containers/pages/DashboardContainer';
+
+const RouteWithSubRoutes = ({ ...route }) => {
+  const authenticated = useSelector((state) => state.auth.isAuth);
+
   return (
     <Suspense fallback={route.fallback}>
-      <Route
-        path={route.path}
-        render={(props) =>
-          route.redirect ? (
-            <Redirect to={route.redirect} />
-          ) : route.private ? (
-            authenticated ? (
-              route.component && (
-                <route.component {...props} routes={route.routes} />
-              )
-            ) : (
-              <Redirect to='/home/login' />
-            )
-          ) : (
-            route.component && (
-              <route.component {...props} routes={route.routes} />
-            )
+      {route.redirect ? (
+        <Route path={route.path} {...route}>
+          <Redirect to={route.redirect} />
+        </Route>
+      ) : route.private ? (
+        authenticated ? (
+          route.component &&
+          !route?.partition && (
+            <Route path={route.path} {...route}>
+              <DashboardContainer route={route} />
+            </Route>
           )
-        }
-      />
+        ) : (
+          <Route key={route.key}>
+            <Redirect to={'/signin'} />
+          </Route>
+        )
+      ) : (
+        route.component && <Route {...route} />
+      )}
     </Suspense>
   );
 };

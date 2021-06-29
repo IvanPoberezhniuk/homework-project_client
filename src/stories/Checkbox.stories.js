@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Checkbox from '../components/checkbox/Checkbox';
+import { Checkbox } from '../components';
 
 export default {
   title: 'Main/Checkbox',
@@ -10,11 +10,9 @@ export default {
 const Template = (args) => <Checkbox {...args} />;
 
 export const Unchecked = Template.bind({});
-Unchecked.args = {
-
-};
+Unchecked.args = {};
 
 export const Checked = Template.bind({});
 Checked.args = {
-    checked: true
+  checked: true,
 };

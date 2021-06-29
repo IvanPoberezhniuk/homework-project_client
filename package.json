@@ -5,16 +5,29 @@
   "dependencies": {
     "@fontsource/roboto": "^4.4.5",
     "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
+    "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "faker": "^5.5.3",
+    "formik": "^2.2.9",
+    "js-cookie": "^2.2.1",
+    "loaders.css": "^0.1.2",
     "node-sass": "^6.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-loaders": "^3.0.1",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "storybook-mirage": "0.0.3",
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -60,7 +73,10 @@
     "@storybook/node-logger": "^6.2.9",
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9",
+    "babel-plugin-root-import": "^6.6.0",
     "miragejs": "^0.1.41",
-    "storybook-addon-material-ui": "^0.9.0-alpha.24"
+    "redux-devtools": "^3.7.0",
+    "storybook-addon-material-ui": "^0.9.0-alpha.24",
+    "storybook-formik": "^2.1.6"
   }
 }
