@@ -94,7 +94,7 @@ export function makeServer({ environment = 'test' }) {
           return faker.datatype.boolean();
         },
         token() {
-          return 'adminToken';
+          return 'token';
         },
       }),
     },
@@ -256,7 +256,7 @@ export function makeServer({ environment = 'test' }) {
             { status_code: 2, message: 'User with this email already exist' }
           );
         } else {
-          schema.users.create(attrs);
+          schema.users.create({...attrs, role: 'guest'});
           return new Response(
             201,
             {},

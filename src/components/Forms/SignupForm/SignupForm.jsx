@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Button, Input } from '../..';
+import { Button, Input, ButtonLoader } from '../..';
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SignupForm = ({ handleSubmitting }) => {
+const SignupForm = ({ handleSubmitting, isLoading }) => {
   const classes = useStyles();
 
   const { errors, touched, handleSubmit, getFieldProps } = useFormik({
@@ -66,16 +66,16 @@ const SignupForm = ({ handleSubmitting }) => {
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Input
-        type='text'
-        placeholder='First Name'
+        type="text"
+        placeholder="First Name"
         className={clsx(classes.inputWrapper)}
         error={errors.firstName && touched.firstName}
         helperText={touched.firstName && errors.firstName}
         {...getFieldProps('firstName')}
       />
       <Input
-        type='text'
-        placeholder='Last Name'
+        type="text"
+        placeholder="Last Name"
         className={clsx(
           classes.inputWrapper,
           touched.lastName && errors.lastName && classes.inputWrapperWithError
@@ -85,8 +85,8 @@ const SignupForm = ({ handleSubmitting }) => {
         {...getFieldProps('lastName')}
       />
       <Input
-        type='email'
-        placeholder='Email'
+        type="email"
+        placeholder="Email"
         className={clsx(
           classes.inputWrapper,
           touched.email && errors.email && classes.inputWrapperWithError
@@ -96,8 +96,8 @@ const SignupForm = ({ handleSubmitting }) => {
         {...getFieldProps('email')}
       />
       <Input
-        type='password'
-        placeholder='Password'
+        type="password"
+        placeholder="Password"
         className={clsx(
           classes.inputWrapper,
           touched.password && errors.password && classes.inputWrapperWithError
@@ -107,8 +107,8 @@ const SignupForm = ({ handleSubmitting }) => {
         {...getFieldProps('password')}
       />
       <Input
-        type='password'
-        placeholder='Confirm Password'
+        type="password"
+        placeholder="Confirm Password"
         className={clsx(
           classes.inputWrapper,
           touched.password && errors.password && classes.inputWrapperWithError
@@ -117,8 +117,14 @@ const SignupForm = ({ handleSubmitting }) => {
         helperText={touched.confirmPassword && errors.confirmPassword}
         {...getFieldProps('confirmPassword')}
       />
-      <Button type='submit' color='primary' classes={{ root: classes.btn }}>
+      <Button
+        type="submit"
+        color="primary"
+        classes={{ root: classes.btn }}
+        disabled={isLoading}
+      >
         Sign Up
+        {isLoading && <ButtonLoader />}
       </Button>
     </form>
   );

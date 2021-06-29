@@ -8,6 +8,25 @@ import DashboardContainer from '../containers/pages/DashboardContainer';
 const RouteWithSubRoutes = ({ ...route }) => {
   const authenticated = useSelector((state) => state.auth.isAuth);
 
+  /* return (
+    <Suspense fallback={route.fallback}>
+      {route.redirect ? (
+        <Route path={route.path} {...route}>
+          <Redirect to={route.redirect} />
+        </Route>
+      ) : route.private ? (
+        route.component &&
+        !route?.partition && (
+          <Route path={route.path} {...route}>
+            <DashboardContainer route={route} />
+          </Route>
+        )
+      ) : (
+        route.component && <Route {...route} />
+      )}
+    </Suspense>
+  ); */
+
   return (
     <Suspense fallback={route.fallback}>
       {route.redirect ? (
