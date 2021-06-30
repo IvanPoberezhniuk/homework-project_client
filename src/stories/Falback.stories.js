@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Fallback } from '../components';
+import { Fallback } from 'components';
 
 export default {
   title: 'Main/Fallback',

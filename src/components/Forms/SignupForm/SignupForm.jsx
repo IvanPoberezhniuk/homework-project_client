@@ -1,10 +1,9 @@
 import clsx from 'clsx';
+import { Button, ButtonLoader, Input } from 'components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Button, Input, ButtonLoader } from '../..';
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -66,16 +65,16 @@ const SignupForm = ({ handleSubmitting, isLoading }) => {
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Input
-        type="text"
-        placeholder="First Name"
+        type='text'
+        placeholder='First Name'
         className={clsx(classes.inputWrapper)}
         error={errors.firstName && touched.firstName}
         helperText={touched.firstName && errors.firstName}
         {...getFieldProps('firstName')}
       />
       <Input
-        type="text"
-        placeholder="Last Name"
+        type='text'
+        placeholder='Last Name'
         className={clsx(
           classes.inputWrapper,
           touched.lastName && errors.lastName && classes.inputWrapperWithError
@@ -85,8 +84,8 @@ const SignupForm = ({ handleSubmitting, isLoading }) => {
         {...getFieldProps('lastName')}
       />
       <Input
-        type="email"
-        placeholder="Email"
+        type='email'
+        placeholder='Email'
         className={clsx(
           classes.inputWrapper,
           touched.email && errors.email && classes.inputWrapperWithError
@@ -96,8 +95,8 @@ const SignupForm = ({ handleSubmitting, isLoading }) => {
         {...getFieldProps('email')}
       />
       <Input
-        type="password"
-        placeholder="Password"
+        type='password'
+        placeholder='Password'
         className={clsx(
           classes.inputWrapper,
           touched.password && errors.password && classes.inputWrapperWithError
@@ -107,8 +106,8 @@ const SignupForm = ({ handleSubmitting, isLoading }) => {
         {...getFieldProps('password')}
       />
       <Input
-        type="password"
-        placeholder="Confirm Password"
+        type='password'
+        placeholder='Confirm Password'
         className={clsx(
           classes.inputWrapper,
           touched.password && errors.password && classes.inputWrapperWithError
@@ -118,8 +117,8 @@ const SignupForm = ({ handleSubmitting, isLoading }) => {
         {...getFieldProps('confirmPassword')}
       />
       <Button
-        type="submit"
-        color="primary"
+        type='submit'
+        color='primary'
         classes={{ root: classes.btn }}
         disabled={isLoading}
       >

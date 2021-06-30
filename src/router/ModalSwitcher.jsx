@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
-
 import {
   CreateProjectModal,
   EditProjectModal,
@@ -10,7 +7,9 @@ import {
   ProjectsModal,
   TeamModal,
   WarningModal,
-} from '../components';
+} from 'components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import {
   addProject,
   deleteProject,
@@ -18,8 +17,8 @@ import {
   eraseCurrentProject,
   finishProject,
   startProject,
-} from '../redux/modules/projects';
-import { deleteUser, editUser } from '../redux/modules/users';
+} from 'redux/modules/projects';
+import { deleteUser, editUser } from 'redux/modules/users';
 
 export const MODAL_PROJECT = {
   EDIT: 'editproject',

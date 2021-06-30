@@ -1,11 +1,13 @@
+import { profileAPI } from 'api';
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { profileAPI } from '../../api';
-
+// Actions types
 export const GET_PROFILE = 'profile/GET_PROFILE';
 const EDIT_PROFILE = 'profile/UPDATE_PROFILE';
 const GET_AVAILABLE_SKILLS = 'profile/GET_AVAILABLE_SKILLS';
 
+// Actions
 export const editProfile = createAsyncThunk(
   EDIT_PROFILE,
   async (credentials, { rejectWithValue }) => {

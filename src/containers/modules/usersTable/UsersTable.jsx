@@ -1,6 +1,10 @@
 import React from 'react';
 
+import { TableCell, TableContainer } from 'components';
+import { EditIcon, MoreIcon, TrashIcon } from 'components/shared/icons';
+import { getComparator, stableSort } from 'helpers/table';
 import { useHistory, useLocation } from 'react-router-dom';
+import { MODAL_USER } from 'router/ModalSwitcher';
 
 import {
   LinearProgress,
@@ -11,14 +15,6 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { TableCell, TableContainer } from '../../../components';
-import {
-  EditIcon,
-  MoreIcon,
-  TrashIcon,
-} from '../../../components/shared/icons';
-import { getComparator, stableSort } from '../../../helpers/table';
-import { MODAL_USER } from '../../../router/ModalSwitcher';
 import EnhancedTableHead from '../table/EnchanedTableHead';
 
 const headCells = [

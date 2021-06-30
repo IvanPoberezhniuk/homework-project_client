@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 
-import { Fallback } from '../components';
+import { Fallback } from 'components';
+
 import ModalSwitcher from './ModalSwitcher';
 
 const routes = [

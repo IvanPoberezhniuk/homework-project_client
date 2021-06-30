@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MultiSelectInput } from '../components';
+import { MultiSelectInput } from 'components';
 
 export default {
   title: 'Main/MultiSelectInput',

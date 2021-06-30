@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { usersAPI } from 'api';
 
-import { usersAPI } from '../../api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const FETCH_USERS = 'usersTable/FETCH_USERS';
 const EDIT_USER = 'usersTable/EDIT_USER';
