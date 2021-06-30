@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { WarningIcon } from '../../components/shared/icons';
+import { Button, ButtonLoader } from 'components';
+import { WarningIcon } from 'components/shared/icons';
 
 import {
   Dialog,
@@ -11,8 +12,6 @@ import {
   Slide,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Button, ButtonLoader } from '..';
 
 const useStyles = makeStyles(() => ({
   paper: {

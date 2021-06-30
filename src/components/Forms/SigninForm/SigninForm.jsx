@@ -1,11 +1,10 @@
 import clsx from 'clsx';
+import { Button, ButtonLoader, Checkbox, Input } from 'components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Button, Checkbox, Input, ButtonLoader } from '../..';
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -15,18 +14,14 @@ const useStyles = makeStyles(() => ({
     display: 'block',
     width: '100%',
     textAlign: 'right',
-    margin: '16px 0 0 0',
+    margin: '16px 0 40px 0',
     lineHeight: '16px',
   },
   checkboxLabel: {
     fontSize: '16px',
     color: '#777777',
   },
-  btn: {
-    width: '322px',
-    height: '37px',
-    marginTop: '40px',
-  },
+
   inputWrapper: {
     marginTop: '16px',
   },
@@ -59,16 +54,16 @@ const SigninForm = ({ handleSubmitting, isLoading }) => {
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Input
-        type="email"
-        placeholder="Email"
+        type='email'
+        placeholder='Email'
         className={clsx(classes.inputWrapper)}
         error={errors.email && touched.email}
         helperText={touched.email && errors.email}
         {...getFieldProps('email')}
       />
       <Input
-        type="password"
-        placeholder="Password"
+        type='password'
+        placeholder='Password'
         className={clsx(
           classes.inputWrapper,
           touched.password && errors.password && classes.inputWrapperWithError
@@ -79,15 +74,10 @@ const SigninForm = ({ handleSubmitting, isLoading }) => {
       />
       <FormControlLabel
         control={<Checkbox {...getFieldProps('rememberMe')} />}
-        label="Remember me?"
+        label='Remember me?'
         classes={{ root: classes.checkbox, label: classes.checkboxLabel }}
       />
-      <Button
-        type="submit"
-        color="primary"
-        classes={{ root: classes.btn }}
-        disabled={isLoading}
-      >
+      <Button type='submit' color='primary' disabled={isLoading} fullWidth>
         Sign In
         {isLoading && <ButtonLoader />}
       </Button>

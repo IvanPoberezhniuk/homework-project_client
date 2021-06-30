@@ -1,9 +1,9 @@
 import React from 'react';
 
+import { Avatar } from 'components';
+
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Avatar } from '..';
 
 const useStyles = makeStyles((theme) => ({
   item: {

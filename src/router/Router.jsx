@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Switch, useLocation } from 'react-router-dom';
 
 import { modalRoutes, routes } from './config';

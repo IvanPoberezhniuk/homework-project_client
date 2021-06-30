@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Sidebar from '../components/shared/sidebar/Sidebar';
+import Sidebar from 'components/shared/sidebar/Sidebar';
 
 export default {
   title: 'Main/Sidebar',

@@ -1,5 +1,7 @@
-import Loader from 'react-loaders';
 import './Fallback.scss';
+
+import Loader from 'react-loaders';
+
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(() => ({

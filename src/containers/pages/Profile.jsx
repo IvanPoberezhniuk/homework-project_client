@@ -1,16 +1,12 @@
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { useEffect } from 'react';
+
+import { Fallback, ProfileForm } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { editProfile, getAvailableSkills } from 'redux/modules/profile';
 
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-
-import { Fallback, ProfileForm } from '../../components';
-import { useSelector, useDispatch } from 'react-redux';
-import { editProfile, getAvailableSkills } from '../../redux/modules/profile';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useState } from 'react';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -40,10 +36,13 @@ const Profile = () => {
   const profile = useSelector((state) => state.profile.profile);
   const allSkills = useSelector((state) => state.profile.availableSkills);
   const isLoading = useSelector((state) => state.profile.isLoading);
-  
-  useEffect(async () => {
-    await dispatch(getAvailableSkills());
-  }, []);
+
+  useEffect(
+    () => async () => {
+      await dispatch(getAvailableSkills());
+    },
+    [dispatch]
+  );
 
   const editProfileHandleSubmit = async (firstName, lastName, skills) => {
     await dispatch(
@@ -63,7 +62,7 @@ const Profile = () => {
   ) : (
     <article className={classes.container}>
       <header>
-        <Typography variant="h5" component="h1">
+        <Typography variant='h5' component='h1'>
           Profile
         </Typography>
       </header>

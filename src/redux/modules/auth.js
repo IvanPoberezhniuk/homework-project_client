@@ -3,10 +3,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { authAPI } from '../../api';
 import { setProfile } from './profile';
 
+// Actions types
 export const SIGNUP = 'auth/SIGNUP';
 export const SIGNIN = 'auth/SIGNIN';
 export const AUTHME = 'auth/AUTHME';
 
+// Actions
 export const signup = createAsyncThunk(
   SIGNUP,
   async (credentials, { rejectWithValue }) => {

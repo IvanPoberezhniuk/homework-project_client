@@ -1,6 +1,6 @@
 import { SvgIcon } from '@material-ui/core';
 
-import { ReactComponent as Icon } from '../../../assets/icons/warning.svg';
+import { ReactComponent as Icon } from 'assets/icons/warning.svg';
 
 const WarningIcon = ({ ...other }) => {
   return (

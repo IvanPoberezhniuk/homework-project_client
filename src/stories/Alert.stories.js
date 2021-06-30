@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Alert } from '../components';
+import { Alert } from 'components';
 
 export default {
   title: 'Main/Alert',

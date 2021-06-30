@@ -1,11 +1,10 @@
+import Projects from 'assets/icons/projects.svg';
+import User from 'assets/icons/user.svg';
+import Users from 'assets/icons/users.svg';
 import { NavLink } from 'react-router-dom';
 
 import { Avatar, List, ListItem, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import Projects from '../../../assets/icons/projects.svg';
-import User from '../../../assets/icons/user.svg';
-import Users from '../../../assets/icons/users.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {

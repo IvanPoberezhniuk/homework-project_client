@@ -1,14 +1,13 @@
 import { forwardRef, useEffect } from 'react';
 
+import { ProjectForm, ProjectTitle } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchProject } from 'redux/modules/projects';
+import { fetchUsers } from 'redux/modules/users';
 
 import { Dialog, DialogContent, DialogTitle, Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
-
-import { ProjectForm, ProjectTitle } from '..';
-import { fetchProject } from '../../redux/modules/projects';
-import { fetchUsers } from '../../redux/modules/users';
 
 const useStyles = makeStyles(() => ({
   paper: {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TeamModal } from '../components';
+import { TeamModal } from 'components';
 
 export default {
   title: 'Main/Modals/Team',

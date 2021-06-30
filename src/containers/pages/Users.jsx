@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUsers } from 'redux/modules/users';
+
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import UsersTable from '../modules/usersTable/UsersTable';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsers } from '../../redux/modules/users';
 
 const useStyles = makeStyles((theme) => ({
   root: {

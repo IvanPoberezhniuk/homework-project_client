@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 
+import { Button } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import { fetchProjects } from 'redux/modules/projects';
+import { MODAL_PROJECT } from 'router/ModalSwitcher';
 
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Button } from '../../components';
-import { fetchProjects } from '../../redux/modules/projects';
-import { MODAL_PROJECT } from '../../router/ModalSwitcher';
 import ProjectsTable from '../modules/projectsTable/ProjectsTable';
 
 const useStyles = makeStyles((theme) => ({

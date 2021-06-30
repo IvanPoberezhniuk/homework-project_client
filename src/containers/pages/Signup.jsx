@@ -1,11 +1,10 @@
+import { Alert, SignupForm } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { signup } from 'redux/modules/auth';
 
 import { Link, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Alert, SignupForm } from '../../components';
-import { signup } from '../../redux/modules/auth';
 
 const useStyles = makeStyles(() => ({
   wrapper: {
