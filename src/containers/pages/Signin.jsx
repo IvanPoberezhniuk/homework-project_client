@@ -49,8 +49,11 @@ const useStyles = makeStyles(() => ({
     fontSize: '12px',
     alignSelf: 'flex-start',
   },
-  alert: {
+  alertWrapper: {
     margin: '16px 0 8px 0',
+  },
+  alert: {
+    fontSize: '14px',
   },
 }));
 
@@ -77,8 +80,8 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
       </Typography>
       <div className={classes.content}>
         {serverErrorMsg && (
-          <div className={classes.alert}>
-            <Alert severity='error'>{serverErrorMsg}</Alert>
+          <div className={classes.alertWrapper}>
+            <Alert severity='error' classes={{root: classes.alert}}>{serverErrorMsg}</Alert>
           </div>
         )}
         <SigninForm

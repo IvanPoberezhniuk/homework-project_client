@@ -43,8 +43,11 @@ const useStyles = makeStyles(() => ({
     fontSize: '12px',
     alignSelf: 'flex-start',
   },
-  alert: {
+  alertWrapper: {
     margin: '16px 0 8px 0',
+  },
+  alert: {
+    fontSize: '14px',
   },
 }));
 
@@ -58,13 +61,15 @@ const Signup = () => {
 
   const body = (
     <div className={classes.container}>
-      <Typography variant='h1' component='h2' className={classes.title}>
+      <Typography variant="h1" component="h2" className={classes.title}>
         Sign Up
       </Typography>
       <div className={classes.content}>
         {serverErrorMsg && (
-          <div className={classes.alert}>
-            <Alert severity='error'>{serverErrorMsg}</Alert>
+          <div className={classes.alertWrapper}>
+            <Alert severity="error" classes={{ root: classes.alert }}>
+              {serverErrorMsg}
+            </Alert>
           </div>
         )}
         <SignupForm
@@ -75,7 +80,7 @@ const Signup = () => {
       </div>
       <div className={classes.footer}>
         Already have an account?{' '}
-        <Link href='/signin' color='primary' underline='always'>
+        <Link href="/signin" color="primary" underline="always">
           Sign In
         </Link>
       </div>
