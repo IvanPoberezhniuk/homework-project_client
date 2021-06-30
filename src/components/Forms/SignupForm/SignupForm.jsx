@@ -9,13 +9,12 @@ const useStyles = makeStyles(() => ({
   form: {
     maxWidth: '322px',
   },
-  btn: {
-    width: '322px',
-    height: '37px',
-    marginTop: '40px',
-  },
+
   inputWrapper: {
     marginTop: '16px',
+  },
+  lastInputWrapper: {
+    marginBottom: '40px',
   },
 }));
 
@@ -109,6 +108,7 @@ const SignupForm = ({ handleSubmitting, isLoading }) => {
         type='password'
         placeholder='Confirm Password'
         className={clsx(
+          classes.lastInputWrapper,
           classes.inputWrapper,
           touched.password && errors.password && classes.inputWrapperWithError
         )}
@@ -116,12 +116,7 @@ const SignupForm = ({ handleSubmitting, isLoading }) => {
         helperText={touched.confirmPassword && errors.confirmPassword}
         {...getFieldProps('confirmPassword')}
       />
-      <Button
-        type='submit'
-        color='primary'
-        classes={{ root: classes.btn }}
-        disabled={isLoading}
-      >
+      <Button type='submit' color='primary' disabled={isLoading} fullWidth>
         Sign Up
         {isLoading && <ButtonLoader />}
       </Button>

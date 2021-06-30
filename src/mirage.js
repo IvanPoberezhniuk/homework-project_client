@@ -152,7 +152,7 @@ export function makeServer({ environment = 'test' }) {
 
     routes() {
       this.namespace = 'api';
-      this.timing = 400;
+      this.timing = 1000;
       //  users
       this.get('/users', (schema) => {
         return schema.users.all();

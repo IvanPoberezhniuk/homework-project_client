@@ -14,18 +14,14 @@ const useStyles = makeStyles(() => ({
     display: 'block',
     width: '100%',
     textAlign: 'right',
-    margin: '16px 0 0 0',
+    margin: '16px 0 40px 0',
     lineHeight: '16px',
   },
   checkboxLabel: {
     fontSize: '16px',
     color: '#777777',
   },
-  btn: {
-    width: '322px',
-    height: '37px',
-    marginTop: '40px',
-  },
+
   inputWrapper: {
     marginTop: '16px',
   },
@@ -81,12 +77,7 @@ const SigninForm = ({ handleSubmitting, isLoading }) => {
         label='Remember me?'
         classes={{ root: classes.checkbox, label: classes.checkboxLabel }}
       />
-      <Button
-        type='submit'
-        color='primary'
-        classes={{ root: classes.btn }}
-        disabled={isLoading}
-      >
+      <Button type='submit' color='primary' disabled={isLoading} fullWidth>
         Sign In
         {isLoading && <ButtonLoader />}
       </Button>

@@ -63,12 +63,7 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
           setSelectedSkills([...value]);
         }}
       />
-      <Button
-        fullWidth
-        color='primary'
-        type='submit'
-        classes={{ root: classes.btn }}
-      >
+      <Button fullWidth color='primary' type='submit' className={classes.btn}>
         Save
       </Button>
     </form>
