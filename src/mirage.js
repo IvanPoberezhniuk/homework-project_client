@@ -114,13 +114,13 @@ export function makeServer({ environment = 'test' }) {
         firstName: 'manager45',
         lastName: 'manager',
         email: 'manager@gmail.com',
+        password: 'Manager123',
+        token: 'managerToken',
+        role: 'manager',
         skills: [
           { id: 1, name: 'js' },
           { id: 2, name: 'css' },
         ],
-        password: 'Manager123',
-        token: 'managerToken',
-        role: 'manager',
       });
 
       server.create('user', {
@@ -130,6 +130,8 @@ export function makeServer({ environment = 'test' }) {
         password: 'Developer123',
         token: 'developerToken',
         role: 'developer',
+        skills: [
+        ],
       });
 
       server.create('user', {
@@ -139,6 +141,8 @@ export function makeServer({ environment = 'test' }) {
         password: 'Qa1234',
         token: 'qaToken',
         role: 'qa',
+        skills: [
+        ],
       });
 
       server.create('user', {
@@ -148,6 +152,8 @@ export function makeServer({ environment = 'test' }) {
         password: 'Guest123',
         token: 'guestToken',
         role: 'guest',
+        skills: [
+        ],
       });
     },
 
