@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button, Input, MultiSelectInput } from 'components';
+import { Button, Input, MultiSelectInput } from 'Components';
 import { useFormik } from 'formik';
 
 import { makeStyles } from '@material-ui/styles';

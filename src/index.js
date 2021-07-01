@@ -1,14 +1,14 @@
-import 'index.css';
+import 'Src/index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from 'App';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from 'redux/configureStore';
-import reportWebVitals from 'reportWebVitals';
-import theme from 'theme';
+import App from 'Src';
+import store from 'Src/redux/configureStore';
+import reportWebVitals from 'Src/reportWebVitals';
+import theme from 'Src/theme';
 
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';

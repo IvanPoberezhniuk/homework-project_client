@@ -49,43 +49,43 @@ const headCells = [
 ];
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-    borderRadius: 0,
-    boxShadow: 'none',
-  },
-  table: {
-    minWidth: 750,
-  },
-  teamCell: {
-    border: 'none',
+  actions__container: {
     alignItems: 'center',
-    position: 'relative',
+    border: 'none',
+    display: 'grid',
+    gridTemplateColumns: '58px  58px 58px',
+    gridTemplateRows: '52px',
+    justifyContent: 'end',
   },
   avatar: {
     position: 'absolute',
   },
   avatar__container: {
-    position: 'relative',
     display: 'flex',
+    position: 'relative',
   },
   editIcon: {
     gridColumnStart: '2',
   },
-  trashIcon: {
-    gridColumnStart: '3',
-  },
-  actions__container: {
-    border: 'none',
-    display: 'grid',
-    gridTemplateColumns: '58px  58px 58px',
-    gridTemplateRows: '52px',
-    alignItems: 'center',
-    justifyContent: 'end',
-  },
   paginationSelect: {
     top: 0,
+  },
+  paper: {
+    borderRadius: 0,
+    boxShadow: 'none',
+    marginBottom: theme.spacing(2),
+    width: '100%',
+  },
+  table: {
+    minWidth: 750,
+  },
+  teamCell: {
+    alignItems: 'center',
+    border: 'none',
+    position: 'relative',
+  },
+  trashIcon: {
+    gridColumnStart: '3',
   },
 }));
 
