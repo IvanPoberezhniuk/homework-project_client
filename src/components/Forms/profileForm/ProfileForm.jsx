@@ -30,7 +30,7 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
   const classes = useStyles();
   const [selectedSkills, setSelectedSkills] = useState(user.skills);
 
-  const { getFieldProps, handleSubmit } = useFormik({
+  const { getFieldProps, handleSubmit} = useFormik({
     initialValues: {
       firstName: user.firstName,
       lastName: user.lastName,
@@ -49,7 +49,7 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
       />
 
       <Input
-        placeholder="Second Name"
+        placeholder={'last name'}
         className={classes.profileItem}
         {...getFieldProps('lastName')}
       />
@@ -63,12 +63,7 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
           setSelectedSkills([...value]);
         }}
       />
-      <Button
-        fullWidth
-        color="primary"
-        type="submit"
-        classes={{ root: classes.btn }}
-      >
+      <Button fullWidth color="primary" type="submit" className={classes.btn}>
         Save
       </Button>
     </form>
