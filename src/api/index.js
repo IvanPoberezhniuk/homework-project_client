@@ -1,6 +1,6 @@
 import authAPI from './auth';
+import profileAPI from './profile';
 import projectsAPI from './projects';
 import usersAPI from './users';
-import profileAPI from './profile';
 
-export { authAPI, projectsAPI, usersAPI, profileAPI };
+export { authAPI, profileAPI, projectsAPI, usersAPI };

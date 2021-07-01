@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Avatar, Button } from 'components';
+
 import {
   Dialog,
   DialogActions,
@@ -8,8 +10,6 @@ import {
   Slide,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Avatar, Button } from '..';
 
 const useStyles = makeStyles(() => ({
   paper: {

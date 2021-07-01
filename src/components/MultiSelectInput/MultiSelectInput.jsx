@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Clear from '@material-ui/icons/Clear';
+import { Clear } from '@material-ui/icons';
 import { Autocomplete } from '@material-ui/lab';
 
 const useStyles = makeStyles(() => ({
@@ -56,7 +56,7 @@ const MultiSelectInput = ({ placeholder, onSelectHandler, ...other }) => {
       renderInput={(params) => (
         <TextField
           {...params}
-          variant="outlined"
+          variant='outlined'
           placeholder={!other.defaultValue.length && placeholder}
         />
       )}

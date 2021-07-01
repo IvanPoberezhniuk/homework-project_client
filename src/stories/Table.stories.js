@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProjectsTable from '../containers/modules/projectsTable/ProjectsTable';
+import ProjectsTable from 'containers/modules/projectsTable/ProjectsTable';
 
 export default {
   title: 'Main/ProjectsTable',

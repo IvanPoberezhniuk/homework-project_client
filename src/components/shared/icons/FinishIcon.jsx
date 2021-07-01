@@ -1,7 +1,7 @@
 import { SvgIcon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { ReactComponent as Icon } from '../../../assets/icons/finish.svg';
+import { ReactComponent as Icon } from 'assets/icons/finish.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {

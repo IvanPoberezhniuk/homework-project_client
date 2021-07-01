@@ -11,4 +11,4 @@ const findDiffernt = (firstObject, secondObject) =>
       )
   );
 
-export { getChildComponent, findDiffernt };
+export { findDiffernt, getChildComponent };

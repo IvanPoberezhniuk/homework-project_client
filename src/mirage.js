@@ -7,8 +7,7 @@ import {
   Response,
   RestSerializer,
 } from 'miragejs';
-
-import { MODAL_PROJECT } from './router/ModalSwitcher';
+import { MODAL_PROJECT } from 'router/ModalSwitcher';
 
 export function makeServer({ environment = 'test' }) {
   return createServer({
@@ -32,7 +31,7 @@ export function makeServer({ environment = 'test' }) {
     factories: {
       project: Factory.extend({
         projectName(i) {
-          return `Project ${i}`;
+          return faker.company.companyName();
         },
         startDate(i) {
           const random = faker.datatype.boolean();
@@ -94,7 +93,7 @@ export function makeServer({ environment = 'test' }) {
           return faker.datatype.boolean();
         },
         token() {
-          return 'adminToken';
+          return 'token';
         },
       }),
     },
@@ -159,7 +158,7 @@ export function makeServer({ environment = 'test' }) {
 
     routes() {
       this.namespace = 'api';
-      this.timing = 400;
+      this.timing = 1000;
       //  users
       this.get('/users', (schema) => {
         return schema.users.all();
@@ -262,7 +261,7 @@ export function makeServer({ environment = 'test' }) {
             { status_code: 2, message: 'User with this email already exist' }
           );
         } else {
-          schema.users.create(attrs);
+          schema.users.create({ ...attrs, role: 'guest' });
           return new Response(
             201,
             {},

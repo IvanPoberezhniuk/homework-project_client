@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { WarningModal } from '../components';
+import { WarningModal } from 'components';
 
 export default {
   title: 'Main/Modals',

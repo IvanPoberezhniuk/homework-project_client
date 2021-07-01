@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
+import { Button, Input, MultiSelectInput } from 'components';
 import { useFormik } from 'formik';
-import { makeStyles } from '@material-ui/styles';
 
-import { Button, Input, MultiSelectInput } from '../..';
+import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -55,7 +55,7 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
       />
       <MultiSelectInput
         className={classes.profileItem}
-        placeholder="Select your skills"
+        placeholder='Select your skills'
         options={allSkills}
         defaultValue={selectedSkills}
         getOptionLabel={(option) => option.name}
@@ -63,7 +63,7 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
           setSelectedSkills([...value]);
         }}
       />
-      <Button fullWidth color="primary" type="submit" className={classes.btn}>
+      <Button fullWidth color='primary' type='submit' className={classes.btn}>
         Save
       </Button>
     </form>

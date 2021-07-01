@@ -1,10 +1,9 @@
+import { Header, Sidebar } from 'components';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Header, Sidebar } from '../../components';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -20,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 
 const DashboardContainer = ({ route, ...props }) => {
   const classes = useStyles();
-  const isLoading = useSelector((state) => state.profile.isLoading);
   const profile = useSelector((state) => state.profile.profile);
   const history = useHistory();
 

@@ -1,15 +1,11 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Cookies from 'js-cookie';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { makeStyles } from '@material-ui/core/styles';
-import { makeServer } from './mirage';
-import { setToken, authMe } from './redux/modules/auth';
-import { getProfile } from './redux/modules/profile';
-import { routes } from './router/config';
-import Router from './router/Router';
-import { Fallback } from './components';
+import { makeServer } from 'mirage';
+import { useDispatch } from 'react-redux';
+import { authMe, setToken } from 'redux/modules/auth';
+import { routes } from 'router/config';
+import Router from 'router/Router';
 
 makeServer({ environment: 'development' });
 
@@ -24,7 +20,7 @@ const App = () => {
     }
   }, [dispatch]);
 
-  return  <Router routes={routes} />;
+  return <Router routes={routes} />;
 };
 
 export default App;

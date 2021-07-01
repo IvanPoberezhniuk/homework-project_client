@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { Avatar, Button } from 'components';
 import { useSelector } from 'react-redux';
 
 import {
@@ -10,8 +11,6 @@ import {
   Slide,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Avatar, Button } from '..';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -105,7 +104,7 @@ const TeamModal = ({
         <DialogContent classes={{ root: classes.contentWrapper }}>
           {currentProject &&
             currentProject.users.map((employee) => (
-              <div className={classes.itemWrapper}  key={employee.id}>
+              <div className={classes.itemWrapper} key={employee.id}>
                 <div className={classes.avatarWrapper}>
                   <Avatar key={employee.id}>
                     {(
