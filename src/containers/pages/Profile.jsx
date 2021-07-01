@@ -40,7 +40,7 @@ const Profile = () => {
   useEffect(
     () => async () => {
       await dispatch(getAvailableSkills());
-    },
+    }, [dispatch]
   );
 
   const editProfileHandleSubmit = async (firstName, lastName, skills) => {
