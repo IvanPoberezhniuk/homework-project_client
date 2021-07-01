@@ -41,7 +41,6 @@ const Profile = () => {
     () => async () => {
       await dispatch(getAvailableSkills());
     },
-    [dispatch]
   );
 
   const editProfileHandleSubmit = async (firstName, lastName, skills) => {
