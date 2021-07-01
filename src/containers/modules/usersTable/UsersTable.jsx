@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import { TableCell, TableContainer } from 'components';
 import { EditIcon, MoreIcon, TrashIcon } from 'components/shared/icons';
@@ -11,6 +11,7 @@ import {
   Paper,
   Table,
   TableBody,
+  TablePagination,
   TableRow,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -62,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
+  paginationSelect: {
+    top: 0,
+  },
 }));
 
 const EnhancedTable = ({ rows }) => {
@@ -69,14 +73,28 @@ const EnhancedTable = ({ rows }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('name');
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('firstName');
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <Paper className={classes.paper}>
@@ -95,8 +113,9 @@ const EnhancedTable = ({ rows }) => {
             headCells={headCells}
           />
           <TableBody>
-            {stableSort(rows, getComparator(order, orderBy)).map(
-              (row, index) => {
+            {stableSort(rows, getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return (
                   <TableRow hover role='checkbox' tabIndex={-1} key={row.id}>
@@ -142,11 +161,25 @@ const EnhancedTable = ({ rows }) => {
                     </TableCell>
                   </TableRow>
                 );
-              }
-            )}
+              })}
           </TableBody>
+          {emptyRows > 0 && (
+            <TableRow style={{ height: 64 * emptyRows }}>
+              <TableCell colSpan={6} />
+            </TableRow>
+          )}
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component='div'
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+        classes={{ selectIcon: classes.paginationSelect }}
+      />
     </Paper>
   );
 };
