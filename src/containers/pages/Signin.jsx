@@ -81,7 +81,9 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
       <div className={classes.content}>
         {serverErrorMsg && (
           <div className={classes.alertWrapper}>
-            <Alert severity='error' classes={{root: classes.alert}}>{serverErrorMsg}</Alert>
+            <Alert severity='error' classes={{ root: classes.alert }}>
+              {serverErrorMsg}
+            </Alert>
           </div>
         )}
         <SigninForm
