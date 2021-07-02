@@ -9,6 +9,7 @@ const useStyles = makeStyles(() => ({
     paddingLeft: '30px',
   },
   container: {
+    height: '100vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

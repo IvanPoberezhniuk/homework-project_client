@@ -25,27 +25,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import EnhancedTableHead from '../table/EnchanedTableHead';
 
 const headCells = [
-  {
-    id: 'projectName',
-    numeric: false,
-    disablePadding: true,
-    label: 'Project Name',
-  },
-  {
-    id: 'startDate',
-    numeric: false,
-    disablePadding: false,
-    label: 'Start Date',
-  },
-  { id: 'endDate', numeric: false, disablePadding: false, label: 'End Date' },
-  { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
-  {
-    id: 'team',
-    numeric: false,
-    disablePadding: false,
-    label: 'Team',
-    sortable: false,
-  },
+  { id: 'projectName', disablePadding: true, label: 'Project Name' },
+  { id: 'startDate', disablePadding: false, label: 'Start Date' },
+  { id: 'endDate', disablePadding: false, label: 'End Date' },
+  { id: 'status', disablePadding: false, label: 'Status' },
+  { id: 'team', disablePadding: false, label: 'Team', sortable: false },
 ];
 
 const useStyles = makeStyles((theme) => ({
