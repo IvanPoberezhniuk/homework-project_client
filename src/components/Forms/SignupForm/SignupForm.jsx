@@ -1,26 +1,24 @@
 import clsx from 'clsx';
+import { Button, ButtonLoader, Input } from 'components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Button, Input } from '../..';
-
 const useStyles = makeStyles(() => ({
   form: {
     maxWidth: '322px',
   },
-  btn: {
-    width: '322px',
-    height: '37px',
-    marginTop: '40px',
-  },
+
   inputWrapper: {
     marginTop: '16px',
   },
+  lastInputWrapper: {
+    marginBottom: '40px',
+  },
 }));
 
-const SignupForm = ({ handleSubmitting }) => {
+const SignupForm = ({ handleSubmitting, isLoading }) => {
   const classes = useStyles();
 
   const { errors, touched, handleSubmit, getFieldProps } = useFormik({
@@ -110,6 +108,7 @@ const SignupForm = ({ handleSubmitting }) => {
         type='password'
         placeholder='Confirm Password'
         className={clsx(
+          classes.lastInputWrapper,
           classes.inputWrapper,
           touched.password && errors.password && classes.inputWrapperWithError
         )}
@@ -117,8 +116,9 @@ const SignupForm = ({ handleSubmitting }) => {
         helperText={touched.confirmPassword && errors.confirmPassword}
         {...getFieldProps('confirmPassword')}
       />
-      <Button type='submit' color='primary' classes={{ root: classes.btn }}>
+      <Button type='submit' color='primary' disabled={isLoading} fullWidth>
         Sign Up
+        {isLoading && <ButtonLoader />}
       </Button>
     </form>
   );

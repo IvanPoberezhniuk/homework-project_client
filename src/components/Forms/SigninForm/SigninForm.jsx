@@ -1,11 +1,10 @@
 import clsx from 'clsx';
+import { Button, ButtonLoader, Checkbox, Input } from 'components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Button, Checkbox, Input } from '../..';
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -15,24 +14,20 @@ const useStyles = makeStyles(() => ({
     display: 'block',
     width: '100%',
     textAlign: 'right',
-    margin: '16px 0 0 0',
+    margin: '16px 0 40px 0',
     lineHeight: '16px',
   },
   checkboxLabel: {
     fontSize: '16px',
     color: '#777777',
   },
-  btn: {
-    width: '322px',
-    height: '37px',
-    marginTop: '40px',
-  },
+
   inputWrapper: {
     marginTop: '16px',
   },
 }));
 
-const SigninForm = ({ handleSubmitting }) => {
+const SigninForm = ({ handleSubmitting, isLoading }) => {
   const classes = useStyles();
 
   const { errors, touched, handleSubmit, getFieldProps } = useFormik({
@@ -82,8 +77,9 @@ const SigninForm = ({ handleSubmitting }) => {
         label='Remember me?'
         classes={{ root: classes.checkbox, label: classes.checkboxLabel }}
       />
-      <Button type='submit' color='primary' classes={{ root: classes.btn }}>
+      <Button type='submit' color='primary' disabled={isLoading} fullWidth>
         Sign In
+        {isLoading && <ButtonLoader />}
       </Button>
     </form>
   );

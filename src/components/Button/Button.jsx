@@ -17,14 +17,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Button = ({ children, classes = {}, ...other }) => {
-  const classes1 = useStyles();
+const Button = ({ children, ...other }) => {
+  const classes = useStyles();
   return (
     <MUIButton
       classes={{
-        root: classes1.root,
-        containedSecondary: classes1.containedSecondary,
-        ...classes,
+        root: classes.root,
+        containedSecondary: classes.containedSecondary,
       }}
       variant='contained'
       {...other}

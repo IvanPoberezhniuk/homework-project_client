@@ -1,91 +1,75 @@
 import { useState } from 'react';
 
-import { useHistory, useLocation } from 'react-router-dom';
-
-import {
-  LinearProgress,
-  Paper,
-  Table,
-  TableBody,
-  TableRow,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-import {
-  TableCell,
-  TableContainer,
-  TableTeamAvatar,
-} from '../../../components';
+import { TableCell, TableContainer, TableTeamAvatar } from 'components';
 import {
   EditIcon,
   FinishIcon,
   MoreIcon,
   StartIcon,
   TrashIcon,
-} from '../../../components/shared/icons';
-import { getComparator, stableSort } from '../../../helpers/table';
-import { MODAL_PROJECT } from '../../../router/ModalSwitcher';
+} from 'components/shared/icons';
+import { getComparator, stableSort } from 'helpers/table';
+import { useHistory, useLocation } from 'react-router-dom';
+import { MODAL_PROJECT } from 'router/ModalSwitcher';
+
+import {
+  LinearProgress,
+  Paper,
+  Table,
+  TableBody,
+  TablePagination,
+  TableRow,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 import EnhancedTableHead from '../table/EnchanedTableHead';
 
 const headCells = [
-  {
-    id: 'projectName',
-    numeric: false,
-    disablePadding: true,
-    label: 'Project Name',
-  },
-  {
-    id: 'startDate',
-    numeric: false,
-    disablePadding: false,
-    label: 'Start Date',
-  },
-  { id: 'endDate', numeric: false, disablePadding: false, label: 'End Date' },
-  { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
-  {
-    id: 'team',
-    numeric: false,
-    disablePadding: false,
-    label: 'Team',
-    sortable: false,
-  },
+  { id: 'projectName', disablePadding: true, label: 'Project Name' },
+  { id: 'startDate', disablePadding: false, label: 'Start Date' },
+  { id: 'endDate', disablePadding: false, label: 'End Date' },
+  { id: 'status', disablePadding: false, label: 'Status' },
+  { id: 'team', disablePadding: false, label: 'Team', sortable: false },
 ];
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-    borderRadius: 0,
-    boxShadow: 'none',
-  },
-  table: {
-    minWidth: 750,
-  },
-  teamCell: {
-    border: 'none',
+  actions__container: {
     alignItems: 'center',
-    position: 'relative',
+    border: 'none',
+    display: 'grid',
+    gridTemplateColumns: '58px  58px 58px',
+    gridTemplateRows: '52px',
+    justifyContent: 'end',
   },
   avatar: {
     position: 'absolute',
   },
   avatar__container: {
-    position: 'relative',
     display: 'flex',
+    position: 'relative',
+  },
+  editIcon: {
+    gridColumnStart: '2',
+  },
+  paginationSelect: {
+    top: 0,
+  },
+  paper: {
+    borderRadius: 0,
+    boxShadow: 'none',
+    marginBottom: theme.spacing(2),
+    width: '100%',
+  },
+  table: {
+    minWidth: 750,
+  },
+  teamCell: {
+    alignItems: 'center',
+    border: 'none',
+    position: 'relative',
   },
   trashIcon: {
-    '&:hover': {
-      cursor: 'pointer',
-      fill: theme.palette.error.main,
-    },
-  },
-  actions__container: {
-    border: 'none',
-    display: 'grid',
-    gridTemplateColumns: 'auto 58px 58px',
-    gridTemplateRows: '52px',
-    alignItems: 'center',
-    justifyItems: 'end',
+    gridColumnStart: '3',
   },
 }));
 
@@ -96,12 +80,25 @@ const EnhancedTable = ({ rows, isLoading }) => {
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('projectName');
-
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <Paper className={classes.paper}>
@@ -120,8 +117,9 @@ const EnhancedTable = ({ rows, isLoading }) => {
             headCells={headCells}
           />
           <TableBody className={classes.tableBody}>
-            {stableSort(rows, getComparator(order, orderBy)).map(
-              (row, index) => {
+            {stableSort(rows, getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return (
                   <TableRow
@@ -171,20 +169,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                       size='small'
                       className={classes.actions__container}
                     >
-                      {row.startDate ? (
-                        <FinishIcon
-                          className={classes.finishIcon}
-                          onClick={() => {
-                            history.push(
-                              `/project/${MODAL_PROJECT.FINISH}/${row.id}`,
-                              {
-                                background: location,
-                                payload: row,
-                              }
-                            );
-                          }}
-                        />
-                      ) : (
+                      {!row.startDate && !row.endDate && (
                         <StartIcon
                           className={classes.startIcon}
                           onClick={() => {
@@ -198,7 +183,20 @@ const EnhancedTable = ({ rows, isLoading }) => {
                           }}
                         />
                       )}
-
+                      {row.startDate && !row.endDate && (
+                        <FinishIcon
+                          className={classes.finishIcon}
+                          onClick={() => {
+                            history.push(
+                              `/project/${MODAL_PROJECT.FINISH}/${row.id}`,
+                              {
+                                background: location,
+                                payload: row,
+                              }
+                            );
+                          }}
+                        />
+                      )}
                       <EditIcon
                         className={classes.editIcon}
                         onClick={() => {
@@ -226,11 +224,25 @@ const EnhancedTable = ({ rows, isLoading }) => {
                     </TableCell>
                   </TableRow>
                 );
-              }
+              })}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 64 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
             )}
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component='div'
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+        classes={{ selectIcon: classes.paginationSelect }}
+      />
     </Paper>
   );
 };

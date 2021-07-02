@@ -1,9 +1,8 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 
+import DashboardContainer from 'containers/pages/DashboardContainer';
 import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
-
-import DashboardContainer from '../containers/pages/DashboardContainer';
 
 const RouteWithSubRoutes = ({ ...route }) => {
   const authenticated = useSelector((state) => state.auth.isAuth);

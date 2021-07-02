@@ -1,13 +1,12 @@
 import { forwardRef, useEffect } from 'react';
 
+import { ProjectForm, ProjectTitle } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
+import { addProject } from 'redux/modules/projects';
+import { fetchUsers } from 'redux/modules/users';
 
 import { Dialog, DialogContent, DialogTitle, Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { ProjectForm, ProjectTitle } from '..';
-import { addProject } from '../../redux/modules/projects';
-import { fetchUsers } from '../../redux/modules/users';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -42,8 +41,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Transition = forwardRef(function Transition({ ref, ...other }) {
-  return <Slide ref={ref} {...other} />;
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide ref={ref} {...props} />;
 });
 
 const CreateProjectModal = ({

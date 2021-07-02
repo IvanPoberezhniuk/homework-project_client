@@ -1,7 +1,9 @@
 import { forwardRef, useState } from 'react';
 
+import { Button, Select } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { editUser } from 'redux/modules/users';
 
 import {
   Dialog,
@@ -13,9 +15,6 @@ import {
   Slide,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Button, Select } from '..';
-import { editUser } from '../../redux/modules/users';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;

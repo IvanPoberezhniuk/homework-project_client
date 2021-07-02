@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { projectsAPI } from 'api';
 
-import { projectsAPI } from '../../api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 // Actions types
 export const FETCH_PROJECTS = 'projectsTable/FETCH_PROJECTS';

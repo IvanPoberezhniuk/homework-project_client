@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EditRoleModal } from '../components';
+import { EditRoleModal } from 'components';
 
 export default {
   title: 'Main/Modals/EditRoleModal',

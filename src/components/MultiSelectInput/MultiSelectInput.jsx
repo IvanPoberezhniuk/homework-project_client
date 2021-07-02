@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Clear as ClearIcon } from '@material-ui/icons/Clear';
+import { Clear } from '@material-ui/icons';
 import { Autocomplete } from '@material-ui/lab';
 
 const useStyles = makeStyles(() => ({
@@ -26,7 +26,6 @@ const useStyles = makeStyles(() => ({
   },
   chipIconClear: {
     color: '#fff',
-    padding: '8px 4px',
     height: '14px',
     width: '14px',
     '&:hover': {
@@ -35,32 +34,30 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MultiSelectInput = ({ placeholder, ...other }) => {
+const MultiSelectInput = ({ placeholder, onSelectHandler, ...other }) => {
   const classes = useStyles();
-  const [selected, setSelected] = useState([]);
 
   return (
     <Autocomplete
-      onChange={(event, value) => {
-        setSelected((prevState) => [...prevState, value]);
-      }}
       multiple
-      getOptionLabel={(option) => option.name}
       filterSelectedOptions
-      classes={{ inputRoot: classes.inputRoot, input: classes.input }}
       ChipProps={{
-        deleteIcon: <ClearIcon />,
+        deleteIcon: <Clear className={{ root: classes.chipIconClear }} />,
         classes: {
           root: classes.chip,
           deleteIcon: classes.chipIconClear,
           label: classes.chipLabel,
         },
       }}
+      classes={{ inputRoot: classes.inputRoot, input: classes.input }}
+      onChange={(event, value) => {
+        onSelectHandler(value);
+      }}
       renderInput={(params) => (
         <TextField
           {...params}
           variant='outlined'
-          placeholder={!selected.length && placeholder}
+          placeholder={!other.defaultValue.length && placeholder}
         />
       )}
       {...other}

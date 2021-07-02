@@ -1,9 +1,9 @@
+import ArrowDown from 'assets/icons/arrow-down.svg';
+import { Avatar, Button, Menu } from 'components';
 import { useHistory } from 'react-router-dom';
+
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Button, Menu, Avatar } from '../..';
-import ArrowDown from '../../../assets/icons/arrow-down.svg';
 
 const useStyles = makeStyles((theme) => ({
   arrowDown: {
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     minHeight: '160px',
+    minWidth: '180px',
   },
 }));
 

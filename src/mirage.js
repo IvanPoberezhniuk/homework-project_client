@@ -7,8 +7,7 @@ import {
   Response,
   RestSerializer,
 } from 'miragejs';
-
-import { MODAL_PROJECT } from './router/ModalSwitcher';
+import { MODAL_PROJECT } from 'router/ModalSwitcher';
 
 export function makeServer({ environment = 'test' }) {
   return createServer({
@@ -32,7 +31,7 @@ export function makeServer({ environment = 'test' }) {
     factories: {
       project: Factory.extend({
         projectName(i) {
-          return `Project ${i}`;
+          return faker.company.companyName();
         },
         startDate(i) {
           const random = faker.datatype.boolean();
@@ -50,6 +49,21 @@ export function makeServer({ environment = 'test' }) {
           const status = ['Idle', 'In Progress', 'Finished'];
           return status[i % status.length];
         },
+        history() {
+          return {
+            projectName: '',
+            startDate: '',
+            endDate: '',
+            status: '',
+            users: [
+              {
+                firstName: '',
+                lastName: '',
+              },
+            ],
+          };
+        },
+
         afterCreate(project, server) {
           if (!project.users.length) {
             project.update({
@@ -77,11 +91,24 @@ export function makeServer({ environment = 'test' }) {
           const password = !i ? 'Admin1234' : faker.internet.email();
           return password;
         },
+        skills(i) {
+          const skills = [
+            { id: 1, name: 'js' },
+            { id: 2, name: 'css' },
+            { id: 3, name: 'php' },
+            { id: 4, name: 'c++' },
+            { id: 5, name: 'Жыве Беларусь!' },
+            { id: 6, name: 'БЧБ!' },
+            { id: 7, name: 'Pascal' },
+            { id: 8, name: 'Уверенный пользователь ПК' },
+          ];
+          return skills[i % skills.length];
+        },
         busy() {
           return faker.datatype.boolean();
         },
         token() {
-          return 'adminToken';
+          return 'token';
         },
       }),
     },
@@ -98,12 +125,16 @@ export function makeServer({ environment = 'test' }) {
       });
 
       server.create('user', {
-        firstName: 'manager',
+        firstName: 'manager45',
         lastName: 'manager',
         email: 'manager@gmail.com',
         password: 'Manager123',
         token: 'managerToken',
         role: 'manager',
+        skills: [
+          { id: 1, name: 'js' },
+          { id: 2, name: 'css' },
+        ],
       });
 
       server.create('user', {
@@ -113,6 +144,7 @@ export function makeServer({ environment = 'test' }) {
         password: 'Developer123',
         token: 'developerToken',
         role: 'developer',
+        skills: [],
       });
 
       server.create('user', {
@@ -122,6 +154,7 @@ export function makeServer({ environment = 'test' }) {
         password: 'Qa1234',
         token: 'qaToken',
         role: 'qa',
+        skills: [],
       });
 
       server.create('user', {
@@ -131,12 +164,13 @@ export function makeServer({ environment = 'test' }) {
         password: 'Guest123',
         token: 'guestToken',
         role: 'guest',
+        skills: [],
       });
     },
 
     routes() {
       this.namespace = 'api';
-      this.timing = 400;
+      this.timing = 300;
       //  users
       this.get('/users', (schema) => {
         return schema.users.all();
@@ -239,7 +273,7 @@ export function makeServer({ environment = 'test' }) {
             { status_code: 2, message: 'User with this email already exist' }
           );
         } else {
-          schema.users.create(attrs);
+          schema.users.create({ ...attrs, role: 'guest' });
           return new Response(
             201,
             {},
@@ -278,11 +312,44 @@ export function makeServer({ environment = 'test' }) {
               firstName: user.firstName,
               lastName: user.lastName,
               role: user.role,
+              skills: user.skills,
             },
           }
         );
       });
       this.get('/users');
+
+      this.patch('/profile', (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        let user = schema.users.find(attrs.id);
+
+        user.update({
+          firstName: attrs.firstName,
+          lastName: attrs.lastName,
+          skills: [...attrs.skills],
+        });
+
+        return new Response(
+          200,
+          {},
+          {
+            status_code: 4,
+            message: 'Success',
+          }
+        );
+      });
+      this.get('/skills', () => {
+        return [
+          { id: 1, name: 'js' },
+          { id: 2, name: 'css' },
+          { id: 3, name: 'php' },
+          { id: 4, name: 'c++' },
+          { id: 5, name: 'Жыве Беларусь!' },
+          { id: 6, name: 'БЧБ!' },
+          { id: 7, name: 'Pascal' },
+          { id: 8, name: 'Уверенный пользователь ПК' },
+        ];
+      });
     },
   });
 }

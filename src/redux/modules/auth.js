@@ -1,11 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { authAPI } from '../../api';
+import { setProfile } from './profile';
 
+// Actions types
 export const SIGNUP = 'auth/SIGNUP';
 export const SIGNIN = 'auth/SIGNIN';
 export const AUTHME = 'auth/AUTHME';
 
+// Actions
 export const signup = createAsyncThunk(
   SIGNUP,
   async (credentials, { rejectWithValue }) => {
@@ -34,9 +37,11 @@ export const signin = createAsyncThunk(
 
 export const authMe = createAsyncThunk(
   AUTHME,
-  async (credentials, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue, dispatch }) => {
     try {
-      return await authAPI.authMe(credentials.token);
+      const data = await authAPI.authMe(credentials.token);
+      dispatch(setProfile({ ...data.profile }));
+      return data;
     } catch (e) {
       return rejectWithValue(e.response.data);
     }
@@ -51,6 +56,7 @@ export const auth = createSlice({
     serverErrorMsg: '',
     isAuth: false,
     token: null,
+    isLoading: false,
     profile: null,
   },
   reducers: {
@@ -60,6 +66,9 @@ export const auth = createSlice({
   },
   extraReducers: {
     // signUp
+    [signup.pending]: (state) => {
+      state.isLoading = true;
+    },
     [signup.rejected]: (state, action) => {
       if (!action.payload) {
         state.serverErrorMsg = "Server isn't available now, try later";
@@ -67,6 +76,7 @@ export const auth = createSlice({
         state.serverErrorMsg = 'User is already exist';
       }
       state.isSuccessRegister = false;
+      state.isLoading = false;
     },
     [signup.fulfilled]: (state, action) => {
       if (action.payload.status_code === 1) {
@@ -76,14 +86,19 @@ export const auth = createSlice({
         state.serverErrorMsg = 'Some server error';
         state.isSuccessRegister = false;
       }
+      state.isLoading = false;
     },
     //  signIn
+    [signin.pending]: (state) => {
+      state.isLoading = true;
+    },
     [signin.rejected]: (state, action) => {
       if (!action.payload) {
         state.serverErrorMsg = "Server isn't available now, try later";
       } else if (action.payload.status_code === 3) {
         state.serverErrorMsg = 'Incorrect login or password';
       }
+      state.isLoading = false;
     },
     [signin.fulfilled]: (state, action) => {
       if (action.payload.status_code === 4) {
@@ -91,16 +106,14 @@ export const auth = createSlice({
       } else {
         state.serverErrorMsg = 'Some server error';
       }
+      state.isLoading = false;
     },
     // authMe
     [authMe.rejected]: (state, action) => {
       state.isAuth = false;
     },
     [authMe.fulfilled]: (state, action) => {
-      state.profile = action.payload.profile;
-      if (state.profile) {
-        state.isAuth = true;
-      }
+      state.isAuth = true;
     },
   },
 });
