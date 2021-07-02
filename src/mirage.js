@@ -49,6 +49,21 @@ export function makeServer({ environment = 'test' }) {
           const status = ['Idle', 'In Progress', 'Finished'];
           return status[i % status.length];
         },
+        history() {
+          return {
+            projectName: '',
+            startDate: '',
+            endDate: '',
+            status: '',
+            users: [
+              {
+                firstName: '',
+                lastName: '',
+              },
+            ],
+          };
+        },
+
         afterCreate(project, server) {
           if (!project.users.length) {
             project.update({
@@ -129,8 +144,7 @@ export function makeServer({ environment = 'test' }) {
         password: 'Developer123',
         token: 'developerToken',
         role: 'developer',
-        skills: [
-        ],
+        skills: [],
       });
 
       server.create('user', {
@@ -140,8 +154,7 @@ export function makeServer({ environment = 'test' }) {
         password: 'Qa1234',
         token: 'qaToken',
         role: 'qa',
-        skills: [
-        ],
+        skills: [],
       });
 
       server.create('user', {
@@ -151,8 +164,7 @@ export function makeServer({ environment = 'test' }) {
         password: 'Guest123',
         token: 'guestToken',
         role: 'guest',
-        skills: [
-        ],
+        skills: [],
       });
     },
 

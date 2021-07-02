@@ -44,7 +44,7 @@ const ModalSwitcher = ({ ...other }) => {
   const location = useLocation();
   const { id, type } = useParams();
   const { payload } = location.state && location.state;
-
+  console.log(location);
   const goBack = () => history.goBack();
 
   const submit = async (action, id) => {
