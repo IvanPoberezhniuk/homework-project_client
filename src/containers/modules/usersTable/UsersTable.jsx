@@ -162,24 +162,24 @@ const EnhancedTable = ({ rows }) => {
                   </TableRow>
                 );
               })}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 64 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
           </TableBody>
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 64 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component='div'
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+          classes={{ selectIcon: classes.paginationSelect }}
+        />
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component='div'
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-        classes={{ selectIcon: classes.paginationSelect }}
-      />
     </Paper>
   );
 };

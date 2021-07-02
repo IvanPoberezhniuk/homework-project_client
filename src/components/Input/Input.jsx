@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Input = forwardRef(({ ...other }) => {
+const Input = forwardRef((props, ref) => {
   const classes = useStyles();
 
   return (
@@ -44,10 +44,7 @@ const Input = forwardRef(({ ...other }) => {
           root: classes.errorText,
         },
       }}
-      classes={{
-        error: classes.error,
-      }}
-      {...other}
+      {...props}
     />
   );
 });

@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     minHeight: '160px',
+    minWidth: '180px',
   },
 }));
 
