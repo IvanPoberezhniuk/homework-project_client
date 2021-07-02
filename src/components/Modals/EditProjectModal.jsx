@@ -51,8 +51,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Transition = forwardRef(function Transition({ ref, ...other }) {
-  return <Slide direction='down' ref={ref} {...other} />;
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction='down' ref={ref} {...props} />;
 });
 
 const EditProjectModal = ({

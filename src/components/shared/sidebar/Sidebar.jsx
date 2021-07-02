@@ -71,7 +71,7 @@ const SideBar = ({ role }) => {
       <ListItem
         classes={{ root: classes.button }}
         button
-        key={Users}
+        key={123123123}
         component={NavLink}
         activeClassName={classes.selected}
         to='/history'

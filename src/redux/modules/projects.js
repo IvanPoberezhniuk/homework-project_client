@@ -18,7 +18,6 @@ export const fetchProjects = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const response = await projectsAPI.fetchProjects();
-      console.log(response)
       return response.data.projects;
     } catch (err) {
       return thunkApi.rejectedWithValue(err.response.data);

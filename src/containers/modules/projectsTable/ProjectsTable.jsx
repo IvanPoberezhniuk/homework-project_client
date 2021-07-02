@@ -241,12 +241,12 @@ const EnhancedTable = ({ rows, isLoading }) => {
                   </TableRow>
                 );
               })}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 64 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
           </TableBody>
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 64 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
         </Table>
       </TableContainer>
       <TablePagination

@@ -35,7 +35,7 @@ const Header = ({ user, signOutHandler }) => {
         <HeaderLoginMenu
           handleMenu={handleMenu}
           handleClose={handleClose}
-          name={`${user?.firstName} ${user?.lastName}`}
+          name={`${user?.firstName}`}
           iconLabel={`${user?.firstName[0]}${user?.lastName[0]}`.toUpperCase()}
           role={user?.role}
           open={open}
