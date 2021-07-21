@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  react-app:
+    image: node:14-alpine
+    command: sh -c "npm i && npm audit fix && npm start"
+    container_name: react-app
+    working_dir: /home/app
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/home/app
