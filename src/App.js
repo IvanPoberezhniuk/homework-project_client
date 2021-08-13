@@ -7,8 +7,7 @@ import { authMe, setToken } from 'redux/modules/auth';
 import { routes } from 'router/config';
 import Router from 'router/Router';
 
-// mirage.js
-// makeServer({ environment: 'development' });
+makeServer({ environment: 'development' });
 
 const App = () => {
   const dispatch = useDispatch();

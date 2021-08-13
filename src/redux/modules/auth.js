@@ -14,8 +14,8 @@ export const signup = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       return await authAPI.signup(credentials);
-    } catch (e) {
-      return rejectWithValue(e.response.data);
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -29,8 +29,8 @@ export const signin = createAsyncThunk(
         dispatch(authMe({ token: data.token }));
       }
       return data;
-    } catch (e) {
-      return rejectWithValue(e.response.data);
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -42,8 +42,8 @@ export const authMe = createAsyncThunk(
       const data = await authAPI.authMe(credentials.token);
       dispatch(setProfile({ ...data.profile }));
       return data;
-    } catch (e) {
-      return rejectWithValue(e.response.data);
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
