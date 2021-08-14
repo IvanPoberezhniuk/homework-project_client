@@ -47,16 +47,16 @@ export const signin = createAsyncThunk(
 
 export const signout = createAsyncThunk(
   SIGNOUT,
-  async (args, { rejectWithValue, dispatch }) => {
+  async (args, { rejectWithValue, dispatch, getState }) => {
     try {
-      const token = localStorage.getItem('token');
-      const refreshToken = localStorage.getItem('refreshToken');
-      const res = await authAPI.signout(token, refreshToken);
+      const { auth } = getState();
+
+      const res = await authAPI.signout(auth.token, auth.refreshToken);
       await dispatch(deleteProfile);
 
       localStorage.removeItem('token');
       localStorage.removeItem('refreshToken');
-      localStorage.setItem('isAuth', false);
+      localStorage.removeItem('isAuth');
       localStorage.removeItem('userDTO');
 
       return { msg: res.data.msg };
