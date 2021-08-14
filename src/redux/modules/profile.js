@@ -46,12 +46,15 @@ export const profile = createSlice({
   name: 'profile',
   initialState: {
     isLoading: false,
-    profile: null,
+    profile: JSON.parse(localStorage.getItem('profile')) || null,
     availableSkills: [],
   },
   reducers: {
     setProfile: (state, action) => {
       state.profile = action.payload;
+    },
+    deleteProfile: (state, action) => {
+      state.profile = null;
     },
   },
   extraReducers: {
@@ -93,6 +96,6 @@ export const profile = createSlice({
   },
 });
 
-export const { setProfile } = profile.actions;
+export const { setProfile, deleteProfile } = profile.actions;
 
 export default profile.reducer;

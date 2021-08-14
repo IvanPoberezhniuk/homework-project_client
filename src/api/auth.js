@@ -1,5 +1,10 @@
 import instance from './config';
 
+instance.interceptors.request.use((config) => {
+  config.headers.accsesstoken = localStorage.getItem('token');
+  return config;
+});
+
 const authAPI = {
   signup: function (credentials) {
     return instance
@@ -8,14 +13,19 @@ const authAPI = {
   },
   signin(credentials) {
     const res = instance.post('/signin', credentials).then((response) => {
-      console.log(response.headers);
-      return response.data;
+      return response;
     });
+
     return res;
   },
-  authMe(token) {
-    instance.defaults.headers = { Authorization: `Bearer ${token}` };
-    return instance.get('/authMe').then((response) => response.data);
+  signout(token, refreshtoken) {
+    const res = instance
+      .post('/signout', {}, { headers: { token, refreshtoken } })
+      .then((response) => {
+        return response;
+      });
+
+    return res;
   },
 };
 

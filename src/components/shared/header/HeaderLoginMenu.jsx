@@ -35,7 +35,7 @@ const HeaderLoginMenu = ({
   open,
   anchorEl,
   name,
-  iconLabel,
+  iconLabel = '',
   role,
   signOutHandler,
 }) => {
@@ -69,7 +69,7 @@ const HeaderLoginMenu = ({
         <Grid
           container
           direction='column'
-          justify='space-between'
+          justifyContent='space-between'
           alignItems='center'
           className={classes.container}
         >
