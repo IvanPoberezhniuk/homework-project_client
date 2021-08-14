@@ -1,12 +1,13 @@
 import { Suspense } from 'react';
 
 import DashboardContainer from 'containers/pages/DashboardContainer';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 const RouteWithSubRoutes = ({ ...route }) => {
-  const authenticated = useSelector((state) => state.auth.isAuth);
-
+  //const authenticated = useSelector((state) => state.auth.isAuth);
+  const authenticated = true;
+  
   return (
     <Suspense fallback={route.fallback}>
       {route.redirect ? (

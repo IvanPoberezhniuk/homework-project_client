@@ -2,7 +2,7 @@ import { forwardRef, useEffect } from 'react';
 
 import { ProjectForm, ProjectTitle } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProject } from 'redux/modules/projects';
+import { createProject } from 'redux/modules/projects';
 import { fetchUsers } from 'redux/modules/users';
 
 import { Dialog, DialogContent, DialogTitle, Slide } from '@material-ui/core';
@@ -61,7 +61,7 @@ const CreateProjectModal = ({
   }, [dispatch]);
 
   const submit = async (project) => {
-    await dispatch(addProject(project));
+    await dispatch(createProject(project));
     await handleClose();
   };
 

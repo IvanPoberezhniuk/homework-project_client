@@ -27,6 +27,8 @@ const Projects = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const projects = useSelector((state) => state.projects.list);
+  console.log('projects');
+  console.log(projects);
   const isLoading = useSelector((state) => state.projects.isLoading);
 
   useEffect(() => {
@@ -48,7 +50,7 @@ const Projects = () => {
           color='primary'
           className={classes.buttonRoot}
           onClick={() => {
-            history.push(`/project/${MODAL_PROJECT.ADD}`, {
+            history.push(`/project/${MODAL_PROJECT.CREATE}`, {
               background: location,
             });
           }}

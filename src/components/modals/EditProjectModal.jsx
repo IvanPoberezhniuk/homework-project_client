@@ -68,7 +68,10 @@ const EditProjectModal = ({
   const classes = useStyles();
   const users = useSelector((state) => state.users.list);
   const currentProject = useSelector((state) => state.projects.current);
-
+  console.log('users');
+  console.log(users);
+  console.log('current pt');
+  console.log(currentProject);
   useEffect(() => {
     dispatch(fetchUsers());
     dispatch(fetchProject({ id }));
@@ -103,7 +106,7 @@ const EditProjectModal = ({
         {currentProject?.id && users.length ? (
           <ProjectForm
             availableItems={users}
-            selectedItems={currentProject.users}
+            selectedItems={currentProject.team}
             closeHandler={handleClose}
             submitHandler={submit}
             isLoading={isLoading}
