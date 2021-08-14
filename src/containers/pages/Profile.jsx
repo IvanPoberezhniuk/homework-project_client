@@ -33,7 +33,7 @@ const Profile = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const profile = useSelector((state) => state.profile.profile);
+  const profile = useSelector((state) => state.profile.userDTO);
   const allSkills = useSelector((state) => state.profile.availableSkills);
   const isLoading = useSelector((state) => state.profile.isLoading);
 

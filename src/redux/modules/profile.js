@@ -46,7 +46,7 @@ export const profile = createSlice({
   name: 'profile',
   initialState: {
     isLoading: false,
-    profile: JSON.parse(localStorage.getItem('profile')) || null,
+    userDTO: JSON.parse(localStorage.getItem('userDTO')) || null,
     availableSkills: [],
   },
   reducers: {

@@ -24,7 +24,6 @@ export const signin = createAsyncThunk(
   SIGNIN,
   async (credentials, { rejectWithValue, dispatch }) => {
     try {
-      console.log(123, credentials)
       const { headers, data: userDTO } = await authAPI.signin(credentials);
       const { autorization, refreshtoken } = { ...headers };
       const token = autorization.substring(7, autorization.length).trim();
