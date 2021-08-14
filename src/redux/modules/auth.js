@@ -28,6 +28,7 @@ export const signin = createAsyncThunk(
       if (data.status_code === 4) {
         dispatch(authMe({ token: data.token }));
       }
+      dispatch(setToken());
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -41,6 +42,7 @@ export const authMe = createAsyncThunk(
     try {
       const data = await authAPI.authMe(credentials.token);
       dispatch(setProfile({ ...data.profile }));
+
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -55,13 +57,19 @@ export const auth = createSlice({
     isSuccessRegister: false,
     serverErrorMsg: '',
     isAuth: false,
-    token: null,
+    token: localStorage.getItem('token') || null,
+    refreshToken: localStorage.getItem('refreshToken') || null,
     isLoading: false,
     profile: null,
   },
   reducers: {
     setToken: (state, action) => {
-      state.token = action.payload.token;
+      const { token } = action.payload;
+      state.token = token;
+    },
+    setRefreshToken: (state, action) => {
+      const { token } = action.payload;
+      state.refreshToken = token;
     },
   },
   extraReducers: {
