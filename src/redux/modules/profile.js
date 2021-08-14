@@ -51,10 +51,10 @@ export const profile = createSlice({
   },
   reducers: {
     setProfile: (state, action) => {
-      state.profile = action.payload;
+      state.userDTO = action.payload;
     },
     deleteProfile: (state, action) => {
-      state.profile = null;
+      state.userDTO = null;
     },
   },
   extraReducers: {
@@ -62,7 +62,7 @@ export const profile = createSlice({
       state.isLoading = true;
     },
     [getProfile.fulfilled]: (state, action) => {
-      state.profile = action.payload.profile;
+      state.userDTO = action.payload.profile;
       state.isLoading = false;
     },
     [getProfile.rejected]: (state) => {
@@ -73,8 +73,8 @@ export const profile = createSlice({
     },
     [editProfile.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.profile = {
-        ...state.profile,
+      state.userDTO = {
+        ...state.userDTO,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         skills: [...action.payload.skills],

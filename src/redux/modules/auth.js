@@ -29,12 +29,14 @@ export const signin = createAsyncThunk(
       const token = autorization.substring(7, autorization.length).trim();
       const refreshToken = refreshtoken.trim();
 
-      localStorage.setItem('token', token);
-      localStorage.setItem('refreshToken', refreshToken);
-      localStorage.setItem('isAuth', true);
-      localStorage.setItem('userDTO', JSON.stringify(userDTO));
+      await dispatch(setProfile(userDTO));
 
-      dispatch(setProfile(userDTO));
+      if (credentials.rememberMe) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('isAuth', true);
+        localStorage.setItem('userDTO', JSON.stringify(userDTO));
+      }
 
       return { token, refreshToken };
     } catch (err) {
