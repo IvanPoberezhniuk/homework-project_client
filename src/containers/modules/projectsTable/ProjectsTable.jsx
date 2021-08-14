@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { TableCell, TableContainer, TableTeamAvatar } from 'components';
 import {
@@ -113,6 +113,13 @@ const EnhancedTable = ({ rows, isLoading }) => {
     setPage(0);
   };
 
+  const getDate = (str) => {
+    if (!str) return null;
+    const date = new Date(str);
+    const month = date.toLocaleDateString('en-US', { month: 'long' });
+    return date.getDate() +' ' + month + ' ' + date.getFullYear();
+  }
+
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -140,57 +147,58 @@ const EnhancedTable = ({ rows, isLoading }) => {
                 return (
                   <TableRow
                     hover
-                    role='checkbox'
+                    role="checkbox"
                     tabIndex={-1}
                     key={`${row.id}`}
                   >
-                    <TableCell id={labelId} scope='row'>
+                    <TableCell id={labelId} scope="row">
                       {row.projectName}
                     </TableCell>
-                    <TableCell>{row.startDate || '-'}</TableCell>
-                    <TableCell>{row.endDate || '-'}</TableCell>
+                    <TableCell>{getDate(row.startDate) || '-'}</TableCell>
+                    <TableCell>{getDate(row.finishDate)|| '-'}</TableCell>
                     <TableCell>{row.status}</TableCell>
                     <TableCell className={classes.teamCell}>
                       <div className={classes.avatar__container}>
-                        {row.users.slice(0, 4).map((person, index) => (
+                        {row.team.slice(0, 4).map((person, index) => (
                           <TableTeamAvatar
-                            key={person.id}
+                            key={person.userId}
                             classes={{ root: classes.avatar }}
                             style={{ left: 16 * index + 'px' }}
                             size={30}
                           >
-                            {person.firstName[0] + person.lastName[0]}
+                            {person.firstName[0].toUpperCase() +
+                              person.lastName[0].toUpperCase()}
                           </TableTeamAvatar>
                         ))}
                         <MoreIcon
                           onClick={() => {
                             history.push(
-                              `/project/${MODAL_PROJECT.TEAM}/${row.id}`,
+                              `/project/${MODAL_PROJECT.TEAM}/${row.projectId}`,
                               {
                                 background: location,
-                                payload: row,
+                                payload: row.team,
                               }
                             );
                           }}
                           className={classes.moreIcon}
                           style={{
                             marginLeft:
-                              row.users.length &&
-                              row.users.length * 16 + 32 + 'px',
+                              row.team.length &&
+                              row.team.length * 16 + 32 + 'px',
                           }}
                         />
                       </div>
                     </TableCell>
                     <TableCell
-                      size='small'
+                      size="small"
                       className={classes.actions__container}
                     >
-                      {!row.startDate && !row.endDate && (
+                      {!row.startDate && !row.finishDate && (
                         <StartIcon
                           className={classes.startIcon}
                           onClick={() => {
                             history.push(
-                              `/project/${MODAL_PROJECT.START}/${row.id}`,
+                              `/project/${MODAL_PROJECT.START}/${row.projectId}`,
                               {
                                 background: location,
                                 payload: row,
@@ -199,12 +207,12 @@ const EnhancedTable = ({ rows, isLoading }) => {
                           }}
                         />
                       )}
-                      {row.startDate && !row.endDate && (
+                      {row.startDate && !row.finishDate && (
                         <FinishIcon
                           className={classes.finishIcon}
                           onClick={() => {
                             history.push(
-                              `/project/${MODAL_PROJECT.FINISH}/${row.id}`,
+                              `/project/${MODAL_PROJECT.FINISH}/${row.projectId}`,
                               {
                                 background: location,
                                 payload: row,
@@ -217,7 +225,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                         className={classes.editIcon}
                         onClick={() => {
                           history.push(
-                            `/project/${MODAL_PROJECT.EDIT}/${row.id}`,
+                            `/project/${MODAL_PROJECT.EDIT}/${row.projectId}`,
                             {
                               background: location,
                               payload: row,
@@ -229,7 +237,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                         className={classes.trashIcon}
                         onClick={() => {
                           history.push(
-                            `/project/${MODAL_PROJECT.DELETE}/${row.id}`,
+                            `/project/${MODAL_PROJECT.DELETE}/${row.projectId}`,
                             {
                               background: location,
                               payload: row,

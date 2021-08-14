@@ -71,6 +71,7 @@ const TeamModal = ({
   handleClose,
   isLoading,
   id,
+  team,
   ...props
 }) => {
   const classes = useStyles();
@@ -79,7 +80,7 @@ const TeamModal = ({
   const [currentProject, setCurrentProject] = useState(null);
   useEffect(() => {
     setCurrentProject(() => {
-      const index = projects.findIndex((project) => +project.id === +id);
+      const index = projects.findIndex((project) => +project.projectId === +id);
       return projects[index];
     });
   }, [id, projects]);
@@ -103,7 +104,7 @@ const TeamModal = ({
         </DialogTitle>
         <DialogContent classes={{ root: classes.contentWrapper }}>
           {currentProject &&
-            currentProject.users.map((employee) => (
+            team.map((employee) => (
               <div className={classes.itemWrapper} key={employee.id}>
                 <div className={classes.avatarWrapper}>
                   <Avatar key={employee.id}>

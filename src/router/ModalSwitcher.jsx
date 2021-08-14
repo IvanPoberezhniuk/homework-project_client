@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import {
-  addProject,
+  createProject,
   deleteProject,
   editProject,
   eraseCurrentProject,
@@ -22,7 +22,7 @@ import { deleteUser, editUser } from 'redux/modules/users';
 
 export const MODAL_PROJECT = {
   EDIT: 'editproject',
-  ADD: 'addproject',
+  CREATE: 'createproject',
   DELETE: 'deleteproject',
   FINISH: 'finishproject',
   START: 'startproject',
@@ -56,12 +56,12 @@ const ModalSwitcher = ({ ...other }) => {
 
   const getModal = (type) => {
     switch (type) {
-      case MODAL_PROJECT.ADD:
+      case MODAL_PROJECT.CREATE:
         return (
           <CreateProjectModal
             isLoading={isLoadingProject}
             handleClose={goBack}
-            handleSubmit={() => submit(addProject, id)}
+            handleSubmit={() => submit(createProject, id)}
           />
         );
       case MODAL_PROJECT.EDIT:
@@ -107,7 +107,7 @@ const ModalSwitcher = ({ ...other }) => {
           />
         );
       case MODAL_PROJECT.TEAM:
-        return <TeamModal id={id} handleClose={goBack} />;
+        return <TeamModal id={id} handleClose={goBack} team={payload} />;
       case MODAL_USER.PROJECTS:
         return <ProjectsModal user={payload} handleClose={goBack} />;
       case MODAL_USER.EDIT:
