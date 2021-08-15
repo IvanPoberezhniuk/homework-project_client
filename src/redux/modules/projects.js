@@ -34,17 +34,11 @@ export const fetchProjects = createAsyncThunk(
 export const fetchProject = createAsyncThunk(
   FETCH_PROJECT,
   async (payload, thunkApi) => {
-    // const { id } = payload;
     try {
-      console.log('payl fetch');
-      console.log(payload);
       const response = await projectsAPI.fetchProjectById(payload.id);
-      console.log('res');
-      console.log(response);
+
       if (response.status === 200) {
         const teamResponse = await projectsAPI.fetchProjectTeam(payload.id);
-        console.log('team');
-        console.log(teamResponse);
         return { ...response.data, team: [...teamResponse.data] };
       }
       return response.data;
@@ -57,11 +51,9 @@ export const fetchProject = createAsyncThunk(
 export const createProject = createAsyncThunk(
   ADD_PROJECT,
   async (payload, { rejectWithValue, dispatch }) => {
-    //payload = projectName, users
+    const { projectName } = { ...payload };
     try {
-      const projectResponse = await projectsAPI.createProject({
-        projectName: payload.projectName,
-      });
+      const projectResponse = await projectsAPI.createProject({ projectName });
       if (+projectResponse.status === 201) {
         payload.users.forEach(async (user) => {
           await projectsAPI.addEmployee(projectResponse.data.projectId, {
