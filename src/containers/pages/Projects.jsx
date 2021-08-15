@@ -27,6 +27,7 @@ const Projects = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const projects = useSelector((state) => state.projects.list);
+
   const isLoading = useSelector((state) => state.projects.isLoading);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const Projects = () => {
       <Grid
         container
         direction='row'
-        justify='space-between'
+        justifyContent='space-between'
         className={classes.root}
       >
         <Typography variant='h5' component='h1'>
@@ -48,7 +49,7 @@ const Projects = () => {
           color='primary'
           className={classes.buttonRoot}
           onClick={() => {
-            history.push(`/project/${MODAL_PROJECT.ADD}`, {
+            history.push(`/project/${MODAL_PROJECT.CREATE}`, {
               background: location,
             });
           }}

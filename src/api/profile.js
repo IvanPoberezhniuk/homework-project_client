@@ -1,8 +1,4 @@
-import axios from 'axios';
-
-let instance = axios.create({
-  baseURL: 'api',
-});
+import instance from './config';
 
 const profileApi = {
   getProfile(token) {

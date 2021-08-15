@@ -1,17 +1,17 @@
-import axios from 'axios';
+import instance from './config';
 
 const usersAPI = {
   fetchUsers() {
-    return axios.get('/api/users');
+    return instance.get('/users');
   },
   addUser(user) {
-    return axios.post('/api/users', user);
+    return instance.post('/users', user);
   },
   editUser(user) {
-    return axios.patch('/api/user', user);
+    return instance.patch('/users', user);
   },
   deleteUser(id) {
-    return axios.delete(`/api/user/${id}`);
+    return instance.delete(`/users/${id}`);
   },
 };
 

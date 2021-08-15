@@ -10,7 +10,7 @@ const DELETE_USER = 'usersTable/DELETE_USER';
 export const fetchUsers = createAsyncThunk(FETCH_USERS, async (_, thunkApi) => {
   try {
     const response = await usersAPI.fetchUsers();
-    return response.data.users;
+    return response.data;
   } catch (err) {
     return thunkApi.rejectedWithValue(err.response.data);
   }

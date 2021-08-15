@@ -1,24 +1,26 @@
-import axios from 'axios';
-
-let instance = axios.create({
-  baseURL: 'api',
-});
+import instance from './config';
 
 const authAPI = {
-  fetchProjects: axios.get('api/projects'),
   signup: function (credentials) {
     return instance
       .post('/signup', credentials)
       .then((response) => response.data);
   },
   signin(credentials) {
-    return instance
-      .post('/signin', credentials)
-      .then((response) => response.data);
+    const res = instance.post('/signin', credentials).then((response) => {
+      return response;
+    });
+
+    return res;
   },
-  authMe(token) {
-    instance.defaults.headers = { Authorization: `Bearer ${token}` };
-    return instance.get('/authMe').then((response) => response.data);
+  signout(token, refreshtoken) {
+    const res = instance
+      .post('/signout', {}, { headers: { token, refreshtoken } })
+      .then((response) => {
+        return response;
+      });
+
+    return res;
   },
 };
 

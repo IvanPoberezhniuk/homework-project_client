@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
 const Users = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const users = useSelector((state) => state.users.list);
+
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);

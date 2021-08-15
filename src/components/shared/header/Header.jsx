@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { useDispatch } from 'react-redux';
+import { signout } from 'redux/modules/auth';
+
 import { Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -16,10 +19,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ user, signOutHandler }) => {
+const Header = ({ profile }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,18 +33,30 @@ const Header = ({ user, signOutHandler }) => {
     setAnchorEl(null);
   };
 
+  const onSignOut = async () => {
+    await dispatch(signout());
+  };
+
+  const generateLable = (strOne, strTwo) => {
+    return `${strOne[0]}${strTwo[0]}`.toUpperCase();
+  };
+
   return (
     <AppBar position='fixed' color='default' className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <HeaderLoginMenu
           handleMenu={handleMenu}
           handleClose={handleClose}
-          name={`${user?.firstName}`}
-          iconLabel={`${user?.firstName[0]}${user?.lastName[0]}`.toUpperCase()}
-          role={user?.role}
+          name={profile.firstName ? `${profile.firstName}` : `No Name`}
+          iconLabel={
+            profile.firstName && profile.lastName
+              ? generateLable(profile.firstName, profile.lastName)
+              : ''
+          }
+          role={profile.role ? profile.role : 'No Role'}
           open={open}
           anchorEl={anchorEl}
-          signOutHandler={signOutHandler}
+          signOutHandler={onSignOut}
         />
       </Toolbar>
     </AppBar>

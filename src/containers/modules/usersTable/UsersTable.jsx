@@ -106,7 +106,7 @@ const EnhancedTable = ({ rows }) => {
                     <TableCell id={labelId} scope='row'>
                       {row.firstName} {row.lastName}
                     </TableCell>
-                    <TableCell>{row.role}</TableCell>
+                    <TableCell>{row.roleName}</TableCell>
                     <TableCell>
                       <div className={classes.moreIcon__container}>
                         <MoreIcon
@@ -159,8 +159,8 @@ const EnhancedTable = ({ rows }) => {
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
           classes={{ selectIcon: classes.paginationSelect }}
         />
       </TableContainer>

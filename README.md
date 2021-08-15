@@ -9,11 +9,9 @@
 
 ## Repository & Git Flow 
 
- - We would have 4 branches. Master, Mariana Main Branch, Roman Main 
-   Branch and Ivan Main Branch
+ - We would have 2 main branches. Master and develop. All pullrequest must be navigated to develop branch.
  - For each task you have to create new branch and name it like a task title.
- - After you complete task you should merge it to your Main Brach and test or 
-  evrything works good and after that you may create pull request to master.
+ - After you complete task you should merge it to develop branch.
 
 ## Troubleshooting
  - If you have any problems or stacked on task, please inform us in telegram 

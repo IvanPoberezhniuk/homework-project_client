@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { authAPI } from '../../api';
-import { setProfile } from './profile';
+import { deleteProfile, setProfile } from './profile';
 
 // Actions types
 export const SIGNUP = 'auth/SIGNUP';
 export const SIGNIN = 'auth/SIGNIN';
-export const AUTHME = 'auth/AUTHME';
+export const SIGNOUT = 'auth/SIGNOUT';
 
 // Actions
 export const signup = createAsyncThunk(
@@ -14,8 +14,8 @@ export const signup = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       return await authAPI.signup(credentials);
-    } catch (e) {
-      return rejectWithValue(e.response.data);
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -24,26 +24,44 @@ export const signin = createAsyncThunk(
   SIGNIN,
   async (credentials, { rejectWithValue, dispatch }) => {
     try {
-      let data = await authAPI.signin(credentials);
-      if (data.status_code === 4) {
-        dispatch(authMe({ token: data.token }));
+      const { headers, data: userDTO } = await authAPI.signin(credentials);
+      const { autorization, refreshtoken } = { ...headers };
+      const token = autorization.substring(7, autorization.length).trim();
+      const refreshToken = refreshtoken.trim();
+
+      await dispatch(setProfile(userDTO));
+
+      if (credentials.rememberMe) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('isAuth', true);
+        localStorage.setItem('userDTO', JSON.stringify(userDTO));
       }
-      return data;
-    } catch (e) {
-      return rejectWithValue(e.response.data);
+
+      return { token, refreshToken };
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
 
-export const authMe = createAsyncThunk(
-  AUTHME,
-  async (credentials, { rejectWithValue, dispatch }) => {
+export const signout = createAsyncThunk(
+  SIGNOUT,
+  async (args, { rejectWithValue, dispatch, getState }) => {
     try {
-      const data = await authAPI.authMe(credentials.token);
-      dispatch(setProfile({ ...data.profile }));
-      return data;
-    } catch (e) {
-      return rejectWithValue(e.response.data);
+      const { auth } = getState();
+
+      const res = await authAPI.signout(auth.token, auth.refreshToken);
+      await dispatch(deleteProfile);
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('isAuth');
+      localStorage.removeItem('userDTO');
+
+      return { msg: res.data.msg };
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -54,14 +72,15 @@ export const auth = createSlice({
     isShowServerError: false,
     isSuccessRegister: false,
     serverErrorMsg: '',
-    isAuth: false,
-    token: null,
+    isAuth: JSON.parse(localStorage.getItem('isAuth')) ? true : false,
+    token: localStorage.getItem('token') || null,
+    refreshToken: localStorage.getItem('refreshToken') || null,
     isLoading: false,
-    profile: null,
   },
   reducers: {
     setToken: (state, action) => {
-      state.token = action.payload.token;
+      const { token } = action.payload;
+      state.token = token;
     },
   },
   extraReducers: {
@@ -98,26 +117,34 @@ export const auth = createSlice({
       } else if (action.payload.status_code === 3) {
         state.serverErrorMsg = 'Incorrect login or password';
       }
+
+      state.isAuth = false;
       state.isLoading = false;
     },
     [signin.fulfilled]: (state, action) => {
-      if (action.payload.status_code === 4) {
-        state.token = action.payload.token;
-      } else {
-        state.serverErrorMsg = 'Some server error';
-      }
+      state.token = action.payload.token;
+      state.refreshToken = action.payload.refreshToken;
+
+      state.isAuth = true;
       state.isLoading = false;
     },
-    // authMe
-    [authMe.rejected]: (state, action) => {
-      state.isAuth = false;
+    // signOut
+    [signout.pending]: (state) => {
+      state.isLoading = true;
     },
-    [authMe.fulfilled]: (state, action) => {
+    [signout.rejected]: (state, action) => {
       state.isAuth = true;
+      state.isLoading = false;
+    },
+    [signout.fulfilled]: (state, action) => {
+      state.token = null;
+      state.refreshToken = null;
+      state.isAuth = false;
+      state.isLoading = false;
     },
   },
 });
 
-export const { setToken } = auth.actions;
+export const { setToken, setRefreshToken } = auth.actions;
 
 export default auth.reducer;

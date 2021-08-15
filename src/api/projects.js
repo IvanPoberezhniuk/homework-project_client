@@ -1,25 +1,36 @@
-import axios from 'axios';
+import instance from './config';
 
 const projectsAPI = {
   fetchProjects() {
-    return axios.get(`/api/projects`);
+    return instance.get('/projects');
   },
-  fetchProjectById(id) {
-    return axios.get(`/api/project/${id}`);
+  fetchProjectTeam(projectId) {
+    return instance.get(`/projects/${projectId}/team`);
   },
-  addProject(payload) {
-    return axios.post('/api/project', payload);
+  projectStart(projectId) {
+    return instance.post(`/projects/${projectId}/start`, {});
+  },
+  projectFinish(projectId) {
+    return instance.post(`/projects/${projectId}/finish`, {});
+  },
+  fetchProjectById(projectId) {
+    return instance.get(`/projects/${projectId}`);
+  },
+  createProject(payload) {
+    return instance.post('/projects', payload);
+  },
+  addEmployee(projectId, payload) {
+    return instance.post(`/projects/${projectId}/team`, payload);
   },
   editProject(payload) {
-    return axios.patch(`/api/project`, payload);
+    return instance.patch(`/projects`, payload);
   },
   editProjectStatus(payload) {
     const { id, type } = payload;
-    return axios.patch(`/api/project/${type}/${id}`);
+    return instance.patch(`/projects/${type}/${id}`);
   },
-  deleteProjectById(payload) {
-    const { id } = payload;
-    return axios.delete(`/api/project/${id}`);
+  deleteProjectById(projectId) {
+    return instance.delete(`/projects/${projectId}`);
   },
 };
 
