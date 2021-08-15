@@ -34,7 +34,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MultiSelectInput = ({ placeholder, onSelectHandler, ...other }) => {
+const MultiSelectInput = ({
+  placeholder,
+  onSelectHandler,
+  selectedSkills = [],
+  ...other
+}) => {
   const classes = useStyles();
 
   return (
@@ -57,7 +62,7 @@ const MultiSelectInput = ({ placeholder, onSelectHandler, ...other }) => {
         <TextField
           {...params}
           variant='outlined'
-          placeholder={!other.defaultValue.length && placeholder}
+          placeholder={selectedSkills.length ? placeholder : ''}
         />
       )}
       {...other}

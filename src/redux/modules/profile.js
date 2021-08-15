@@ -12,6 +12,7 @@ export const editProfile = createAsyncThunk(
   EDIT_PROFILE,
   async (credentials, { rejectWithValue }) => {
     try {
+      console.log(1111,credentials)
       await profileAPI.editProfile(credentials);
       return credentials;
     } catch (e) {
@@ -33,9 +34,10 @@ export const getProfile = createAsyncThunk(
 
 export const getAvailableSkills = createAsyncThunk(
   GET_AVAILABLE_SKILLS,
-  async (credentials, { rejectWithValue }) => {
+  async (payload, { rejectWithValue }) => {
     try {
-      return await profileAPI.getAvailableSkills();
+      const { skills } = await profileAPI.getAvailableSkills();
+      return skills;
     } catch (e) {
       return rejectWithValue(e.response.data);
     }
@@ -90,7 +92,7 @@ export const profile = createSlice({
       state.isLoading = false;
     },
     [getAvailableSkills.fulfilled]: (state, action) => {
-      state.availableSkills = [...action.payload];
+      state.availableSkills = action.payload;
       state.isLoading = false;
     },
   },

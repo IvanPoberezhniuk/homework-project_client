@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 import { Fallback, ProfileForm } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { editProfile, getAvailableSkills } from 'redux/modules/profile';
 
 import { Typography } from '@material-ui/core';
@@ -20,6 +19,7 @@ const useStyles = makeStyles(() => ({
   },
   roleName: {
     textDecoration: 'underline',
+    textTransform: 'capitalize',
   },
   profileContent: {
     padding: '40px 0 34px',
@@ -32,31 +32,20 @@ const useStyles = makeStyles(() => ({
 const Profile = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
   const profile = useSelector((state) => state.profile.userDTO);
   const allSkills = useSelector((state) => state.profile.availableSkills);
   const isLoading = useSelector((state) => state.profile.isLoading);
 
-  useEffect(
-    () => async () => {
-      await dispatch(getAvailableSkills());
-    },
-    [dispatch]
-  );
+  useEffect(() => {
+    dispatch(getAvailableSkills());
+  }, [dispatch]);
 
   const editProfileHandleSubmit = async (firstName, lastName, skills) => {
     await dispatch(
       editProfile({ id: profile.id, firstName, lastName, skills })
     );
-    history.push('/profile');
   };
 
-  const role = () => {
-    if (profile.role === 'manager') return 'Manager';
-    if (profile.role === 'developer') return 'Developer';
-    if (profile.role === 'qa') return 'Qa';
-    if (profile.role === 'guest') return 'Guest';
-  };
   return isLoading ? (
     <Fallback />
   ) : (
@@ -69,7 +58,7 @@ const Profile = () => {
       <section className={classes.profileContent}>
         <p className={classes.role}>
           Your current Role is:{' '}
-          <span className={classes.roleName}>{role()}</span>
+          <span className={classes.roleName}>{profile.role}</span>
         </p>
         <ProfileForm
           allSkills={allSkills}

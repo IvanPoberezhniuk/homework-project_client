@@ -1,10 +1,6 @@
 import { useState } from 'react';
 
-import {
-  Button,
-  Input,
-  MultiSelectInput,
-} from 'components';
+import { Button, Input, MultiSelectInput } from 'components';
 import { useFormik } from 'formik';
 
 import { makeStyles } from '@material-ui/styles';
@@ -33,21 +29,24 @@ const useStyles = makeStyles(() => ({
 const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
   const classes = useStyles();
   const [selectedSkills, setSelectedSkills] = useState(user.skills);
-
-  const { getFieldProps, handleSubmit} = useFormik({
+  const { getFieldProps, handleSubmit } = useFormik({
     initialValues: {
       firstName: '',
       lastName: '',
     },
     onSubmit(values) {
-      handleSubmitting(values.firstName || user.firstName, values.lastName || user.lastName, selectedSkills);
+      handleSubmitting(
+        values.firstName || user.firstName,
+        values.lastName || user.lastName,
+        selectedSkills
+      );
     },
   });
 
   return (
     <form onSubmit={handleSubmit}>
       <Input
-        placeholder={ user.firstName || 'First name'}
+        placeholder={user.firstName || 'First name'}
         className={classes.profileItem}
         {...getFieldProps('firstName')}
       />
@@ -61,10 +60,10 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
         className={classes.profileItem}
         placeholder='Select your skills'
         options={allSkills}
-        defaultValue={selectedSkills}
-        getOptionLabel={(option) => option.name}
+        selectedSkills={selectedSkills}
+        getOptionLabel={(option) => option}
         onSelectHandler={(value) => {
-          setSelectedSkills([...value]);
+          setSelectedSkills([value]);
         }}
       />
       <Button fullWidth color='primary' type='submit' className={classes.btn}>
