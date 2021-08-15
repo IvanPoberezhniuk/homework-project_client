@@ -17,16 +17,14 @@ export const fetchProjects = createAsyncThunk(
   FETCH_PROJECTS,
   async (_, thunkApi) => {
     try {
-      let projectsResponse = await projectsAPI.fetchProjects();
-      let projects = projectsResponse.data;
-
-      let requests = projects.map(async (p) => {
-        let teamResponse = await projectsAPI.fetchProjectTeam(p.projectId);
-        return {...p, team: [...teamResponse.data]}
+      const response = await projectsAPI.fetchProjects();
+      const { projects } = response.data;
+      const requests = projects.map(async (p) => {
+        const teamResponse = await projectsAPI.fetchProjectTeam(p.projectId);
+        return { ...p, team: [...teamResponse.data] };
       });
-      let result = Promise.all(requests);
 
-      return result;
+      return Promise.all(requests);
     } catch (err) {
       return thunkApi.rejectedWithValue(err.response.data);
     }
@@ -36,7 +34,7 @@ export const fetchProjects = createAsyncThunk(
 export const fetchProject = createAsyncThunk(
   FETCH_PROJECT,
   async (payload, thunkApi) => {
-   // const { id } = payload;
+    // const { id } = payload;
     try {
       console.log('payl fetch');
       console.log(payload);
@@ -47,7 +45,7 @@ export const fetchProject = createAsyncThunk(
         const teamResponse = await projectsAPI.fetchProjectTeam(payload.id);
         console.log('team');
         console.log(teamResponse);
-        return {...response.data, team: [...teamResponse.data]}
+        return { ...response.data, team: [...teamResponse.data] };
       }
       return response.data;
     } catch (err) {
@@ -58,19 +56,20 @@ export const fetchProject = createAsyncThunk(
 
 export const createProject = createAsyncThunk(
   ADD_PROJECT,
-  async (payload, {rejectWithValue, dispatch}) => {;
+  async (payload, { rejectWithValue, dispatch }) => {
     //payload = projectName, users
     try {
       const projectResponse = await projectsAPI.createProject({
         projectName: payload.projectName,
       });
       if (+projectResponse.status === 201) {
-         payload.users.forEach(async (user) => {
-          await projectsAPI.addEmployee(projectResponse.data.projectId, { userId: user.userId });
+        payload.users.forEach(async (user) => {
+          await projectsAPI.addEmployee(projectResponse.data.projectId, {
+            userId: user.userId,
+          });
         });
         dispatch(fetchProjects());
       }
-
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -105,7 +104,7 @@ export const editProject = createAsyncThunk(
 
 export const deleteProject = createAsyncThunk(
   DELETE_PROJECT,
-  async (payload, {rejectWithValue, dispatch}) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
       const response = await projectsAPI.deleteProjectById(payload.id);
       if (+response.status === 204) {
@@ -119,7 +118,7 @@ export const deleteProject = createAsyncThunk(
 
 export const startProject = createAsyncThunk(
   START_PROJECT,
-  async (payload, {rejectWithValue, dispatch}) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
       const response = await projectsAPI.projectStart(payload.id);
       if (response.status === 200) {
@@ -132,7 +131,7 @@ export const startProject = createAsyncThunk(
 );
 export const finishProject = createAsyncThunk(
   FINISH_PROJECT,
-  async (payload, {rejectWithValue, dispatch}) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
       const response = await projectsAPI.projectFinish(payload.id);
       if (response.status === 200) {
@@ -184,7 +183,7 @@ export const projectsTableSlice = createSlice({
       state.isLoading = true;
     },
     [createProject.fulfilled]: (state, action) => {
-     // state.list = action.payload;
+      // state.list = action.payload;
       state.isLoading = false;
     },
     [createProject.rejected]: (state) => {
