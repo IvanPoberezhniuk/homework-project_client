@@ -115,7 +115,6 @@ const ProjectForm = ({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      projectName
       <Input
         placeholder='Project Name'
         inputRef={textInput}
@@ -124,7 +123,7 @@ const ProjectForm = ({
         helperText={touched.projectName && errors.projectName}
         {...getFieldProps('projectName')}
       />
-      {/* <div className={classes.listWrapper}>
+      <div className={classes.listWrapper}>
         <List
           placeholder='Start to add user by clicking on their preview below'
           name='seletedEmployees'
@@ -138,7 +137,7 @@ const ProjectForm = ({
           items={itemsToShow}
           onClickItemHandler={selectEmployee}
         />
-      </div> */}
+      </div>
       <span onClick={() => selectBusy(!busy)} className={classes.hideBtn}>
         {busy ? 'Show all coworkers' : 'Hide busy coworkers'}
       </span>
