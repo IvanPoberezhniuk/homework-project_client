@@ -1,9 +1,4 @@
-import axios from 'axios';
-
-
-let instance = axios.create({
-  baseURL: 'http://127.0.0.1:8081/api/v1',
-});
+import instance from './config';
 
 const projectsAPI = {
   fetchProjects() {
@@ -28,11 +23,11 @@ const projectsAPI = {
     return instance.post(`/projects/${projectId}/team`, payload);
   },
   editProject(payload) {
-    return axios.patch(`/api/project`, payload);
+    return instance.patch(`/projects`, payload);
   },
   editProjectStatus(payload) {
     const { id, type } = payload;
-    return axios.patch(`/api/project/${type}/${id}`);
+    return instance.patch(`/projects/${type}/${id}`);
   },
   deleteProjectById(projectId) {
     return instance.delete(`/projects/${projectId}`);

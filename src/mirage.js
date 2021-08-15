@@ -9,7 +9,7 @@ import {
 } from 'miragejs';
 import { MODAL_PROJECT } from 'router/ModalSwitcher';
 
-export function makeServer({ environment = 'test' }) {
+function makeServer({ environment = 'test' }) {
   return createServer({
     environment,
     serializers: {
@@ -353,3 +353,5 @@ export function makeServer({ environment = 'test' }) {
     },
   });
 }
+
+export { makeServer };

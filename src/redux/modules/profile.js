@@ -46,12 +46,15 @@ export const profile = createSlice({
   name: 'profile',
   initialState: {
     isLoading: false,
-    profile: null,
+    userDTO: JSON.parse(localStorage.getItem('userDTO')) || null,
     availableSkills: [],
   },
   reducers: {
     setProfile: (state, action) => {
-      state.profile = action.payload;
+      state.userDTO = action.payload;
+    },
+    deleteProfile: (state, action) => {
+      state.userDTO = null;
     },
   },
   extraReducers: {
@@ -59,7 +62,7 @@ export const profile = createSlice({
       state.isLoading = true;
     },
     [getProfile.fulfilled]: (state, action) => {
-      state.profile = action.payload.profile;
+      state.userDTO = action.payload.profile;
       state.isLoading = false;
     },
     [getProfile.rejected]: (state) => {
@@ -70,8 +73,8 @@ export const profile = createSlice({
     },
     [editProfile.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.profile = {
-        ...state.profile,
+      state.userDTO = {
+        ...state.userDTO,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         skills: [...action.payload.skills],
@@ -93,6 +96,6 @@ export const profile = createSlice({
   },
 });
 
-export const { setProfile } = profile.actions;
+export const { setProfile, deleteProfile } = profile.actions;
 
 export default profile.reducer;

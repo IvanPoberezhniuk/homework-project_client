@@ -1,21 +1,17 @@
-import axios from 'axios';
-
-let instance = axios.create({
-  baseURL: 'http://127.0.0.1:8081/api/v1',
-});
+import instance from './config';
 
 const usersAPI = {
   fetchUsers() {
-    return instance.get('/users/users');
+    return instance.get('/users');
   },
   addUser(user) {
-    return axios.post('/api/users', user);
+    return instance.post('/users', user);
   },
   editUser(user) {
-    return axios.patch('/api/user', user);
+    return instance.patch('/users', user);
   },
   deleteUser(id) {
-    return axios.delete(`/api/user/${id}`);
+    return instance.delete(`/users/${id}`);
   },
 };
 

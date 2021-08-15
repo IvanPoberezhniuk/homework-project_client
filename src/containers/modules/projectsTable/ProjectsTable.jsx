@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { TableCell, TableContainer, TableTeamAvatar } from 'components';
 import {
@@ -117,8 +117,8 @@ const EnhancedTable = ({ rows, isLoading }) => {
     if (!str) return null;
     const date = new Date(str);
     const month = date.toLocaleDateString('en-US', { month: 'long' });
-    return date.getDate() +' ' + month + ' ' + date.getFullYear();
-  }
+    return date.getDate() + ' ' + month + ' ' + date.getFullYear();
+  };
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -147,15 +147,15 @@ const EnhancedTable = ({ rows, isLoading }) => {
                 return (
                   <TableRow
                     hover
-                    role="checkbox"
+                    role='checkbox'
                     tabIndex={-1}
                     key={`${row.id}`}
                   >
-                    <TableCell id={labelId} scope="row">
+                    <TableCell id={labelId} scope='row'>
                       {row.projectName}
                     </TableCell>
                     <TableCell>{getDate(row.startDate) || '-'}</TableCell>
-                    <TableCell>{getDate(row.finishDate)|| '-'}</TableCell>
+                    <TableCell>{getDate(row.finishDate) || '-'}</TableCell>
                     <TableCell>{row.status}</TableCell>
                     <TableCell className={classes.teamCell}>
                       <div className={classes.avatar__container}>
@@ -190,7 +190,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                       </div>
                     </TableCell>
                     <TableCell
-                      size="small"
+                      size='small'
                       className={classes.actions__container}
                     >
                       {!row.startDate && !row.finishDate && (
@@ -263,8 +263,8 @@ const EnhancedTable = ({ rows, isLoading }) => {
         count={rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
         classes={{ selectIcon: classes.paginationSelect }}
       />
     </Paper>

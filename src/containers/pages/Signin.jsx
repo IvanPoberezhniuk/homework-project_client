@@ -89,7 +89,7 @@ const Signin = ({ isSuccessSignIn, ...props }) => {
         <SigninForm
           handleSubmitting={async (email, password, rememberMe) => {
             setRememberMe(rememberMe);
-            await dispatch(signin({ email, password }));
+            await dispatch(signin({ email, password, rememberMe }));
           }}
           isLoading={isLoading}
         />

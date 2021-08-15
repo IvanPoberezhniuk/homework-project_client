@@ -1,7 +1,5 @@
 import { Header, Sidebar } from 'components';
-import Cookies from 'js-cookie';
-//import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -19,28 +17,16 @@ const useStyles = makeStyles((theme) => ({
 
 const DashboardContainer = ({ route, ...props }) => {
   const classes = useStyles();
-  //const profile = useSelector((state) => state.profile.profile);
-  const profile = {
-    firstName: 'first',
-    lastName: 'last',
-    role: 'admin',
-  }
-  const history = useHistory();
-
-  const signOut = () => {
-    Cookies.remove('token');
-    history.go();
-  };
+  const profile = useSelector((state) => state.profile.userDTO);
 
   return (
     <>
       <Header
-        user={{
-          firstName: profile.firstName,
-          lastName: profile.lastName,
-          role: profile.role,
+        profile={{
+          firstName: profile?.firstName,
+          lastName: profile?.lastName,
+          role: profile?.role,
         }}
-        signOutHandler={signOut}
       />
       <div className={classes.container}>
         <Sidebar role={profile?.role} />
