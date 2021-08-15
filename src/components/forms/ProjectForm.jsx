@@ -58,16 +58,15 @@ const ProjectForm = ({
   projectName = '',
 }) => {
   const classes = useStyles();
-
   const [itemsToShow, setItemsToShow] = useState(
-    findDiffernt(availableItems, selectedItems)
+    findDiffernt(availableItems, selectedItems, 'userId')
   );
 
   const [selected, setSelected] = useState(selectedItems);
   const [busy, setBusy] = useState(false);
 
   const selectEmployee = (id) => {
-    const index = itemsToShow.findIndex((item) => item.id === id);
+    const index = itemsToShow.findIndex((item) => item.userId === id);
     const newArr = [...itemsToShow];
     newArr.splice(index, 1);
 
@@ -76,7 +75,9 @@ const ProjectForm = ({
   };
 
   const deselectEmployee = (id) => {
-    const index = selected.findIndex((item) => item.id === id);
+    const index = selected.findIndex((item) => {
+      return item.userId === id && item
+    });
     const newArr = [...selected];
     newArr.splice(index, 1);
 
@@ -90,7 +91,7 @@ const ProjectForm = ({
       setBusy(status);
       return;
     }
-    setItemsToShow(findDiffernt(availableItems, selected));
+    setItemsToShow(findDiffernt(availableItems, selected, 'userId'));
     setBusy(status);
   };
 
@@ -107,7 +108,7 @@ const ProjectForm = ({
         .trim(),
     }),
     onSubmit(values) {
-      submitHandler({ ...values, users: [...selected] });
+      submitHandler({ ...values, users: [...selected], oldUsers: [...selectedItems] });
     },
   });
 
@@ -116,26 +117,28 @@ const ProjectForm = ({
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Input
-        placeholder='Project Name'
+        placeholder="Project Name"
         inputRef={textInput}
-        autoComplete='off'
+        autoComplete="off"
         error={errors.projectName && touched.projectName}
         helperText={touched.projectName && errors.projectName}
         {...getFieldProps('projectName')}
       />
       <div className={classes.listWrapper}>
         <List
-          placeholder='Start to add user by clicking on their preview below'
-          name='seletedEmployees'
+          placeholder="Start to add user by clicking on their preview below"
+          name="seletedEmployees"
           items={selected}
           onClickItemHandler={deselectEmployee}
+          keyField="userId"
         />
       </div>
       <div className={classes.listWrapper}>
         <List
-          name='employees'
+          name="employees"
           items={itemsToShow}
           onClickItemHandler={selectEmployee}
+          keyField="userId"
         />
       </div>
       <span onClick={() => selectBusy(!busy)} className={classes.hideBtn}>
@@ -143,8 +146,8 @@ const ProjectForm = ({
       </span>
       <div className={classes.btnsWrapper}>
         <Button
-          type='submit'
-          color='primary'
+          type="submit"
+          color="primary"
           classes={{ root: classes.btn }}
           disabled={isLoading}
         >
@@ -152,7 +155,7 @@ const ProjectForm = ({
           {isLoading && <ButtonLoader />}
         </Button>
         <Button
-          color='secondary'
+          color="secondary"
           onClick={closeHandler}
           classes={{ root: classes.btn }}
         >

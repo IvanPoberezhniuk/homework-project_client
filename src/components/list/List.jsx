@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const List = ({ items = [], placeholder, onClickItemHandler }) => {
+const List = ({ items = [], placeholder, onClickItemHandler, keyField }) => {
   const classes = useStyles();
 
   return (
@@ -67,9 +67,9 @@ const List = ({ items = [], placeholder, onClickItemHandler }) => {
             <Grid
               item
               xs={3}
-              key={item.id}
+              key={item[keyField]}
               onClick={() => {
-                onClickItemHandler(item.id);
+                onClickItemHandler(item[keyField]);
               }}
               className={classes.avatarWrapper}
             >

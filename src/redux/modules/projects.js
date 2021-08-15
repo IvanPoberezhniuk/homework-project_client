@@ -41,7 +41,7 @@ export const fetchProject = createAsyncThunk(
         const teamResponse = await projectsAPI.fetchProjectTeam(payload.id);
         return { ...response.data, team: [...teamResponse.data] };
       }
-      return response.data;
+      //return response.data;
     } catch (err) {
       return thunkApi.rejectedWithValue(err.response.data);
     }
@@ -70,17 +70,70 @@ export const createProject = createAsyncThunk(
 
 export const editProject = createAsyncThunk(
   EDIT_PROJECT,
-  async (payload, thunkApi) => {
-    console.log('edit');
-    console.log(payload);
+  async (payload, {rejectWithValue, dispatch}) => {
     try {
-      //const response = await projectsAPI.editProject(project);
-      //return response.data.projects;
+      let oldUsersIds = payload.oldUsers.map((u) => u.userId);
+      let selectedUsersIds = payload.users.map((u) => u.userId);
+      let toAddEmployees = [];
+      let toDeleteEmployees = [];
+      let response = await projectsAPI.editProject(payload.id, {
+        projectName: payload.projectName,
+      })
+      selectedUsersIds.map(el => {
+        const index = oldUsersIds.indexOf(el);
+        if (index  === -1) {
+          toAddEmployees.push(el);
+        }
+      });
+      oldUsersIds.map(el => {
+        const index = selectedUsersIds.indexOf(el);
+        if (index === -1) {
+          toDeleteEmployees.push(el);
+        }
+      })
+      toAddEmployees.map(async (el) => {
+        await projectsAPI.addEmployee( payload.id, {userId: el })
+      })
+      toDeleteEmployees.map(async (el) => {
+        await projectsAPI.deleteEmployee(payload.id, el)
+      })
+      dispatch(fetchProjects());
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const addEmployee = createAsyncThunk(
+  EDIT_PROJECT,
+  async (payload, thunkApi) => {
+    //const current = payload.cu
+    try {
+      const response = await projectsAPI.addEmployee(payload.projectId, {
+        userId: payload.userId,
+      });
+      if (response.status === 204) return response.data;
     } catch (err) {
       return thunkApi.rejectedWithValue(err.response.data);
     }
   }
 );
+
+export const deleteEmployee = createAsyncThunk(
+  EDIT_PROJECT,
+  async (payload, thunkApi) => {
+    try {
+      const response = await projectsAPI.delete(payload.projectId, payload.userId);
+      if (response.status === 204) return response.data;
+    } catch (err) {
+      return thunkApi.rejectedWithValue(err.response.data);
+    }
+  }
+);
+
+
+
 
 /* export const editProjectStatus = createAsyncThunk(
   EDIT_PROJECT_STATUS,
@@ -164,6 +217,7 @@ export const projectsTableSlice = createSlice({
       state.isLoading = true;
     },
     [fetchProject.fulfilled]: (state, action) => {
+      console.log('project', action.payload);
       state.current = action.payload;
       state.isLoading = false;
     },
@@ -186,7 +240,7 @@ export const projectsTableSlice = createSlice({
       state.isLoading = true;
     },
     [editProject.fulfilled]: (state, action) => {
-      state.list = action.payload;
+      //state.list = action.payload;
       state.isLoading = false;
     },
     [editProject.rejected]: (state, action) => {
