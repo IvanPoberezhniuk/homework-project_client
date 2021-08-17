@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect } from 'react';
 
 import { ProjectForm, ProjectTitle } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
