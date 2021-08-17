@@ -61,6 +61,7 @@ const ProjectForm = ({
 }) => {
 
   const classes = useStyles();
+
   const dispatch = useDispatch();
 
   const [itemsToShow, setItemsToShow] = useState(
@@ -84,6 +85,7 @@ const ProjectForm = ({
     const index = selected.findIndex((item) => {
       return item.userId === id && item
     });
+
     const newArr = [...selected];
     newArr.splice(index, 1);
 
@@ -124,7 +126,11 @@ const ProjectForm = ({
         .trim(),
     }),
     onSubmit(values) {
-      submitHandler({ ...values, users: [...selected] });
+      submitHandler({
+        ...values,
+        users: [...selected],
+        oldUsers: [...selectedItems],
+      });
     },
   });
 
@@ -147,14 +153,15 @@ const ProjectForm = ({
           items={selected}
           onClickItemHandler={deselectEmployee}
           keyField="userId"
-        />
+     />
       </div>
       <div className={classes.listWrapper}>
         <List
           name="employees"
           items={itemsToShow}
           onClickItemHandler={selectEmployee}
-          keyField="userId"
+
+          keyField='userId'
         />
       </div>
       <span onClick={() => selectBusy(!busy)} className={classes.hideBtn}>

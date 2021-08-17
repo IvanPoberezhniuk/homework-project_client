@@ -7,7 +7,8 @@ const findDiffernt = (firstObject, secondObject, compareField) =>
   firstObject.filter(
     (firstObjectItem) =>
       !secondObject.some(
-        (secondObjectItem) => firstObjectItem[compareField] === secondObjectItem[compareField]
+        (secondObjectItem) =>
+          firstObjectItem[compareField] === secondObjectItem[compareField]
       )
   );
 

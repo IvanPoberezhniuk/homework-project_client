@@ -22,8 +22,8 @@ const projectsAPI = {
   addEmployee(projectId, payload) {
     return instance.post(`/projects/${projectId}/team`, payload);
   },
-  editProject(payload) {
-    return instance.patch(`/projects`, payload);
+  editProject(projectId, payload) {
+    return instance.patch(`/projects/${projectId}`, payload);
   },
   editProjectStatus(payload) {
     const { id, type } = payload;
@@ -32,6 +32,9 @@ const projectsAPI = {
   deleteProjectById(projectId) {
     return instance.delete(`/projects/${projectId}`);
   },
+  deleteEmployee(projectId, userId) {
+    return instance.delete(`/projects/${projectId}/team/${userId}`);
+  }
 };
 
 export default projectsAPI;
