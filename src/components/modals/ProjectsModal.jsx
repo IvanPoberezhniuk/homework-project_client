@@ -80,7 +80,7 @@ const ProjectsModal = ({
 
   useEffect(() => {
     dispatch(getUserProjects(userId))
-  }, [])
+  }, [dispatch, userId])
 
   return (
     <div>
