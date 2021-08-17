@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, } from 'react';
 
 import { Button, ButtonLoader, Input, List } from 'components';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { findDiffernt } from 'helpers/base';
 import * as Yup from 'yup';
+import { getAllUsersProjects } from 'redux/modules/users';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -57,17 +59,20 @@ const ProjectForm = ({
   isLoading,
   projectName = '',
 }) => {
+
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [itemsToShow, setItemsToShow] = useState(
-    findDiffernt(availableItems, selectedItems)
+    findDiffernt(availableItems, selectedItems, 'userId')
   );
+
 
   const [selected, setSelected] = useState(selectedItems);
   const [busy, setBusy] = useState(false);
 
   const selectEmployee = (id) => {
-    const index = itemsToShow.findIndex((item) => item.id === id);
+    const index = itemsToShow.findIndex((item) => item.userId === id);
     const newArr = [...itemsToShow];
     newArr.splice(index, 1);
 
@@ -76,7 +81,9 @@ const ProjectForm = ({
   };
 
   const deselectEmployee = (id) => {
-    const index = selected.findIndex((item) => item.id === id);
+    const index = selected.findIndex((item) => {
+      return item.userId === id && item
+    });
     const newArr = [...selected];
     newArr.splice(index, 1);
 
@@ -84,17 +91,27 @@ const ProjectForm = ({
     setSelected(newArr);
   };
 
-  const selectBusy = (status) => {
+  const selectBusy = async (status) => {
     if (status) {
-      setItemsToShow((prevState) => prevState.filter((item) => !item.busy));
+      await dispatch(getAllUsersProjects(itemsToShow));
       setBusy(status);
       return;
     }
-    setItemsToShow(findDiffernt(availableItems, selected));
     setBusy(status);
+    setItemsToShow(findDiffernt(availableItems, selectedItems, 'userId'));
   };
 
+
   useEffect(() => textInput.current.focus(), []);
+
+  useEffect(() => {
+    setItemsToShow(findDiffernt(availableItems, selectedItems, 'userId'));
+    if (busy) {
+      setItemsToShow((prevState) => prevState.filter((item) => !item.busy));
+    }
+
+  }, [availableItems, busy]);
+
 
   const { getFieldProps, handleSubmit, errors, touched } = useFormik({
     initialValues: {
@@ -125,17 +142,19 @@ const ProjectForm = ({
       />
       <div className={classes.listWrapper}>
         <List
-          placeholder='Start to add user by clicking on their preview below'
-          name='seletedEmployees'
+          placeholder="Start to add user by clicking on their preview below"
+          name="seletedEmployees"
           items={selected}
           onClickItemHandler={deselectEmployee}
+          keyField="userId"
         />
       </div>
       <div className={classes.listWrapper}>
         <List
-          name='employees'
+          name="employees"
           items={itemsToShow}
           onClickItemHandler={selectEmployee}
+          keyField="userId"
         />
       </div>
       <span onClick={() => selectBusy(!busy)} className={classes.hideBtn}>

@@ -1,4 +1,4 @@
-import { forwardRef, useEffect } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 
 import { ProjectForm, ProjectTitle } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,8 @@ import { fetchUsers } from 'redux/modules/users';
 
 import { Dialog, DialogContent, DialogTitle, Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
+import { getUserProjects, getAllUsersProjects } from 'redux/modules/users';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -55,6 +57,7 @@ const CreateProjectModal = ({
   const dispatch = useDispatch();
   const classes = useStyles();
   const users = useSelector((state) => state.users.list);
+  //console.log('users from create modal', users);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -64,6 +67,7 @@ const CreateProjectModal = ({
     await dispatch(createProject(project));
     await handleClose();
   };
+
 
   return (
     <Dialog

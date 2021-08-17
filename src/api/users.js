@@ -13,6 +13,9 @@ const usersAPI = {
   deleteUser(id) {
     return instance.delete(`/users/${id}`);
   },
+  getProjects(id) {
+    return instance.get(`/users/${id}/projects`);
+  }
 };
 
 export default usersAPI;

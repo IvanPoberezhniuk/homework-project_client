@@ -3,11 +3,11 @@ const getChildComponent = (children, key) =>
     return comp.type.name === key;
   });
 
-const findDiffernt = (firstObject, secondObject) =>
+const findDiffernt = (firstObject, secondObject, compareField) =>
   firstObject.filter(
     (firstObjectItem) =>
       !secondObject.some(
-        (secondObjectItem) => firstObjectItem.id === secondObjectItem.id
+        (secondObjectItem) => firstObjectItem[compareField] === secondObjectItem[compareField]
       )
   );
 
