@@ -5,14 +5,18 @@ const profileApi = {
     instance.defaults.headers = { Authorization: `Bearer ${token}` };
     return instance.get('/profile').then((response) => response.data);
   },
+
   editProfile(credentials) {
+    const { id } = { ...credentials };
     return instance
-      .patch('/profile', credentials)
+      .patch(`/users/${id}`, credentials)
       .then((response) => response.data);
   },
 
   getAvailableSkills() {
-    return instance.get('/skills').then((response) => response.data);
+    return instance.get('/skills').then((response) => {
+      return response.data;
+    });
   },
 };
 
