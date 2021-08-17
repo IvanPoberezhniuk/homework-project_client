@@ -1,4 +1,4 @@
-import { forwardRef, useEffect } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 
 import { ProjectForm, ProjectTitle } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -64,6 +64,7 @@ const CreateProjectModal = ({
     await dispatch(createProject(project));
     await handleClose();
   };
+
 
   return (
     <Dialog
