@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -37,10 +37,15 @@ const useStyles = makeStyles(() => ({
 const MultiSelectInput = ({
   placeholder,
   onSelectHandler,
-  selectedSkills = [],
+  userSkills,
   ...other
 }) => {
   const classes = useStyles();
+  const [selectedSkills, setSelectedSkills] = useState(userSkills);
+  useEffect(() => {
+    setSelectedSkills(userSkills);
+  }, [userSkills]);
+
   return (
     <Autocomplete
       multiple
@@ -53,6 +58,8 @@ const MultiSelectInput = ({
           label: classes.chipLabel,
         },
       }}
+      defaultValue={selectedSkills}
+      sele
       classes={{ inputRoot: classes.inputRoot, input: classes.input }}
       onChange={(event, value) => {
         onSelectHandler(value);
@@ -60,7 +67,7 @@ const MultiSelectInput = ({
       renderInput={(params) => (
         <TextField
           {...params}
-          variant='outlined'
+          variant="outlined"
           placeholder={selectedSkills.length ? '' : placeholder}
         />
       )}

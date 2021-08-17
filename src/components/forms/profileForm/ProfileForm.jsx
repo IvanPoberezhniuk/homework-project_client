@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button, Input, MultiSelectInput } from 'components';
 import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAvailableSkills } from 'redux/modules/profile';
+import { getUserSkills } from 'redux/modules/users';
 
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,9 +29,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
+const ProfileForm = ({ user, handleSubmitting }) => {
   const classes = useStyles();
-  const [selectedSkills, setSelectedSkills] = useState(user.skills);
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const allSkills = useSelector((state) => state.profile.availableSkills);
+  const userSkills = useSelector((state) => state.users.userSkills);
+  const isLoading = useSelector((state) => state.profile.isLoading);
+
+  const dispatch = useDispatch();
+
   const { getFieldProps, handleSubmit } = useFormik({
     initialValues: {
       firstName: '',
@@ -42,6 +51,11 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
       );
     },
   });
+
+  useEffect(() => {
+    dispatch(getAvailableSkills());
+    dispatch(getUserSkills(user.id));
+  }, [dispatch]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -58,15 +72,21 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
       />
       <MultiSelectInput
         className={classes.profileItem}
-        placeholder='Select your skills'
+        placeholder="Select your skills"
         options={allSkills}
-        selectedSkills={selectedSkills}
-        getOptionLabel={(option) => option}
+        userSkills={userSkills}
+        getOptionLabel={(option) => option.skillName}
         onSelectHandler={(value) => {
           setSelectedSkills(value);
         }}
       />
-      <Button fullWidth color='primary' type='submit' className={classes.btn}>
+      <Button
+        fullWidth
+        color="primary"
+        type="submit"
+        disabled={isLoading}
+        className={classes.btn}
+      >
         Save
       </Button>
     </form>
