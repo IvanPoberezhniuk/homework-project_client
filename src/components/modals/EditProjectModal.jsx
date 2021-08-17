@@ -1,11 +1,25 @@
-import { forwardRef, useEffect } from 'react';
+import {
+  forwardRef,
+  useEffect,
+} from 'react';
 
-import { ProjectForm, ProjectTitle } from 'components';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  ProjectForm,
+  ProjectTitle,
+} from 'components';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 import { fetchProject } from 'redux/modules/projects';
 import { fetchUsers } from 'redux/modules/users';
 
-import { Dialog, DialogContent, DialogTitle, Slide } from '@material-ui/core';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Slide,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
 
@@ -68,6 +82,7 @@ const EditProjectModal = ({
   const classes = useStyles();
   const users = useSelector((state) => state.users.list);
   const currentProject = useSelector((state) => state.projects.current);
+  
   useEffect(() => {
     dispatch(fetchUsers());
     dispatch(fetchProject({ id }));
