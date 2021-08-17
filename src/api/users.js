@@ -8,7 +8,7 @@ const usersAPI = {
     return instance.post('/users', user);
   },
   editUser(userId, payload) {
-    return instance.patch(`/users/${userId}`, payload);
+    return instance.patch(`/users/${userId}/role`, payload);
   },
   deleteUser(id) {
     return instance.delete(`/users/${id}`);
