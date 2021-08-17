@@ -17,11 +17,10 @@ export const fetchUsers = createAsyncThunk(FETCH_USERS, async (_, thunkApi) => {
 });
 
 export const editUser = createAsyncThunk(EDIT_USER, async (payload, {dispatch, rejectWithValue}) => {
-  console.log('edit', payload);
   try {
     const response = await usersAPI.editUser(payload.userId, {roleName: payload.role});
     dispatch(fetchUsers());
-    console.log('response', response);
+    
     return response.data;
   } catch (err) {
     return rejectWithValue(err.response.data);
@@ -64,7 +63,6 @@ export const usersTableSlice = createSlice({
       state.isLoading = true;
     },
     [editUser.fulfilled]: (state, action) => {
-      //state.list = action.payload;
       state.isLoading = false;
     },
     [editUser.rejected]: (state) => {
