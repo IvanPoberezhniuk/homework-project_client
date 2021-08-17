@@ -20,20 +20,21 @@ import {
 } from 'redux/modules/projects';
 import { deleteUser, editUser } from 'redux/modules/users';
 
-export const MODAL_PROJECT = {
-  EDIT: 'editproject',
-  CREATE: 'createproject',
-  DELETE: 'deleteproject',
-  FINISH: 'finishproject',
-  START: 'startproject',
-  TEAM: 'teamproject',
-};
+export const ENTITY = {
+  PROJECTS: 'projects',
+  USERS: 'users',
+}
 
-export const MODAL_USER = {
-  EDIT: 'edituser',
-  DELETE: 'deleteuser',
-  PROJECTS: 'projectssuser',
-};
+export const OPERATIONS = {
+  EDIT: 'edit',
+  CREATE: 'create',
+  DELETE: 'delete',
+  FINISH: 'finish',
+  START: 'start',
+  TEAM: 'team',
+  PROJECTS: 'projects',
+}
+
 
 const ModalSwitcher = ({ ...other }) => {
   const history = useHistory();
@@ -42,7 +43,7 @@ const ModalSwitcher = ({ ...other }) => {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const { id, type } = useParams();
+  const { entity, id, type } = useParams();
   const { payload } = location.state && location.state;
   const goBack = () => history.goBack();
 
@@ -54,9 +55,9 @@ const ModalSwitcher = ({ ...other }) => {
     }
   };
 
-  const getModal = (type) => {
-    switch (type) {
-      case MODAL_PROJECT.CREATE:
+  const getModal = (entity, type) => {
+    switch (true) {
+      case (entity === ENTITY.PROJECTS && type === OPERATIONS.CREATE):
         return (
           <CreateProjectModal
             isLoading={isLoadingProject}
@@ -64,7 +65,7 @@ const ModalSwitcher = ({ ...other }) => {
             handleSubmit={() => submit(createProject, id)}
           />
         );
-      case MODAL_PROJECT.EDIT:
+      case (entity === ENTITY.PROJECTS && type === OPERATIONS.EDIT):
         return (
           <EditProjectModal
             isLoading={isLoadingProject}
@@ -79,7 +80,7 @@ const ModalSwitcher = ({ ...other }) => {
             }}
           />
         );
-      case MODAL_PROJECT.DELETE:
+      case (entity === ENTITY.PROJECTS && type === OPERATIONS.DELETE):
         return (
           <WarningModal
             isLoading={isLoadingProject}
@@ -88,7 +89,7 @@ const ModalSwitcher = ({ ...other }) => {
             handleSubmit={() => submit(deleteProject, id)}
           />
         );
-      case MODAL_PROJECT.START:
+      case (entity === ENTITY.PROJECTS && type === OPERATIONS.START):
         return (
           <WarningModal
             isLoading={isLoadingProject}
@@ -97,7 +98,7 @@ const ModalSwitcher = ({ ...other }) => {
             handleSubmit={() => submit(startProject, id)}
           />
         );
-      case MODAL_PROJECT.FINISH:
+      case (entity === ENTITY.PROJECTS && type === OPERATIONS.FINISH):
         return (
           <WarningModal
             isLoading={isLoadingProject}
@@ -106,11 +107,11 @@ const ModalSwitcher = ({ ...other }) => {
             handleSubmit={() => submit(finishProject, id)}
           />
         );
-      case MODAL_PROJECT.TEAM:
+      case (entity === ENTITY.PROJECTS && type === OPERATIONS.TEAM):
         return <TeamModal id={id} handleClose={goBack} team={payload} />;
-      case MODAL_USER.PROJECTS:
+      case (entity === ENTITY.USERS && type === OPERATIONS.PROJECTS):
         return <ProjectsModal user={payload} handleClose={goBack} />;
-      case MODAL_USER.EDIT:
+      case (entity === ENTITY.USERS && type === OPERATIONS.EDIT):
         return (
           <EditRoleModal
             isOpen={true}
@@ -119,7 +120,7 @@ const ModalSwitcher = ({ ...other }) => {
             user={payload}
           />
         );
-      case MODAL_USER.DELETE:
+      case (entity === ENTITY.USERS && type === OPERATIONS.DELETE):
         return (
           <WarningModal
             isLoading={isLoadingUser}
@@ -133,7 +134,7 @@ const ModalSwitcher = ({ ...other }) => {
     }
   };
 
-  return getModal(type);
+  return getModal(entity, type);
 };
 
 export default ModalSwitcher;
