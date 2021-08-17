@@ -113,7 +113,7 @@ const ProjectForm = ({
       setItemsToShow((prevState) => prevState.filter((item) => !item.busy));
     }
 
-  }, [availableItems, busy]);
+  }, [availableItems, selectedItems, busy]);
 
 
   const { getFieldProps, handleSubmit, errors, touched } = useFormik({
