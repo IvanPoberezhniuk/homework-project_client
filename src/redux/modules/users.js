@@ -109,8 +109,6 @@ export const usersTableSlice = createSlice({
       state.isLoading = true;
     },
     [getUserProjects.fulfilled]: (state, action) => {
-      // state.list = (action.payload);
-      // console.log('new list', state.list);
       state.isLoading = false;
     },
     [getUserProjects.rejected]: (state) => {

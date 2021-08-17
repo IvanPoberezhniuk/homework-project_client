@@ -8,8 +8,6 @@ import { fetchUsers } from 'redux/modules/users';
 import { Dialog, DialogContent, DialogTitle, Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { getUserProjects, getAllUsersProjects } from 'redux/modules/users';
-
 const useStyles = makeStyles(() => ({
   paper: {
     padding: '40px 32px',
@@ -57,7 +55,6 @@ const CreateProjectModal = ({
   const dispatch = useDispatch();
   const classes = useStyles();
   const users = useSelector((state) => state.users.list);
-  //console.log('users from create modal', users);
 
   useEffect(() => {
     dispatch(fetchUsers());
