@@ -12,9 +12,8 @@ export const editProfile = createAsyncThunk(
   EDIT_PROFILE,
   async (credentials, { rejectWithValue }) => {
     try {
-      console.log(1111,credentials)
-      await profileAPI.editProfile(credentials);
-      return credentials;
+      const res = await profileAPI.editProfile(credentials);
+      return res;
     } catch (e) {
       return rejectWithValue(e.response.data);
     }
@@ -77,9 +76,7 @@ export const profile = createSlice({
       state.isLoading = false;
       state.userDTO = {
         ...state.userDTO,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
-        skills: [...action.payload.skills],
+        ...action.payload,
       };
     },
     [editProfile.rejected]: (state) => {

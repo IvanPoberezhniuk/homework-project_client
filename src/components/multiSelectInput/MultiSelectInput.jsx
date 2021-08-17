@@ -41,7 +41,6 @@ const MultiSelectInput = ({
   ...other
 }) => {
   const classes = useStyles();
-
   return (
     <Autocomplete
       multiple
@@ -62,7 +61,7 @@ const MultiSelectInput = ({
         <TextField
           {...params}
           variant='outlined'
-          placeholder={selectedSkills.length ? placeholder : ''}
+          placeholder={selectedSkills.length ? '' : placeholder}
         />
       )}
       {...other}

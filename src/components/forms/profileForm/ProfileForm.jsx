@@ -63,7 +63,7 @@ const ProfileForm = ({ user, allSkills, handleSubmitting }) => {
         selectedSkills={selectedSkills}
         getOptionLabel={(option) => option}
         onSelectHandler={(value) => {
-          setSelectedSkills([value]);
+          setSelectedSkills(value);
         }}
       />
       <Button fullWidth color='primary' type='submit' className={classes.btn}>

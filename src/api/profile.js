@@ -7,8 +7,9 @@ const profileApi = {
   },
 
   editProfile(credentials) {
+    const { id } = { ...credentials };
     return instance
-      .patch('/profile', credentials)
+      .patch(`/users/${id}`, credentials)
       .then((response) => response.data);
   },
 
