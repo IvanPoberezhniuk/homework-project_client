@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Avatar, Button } from 'components';
 
@@ -10,6 +10,8 @@ import {
   Slide,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserProjects } from 'redux/modules/users';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -68,10 +70,17 @@ const ProjectsModal = ({
   open = true,
   handleClose,
   isLoading,
-  user,
+  userId,
   ...props
 }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const projects = useSelector((state) => state.users.currentUserProjects)
+
+  useEffect(() => {
+    dispatch(getUserProjects(userId))
+  }, [])
 
   return (
     <div>
@@ -91,15 +100,10 @@ const ProjectsModal = ({
           Projects
         </DialogTitle>
         <DialogContent classes={{ root: classes.contentWrapper }}>
-          {user.project &&
-            [
-              { projectName: 'project 1' },
-              { projectName: 'project 2' },
-              { projectName: 'project 3' },
-            ].map((project) => (
+          {projects.map((project) => (
               <div className={classes.itemWrapper}>
                 <div className={classes.avatarWrapper}>
-                  <Avatar key={project.id}>
+                  <Avatar key={project.projectId}>
                     {project.projectName[0].toUpperCase()}
                   </Avatar>
                   <p className={classes.avatarName}>{project.projectName}</p>

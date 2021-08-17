@@ -110,7 +110,7 @@ const ModalSwitcher = ({ ...other }) => {
       case (entity === ENTITY.PROJECTS && type === OPERATIONS.TEAM):
         return <TeamModal id={id} handleClose={goBack} team={payload} />;
       case (entity === ENTITY.USERS && type === OPERATIONS.PROJECTS):
-        return <ProjectsModal user={payload} handleClose={goBack} />;
+        return <ProjectsModal userId={id} handleClose={goBack} />;
       case (entity === ENTITY.USERS && type === OPERATIONS.EDIT):
         return (
           <EditRoleModal

@@ -42,7 +42,7 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
-export const getUserProjects = createAsyncThunk(GET_USER_PROJECTS, async (id, { dispatch, rejectWithValue }) => {
+export const getUserProjects = createAsyncThunk(GET_USER_PROJECTS, async (id, { rejectWithValue }) => {
   try {
     const response = await usersAPI.getProjects(id);
     return response.data;
@@ -69,6 +69,7 @@ export const usersTableSlice = createSlice({
   name: 'users',
   initialState: {
     list: [],
+    currentUserProjects: [],
     isLoading: false,
   },
   reducers: {
@@ -110,6 +111,7 @@ export const usersTableSlice = createSlice({
       state.isLoading = true;
     },
     [getUserProjects.fulfilled]: (state, action) => {
+      state.currentUserProjects = action.payload;
       state.isLoading = false;
     },
     [getUserProjects.rejected]: (state) => {
