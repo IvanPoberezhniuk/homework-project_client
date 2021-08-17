@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btn: {
     minWidth: '300px',
+    color: '#fff',
   },
   btnsWrapper: {
     marginTop: '40px',
@@ -178,9 +179,8 @@ const ProjectForm = ({
           {isLoading && <ButtonLoader />}
         </Button>
         <Button
-          color='secondary'
           onClick={closeHandler}
-          classes={{ root: classes.btn }}
+          classes={{ root: classes.btn}}
         >
           Close
         </Button>

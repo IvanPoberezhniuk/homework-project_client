@@ -54,6 +54,7 @@ const useStyles = makeStyles(() => ({
   },
   btn: {
     width: '215px',
+    color: '#fff'
   },
 }));
 
