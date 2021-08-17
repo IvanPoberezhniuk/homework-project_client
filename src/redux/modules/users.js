@@ -4,7 +4,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const FETCH_USERS = 'usersTable/FETCH_USERS';
 const EDIT_USER = 'usersTable/EDIT_USER';
-const EDIT_USER_ROLE = 'usersTable/EDIT_USER_ROLE';
 const DELETE_USER = 'usersTable/DELETE_USER';
 const GET_USER_PROJECTS = 'usersTable/GET_USER_PROJECTS';
 const GET_ALL_USERS_PROJECTS = 'usersTable/GET_ALL_USERS_PROJECTS';
@@ -28,7 +27,6 @@ export const editUser = createAsyncThunk(EDIT_USER, async (payload, {dispatch, r
     return rejectWithValue(err.response.data);
   }
 });
-
 
 export const deleteUser = createAsyncThunk(
   DELETE_USER,

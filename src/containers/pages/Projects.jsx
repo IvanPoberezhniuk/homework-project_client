@@ -10,7 +10,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { fetchProjects } from 'redux/modules/projects';
-import { MODAL_PROJECT } from 'router/ModalSwitcher';
+import { OPERATIONS, ENTITY } from 'router/ModalSwitcher';
 
 import {
   Grid,
@@ -58,7 +58,7 @@ const Projects = () => {
           color='primary'
           className={classes.buttonRoot}
           onClick={() => {
-            history.push(`/project/${MODAL_PROJECT.CREATE}`, {
+            history.push(`/${ENTITY.PROJECTS}/${OPERATIONS.CREATE}`, {
               background: location,
             });
           }}

@@ -4,7 +4,7 @@ import { TableCell, TableContainer } from 'components';
 import { EditIcon, MoreIcon, TrashIcon } from 'components/shared/icons';
 import { getComparator, stableSort } from 'helpers/table';
 import { useHistory, useLocation } from 'react-router-dom';
-import { MODAL_USER } from 'router/ModalSwitcher';
+import { OPERATIONS, ENTITY } from 'router/ModalSwitcher';
 
 import {
   LinearProgress,
@@ -128,7 +128,7 @@ const EnhancedTable = ({ rows }) => {
                         <MoreIcon
                           onClick={() => {
                             history.push(
-                              `/user/${MODAL_USER.PROJECTS}/${row.id}`,
+                              `/${ENTITY.USERS}/${row.userId}/${OPERATIONS.PROJECTS}`,
                               {
                                 background: location,
                                 payload: row,
@@ -144,7 +144,7 @@ const EnhancedTable = ({ rows }) => {
                     >
                       <EditIcon
                         onClick={() => {
-                          history.push(`/user/${MODAL_USER.EDIT}/${row.id}`, {
+                          history.push(`/${ENTITY.USERS}/${row.userId}/${OPERATIONS.EDIT}`, {
                             background: location,
                             payload: row,
                           });
@@ -152,7 +152,7 @@ const EnhancedTable = ({ rows }) => {
                       />
                       <TrashIcon
                         onClick={() => {
-                          history.push(`/user/${MODAL_USER.DELETE}/${row.id}`, {
+                          history.push(`/${ENTITY.USERS}/${row.userId}/${OPERATIONS.DELETE}`, {
                             background: location,
                             payload: row,
                           });
