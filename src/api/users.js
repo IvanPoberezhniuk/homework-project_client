@@ -7,8 +7,8 @@ const usersAPI = {
   addUser(user) {
     return instance.post('/users', user);
   },
-  editUser(user) {
-    return instance.patch('/users', user);
+  editUser(userId, payload) {
+    return instance.patch(`/users/${userId}`, payload);
   },
   deleteUser(id) {
     return instance.delete(`/users/${id}`);
