@@ -30,12 +30,14 @@ export const editUser = createAsyncThunk(EDIT_USER, async (payload, {dispatch, r
 
 export const deleteUser = createAsyncThunk(
   DELETE_USER,
-  async (payload, thunkApi) => {
+  async (payload, {dispatch, rejectWithValue}) => {
     try {
       const response = await usersAPI.deleteUser(payload.id);
-      return response.data.users;
+      if(response.status === 204){
+        dispatch(fetchUsers());
+      }
     } catch (err) {
-      return thunkApi.rejectedWithValue(err.response.data);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -98,7 +100,6 @@ export const usersTableSlice = createSlice({
       state.isLoading = true;
     },
     [deleteUser.fulfilled]: (state, action) => {
-      state.list = action.payload;
       state.isLoading = false;
     },
     [deleteUser.rejected]: (state) => {
