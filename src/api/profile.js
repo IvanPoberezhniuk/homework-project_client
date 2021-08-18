@@ -10,7 +10,7 @@ const profileApi = {
     const { id } = { ...credentials };
     return instance
       .patch(`/users/${id}`, credentials)
-      .then((response) => response.data);
+      .then((response) => response);
   },
 
   getAvailableSkills() {

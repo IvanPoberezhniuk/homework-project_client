@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState, } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Button, ButtonLoader, Input, List } from 'components';
-import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { findDiffernt } from 'helpers/base';
-import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
 import { getAllUsersProjects } from 'redux/modules/users';
+import * as Yup from 'yup';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -60,7 +60,6 @@ const ProjectForm = ({
   isLoading,
   projectName = '',
 }) => {
-
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -68,7 +67,6 @@ const ProjectForm = ({
   const [itemsToShow, setItemsToShow] = useState(
     findDiffernt(availableItems, selectedItems, 'userId')
   );
-
 
   const [selected, setSelected] = useState(selectedItems);
   const [busy, setBusy] = useState(false);
@@ -84,7 +82,7 @@ const ProjectForm = ({
 
   const deselectEmployee = (id) => {
     const index = selected.findIndex((item) => {
-      return item.userId === id && item
+      return item.userId === id && item;
     });
 
     const newArr = [...selected];
@@ -104,7 +102,6 @@ const ProjectForm = ({
     setItemsToShow(findDiffernt(availableItems, selectedItems, 'userId'));
   };
 
-
   useEffect(() => textInput.current.focus(), []);
 
   useEffect(() => {
@@ -112,9 +109,7 @@ const ProjectForm = ({
     if (busy) {
       setItemsToShow((prevState) => prevState.filter((item) => !item.busy));
     }
-
   }, [availableItems, selectedItems, busy]);
-
 
   const { getFieldProps, handleSubmit, errors, touched } = useFormik({
     initialValues: {
@@ -140,9 +135,9 @@ const ProjectForm = ({
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Input
-        placeholder='Project Name'
+        placeholder="Project Name"
         inputRef={textInput}
-        autoComplete='off'
+        autoComplete="off"
         error={errors.projectName && touched.projectName}
         helperText={touched.projectName && errors.projectName}
         {...getFieldProps('projectName')}
@@ -154,15 +149,14 @@ const ProjectForm = ({
           items={selected}
           onClickItemHandler={deselectEmployee}
           keyField="userId"
-     />
+        />
       </div>
       <div className={classes.listWrapper}>
         <List
           name="employees"
           items={itemsToShow}
           onClickItemHandler={selectEmployee}
-
-          keyField='userId'
+          keyField="userId"
         />
       </div>
       <span onClick={() => selectBusy(!busy)} className={classes.hideBtn}>
@@ -170,8 +164,8 @@ const ProjectForm = ({
       </span>
       <div className={classes.btnsWrapper}>
         <Button
-          type='submit'
-          color='primary'
+          type="submit"
+          color="primary"
           classes={{ root: classes.btn }}
           disabled={isLoading}
         >
@@ -179,6 +173,7 @@ const ProjectForm = ({
           {isLoading && <ButtonLoader />}
         </Button>
         <Button
+          color="secondary"
           onClick={closeHandler}
           classes={{ root: classes.btn}}
         >

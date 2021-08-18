@@ -15,7 +15,10 @@ const usersAPI = {
   },
   getProjects(id) {
     return instance.get(`/users/${id}/projects`);
-  }
+  },
+  getUserSkills(id) {
+    return instance.get(`/users/${id}/skills`);
+  },
 };
 
 export default usersAPI;

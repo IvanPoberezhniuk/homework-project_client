@@ -65,24 +65,23 @@ const CreateProjectModal = ({
     await handleClose();
   };
 
-
   return (
     <Dialog
       open={isOpen}
       TransitionComponent={Transition}
       keepMounted
       onClose={handleClose}
-      aria-labelledby='alert-dialog-create-project'
-      aria-describedby='alert-dialog-slide-create-new-project'
+      aria-labelledby="alert-dialog-create-project"
+      aria-describedby="alert-dialog-slide-create-new-project"
       classes={{
         paper: classes.paper,
         container: classes.container,
         paperWidthMd: classes.paperWidthMd,
       }}
-      maxWidth='md'
+      maxWidth="md"
     >
       <DialogTitle
-        id='alert-dialog-project-title'
+        id="alert-dialog-project-title"
         classes={{ root: classes.title }}
       >
         <ProjectTitle>Create new Project</ProjectTitle>
