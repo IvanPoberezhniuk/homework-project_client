@@ -89,7 +89,6 @@ export const editProject = createAsyncThunk(
         await projectsAPI.deleteEmployee(payload.id, el)
       })
       dispatch(fetchProjects());
-      return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }

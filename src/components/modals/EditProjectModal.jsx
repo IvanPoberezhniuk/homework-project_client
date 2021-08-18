@@ -114,7 +114,7 @@ const EditProjectModal = ({
         <ProjectTitle>Edit Project</ProjectTitle>
       </DialogTitle>
       <DialogContent classes={{ root: classes.contentWrapper }}>
-        {currentProject?.projectId && users.length ? (
+        {currentProject?.projectId && users.length && !isLoading ? (
           <ProjectForm
             availableItems={users}
             selectedItems={currentProject.team}
