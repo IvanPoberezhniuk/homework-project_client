@@ -57,6 +57,15 @@ export const profile = createSlice({
   reducers: {
     setProfile: (state, action) => {
       state.userDTO = {...action.payload};
+      localStorage.setItem('userDTO', JSON.stringify({
+        id: action.payload.id,
+        firstName: action.payload.firstName, 
+        lastName: action.payload.lastName,
+        email: action.payload.email,
+        rememberMe: action.payload.rememberMe,
+        role: action.payload.role,
+        roleId: action.payload.roleId,
+      }));
     },
     deleteProfile: (state, action) => {
       state.userDTO = null;
