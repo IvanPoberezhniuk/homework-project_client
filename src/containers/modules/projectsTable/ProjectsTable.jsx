@@ -90,7 +90,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EnhancedTable = ({ rows, isLoading, isShowOperationsIcons }) => {
-  console.log(isShowOperationsIcons);
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
