@@ -73,8 +73,16 @@ const Signup = () => {
           </div>
         )}
         <SignupForm
-          handleSubmitting={(firstName, lastName, email, password) => {
-            dispatch(signup({ firstName, lastName, email, password }));
+          handleSubmitting={(
+            firstName,
+            lastName,
+            email,
+            password,
+            confirmPassword
+          ) => {
+            dispatch(
+              signup({ firstName, lastName, email, password, confirmPassword })
+            );
           }}
           isLoading={isLoading}
         />

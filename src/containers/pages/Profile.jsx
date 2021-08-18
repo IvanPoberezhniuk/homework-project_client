@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
-
 import { Fallback, ProfileForm } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
-import { editProfile, getAvailableSkills } from 'redux/modules/profile';
-import { getUserSkills } from 'redux/modules/users';
+import { editProfile } from 'redux/modules/profile';
+
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
@@ -59,7 +57,7 @@ const Profile = () => {
           user={{
             firstName: profile.firstName,
             lastName: profile.lastName,
-            id: profile.id
+            id: profile.id,
           }}
           handleSubmitting={(firstName, lastName, skills) =>
             editProfileHandleSubmit(firstName, lastName, skills)
