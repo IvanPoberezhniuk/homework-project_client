@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { Button, Input, MultiSelectInput } from 'components';
+import { Button, Input, MultiSelectInput, ButtonLoader } from 'components';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAvailableSkills } from 'redux/modules/profile';
 import { getUserSkills } from 'redux/modules/users';
 
 import { makeStyles } from '@material-ui/styles';
+import { findDiffernt } from 'helpers/base';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -31,9 +32,10 @@ const useStyles = makeStyles(() => ({
 
 const ProfileForm = ({ user, handleSubmitting }) => {
   const classes = useStyles();
-  const [selectedSkills, setSelectedSkills] = useState([]);
   const allSkills = useSelector((state) => state.profile.availableSkills);
   const userSkills = useSelector((state) => state.users.userSkills);
+  const [selectedSkills, setSelectedSkills] = useState(userSkills);
+
   const isLoading = useSelector((state) => state.profile.isLoading);
 
   const dispatch = useDispatch();
@@ -55,7 +57,9 @@ const ProfileForm = ({ user, handleSubmitting }) => {
   useEffect(() => {
     dispatch(getAvailableSkills());
     dispatch(getUserSkills(user.id));
-  }, [dispatch]);
+  }, [dispatch, user.id]);
+
+  useEffect(()=>{setSelectedSkills(userSkills)}, [userSkills])
 
   return (
     <form onSubmit={handleSubmit}>
@@ -70,12 +74,12 @@ const ProfileForm = ({ user, handleSubmitting }) => {
         className={classes.profileItem}
         {...getFieldProps('lastName')}
       />
+      
       <MultiSelectInput
         className={classes.profileItem}
         placeholder="Select your skills"
-        options={allSkills}
-        userSkills={userSkills}
-        getOptionLabel={(option) => option.skillName}
+        options={findDiffernt(allSkills, selectedSkills, 'skillId')}
+        value = {selectedSkills}
         onSelectHandler={(value) => {
           setSelectedSkills(value);
         }}
@@ -89,6 +93,7 @@ const ProfileForm = ({ user, handleSubmitting }) => {
       >
         Save
       </Button>
+      {isLoading && <ButtonLoader />}
     </form>
   );
 };

@@ -89,7 +89,7 @@ export const auth = createSlice({
     },
     [signup.rejected]: (state, action) => {
       if (!action.payload) {
-        state.serverErrorMsg = "Server isn't available now, try later";
+        state.serverErrorMsg = 'Server isn\'t available now, try later';
       } else if (action.payload.status_code === 2) {
         state.serverErrorMsg = 'User is already exist';
       } else {
@@ -111,7 +111,7 @@ export const auth = createSlice({
     },
     [signin.rejected]: (state, action) => {
       if (!action.payload) {
-        state.serverErrorMsg = "Server isn't available now, try later";
+        state.serverErrorMsg = 'Server isn\'t available now, try later';
       } else if (action.payload.status_code === 3) {
         state.serverErrorMsg = 'Incorrect login or password';
       }
