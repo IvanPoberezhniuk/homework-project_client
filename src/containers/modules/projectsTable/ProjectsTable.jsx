@@ -10,7 +10,7 @@ import {
 } from 'components/shared/icons';
 import { getComparator, stableSort } from 'helpers/table';
 import { useHistory, useLocation } from 'react-router-dom';
-import { MODAL_PROJECT } from 'router/ModalSwitcher';
+import { OPERATIONS, ENTITY } from 'router/ModalSwitcher';
 
 import {
   LinearProgress,
@@ -157,7 +157,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                         <MoreIcon
                           onClick={() => {
                             history.push(
-                              `/project/${MODAL_PROJECT.TEAM}/${row.projectId}`,
+                              `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.TEAM}`,
                               {
                                 background: location,
                                 payload: row.team,
@@ -182,7 +182,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                           className={classes.startIcon}
                           onClick={() => {
                             history.push(
-                              `/project/${MODAL_PROJECT.START}/${row.projectId}`,
+                              `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.START}`,
                               {
                                 background: location,
                                 payload: row,
@@ -196,7 +196,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                           className={classes.finishIcon}
                           onClick={() => {
                             history.push(
-                              `/project/${MODAL_PROJECT.FINISH}/${row.projectId}`,
+                              `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.FINISH}`,
                               {
                                 background: location,
                                 payload: row,
@@ -209,7 +209,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                         className={classes.editIcon}
                         onClick={() => {
                           history.push(
-                            `/project/${MODAL_PROJECT.EDIT}/${row.projectId}`,
+                            `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.EDIT}`,
                             {
                               background: location,
                               payload: row,
@@ -221,7 +221,7 @@ const EnhancedTable = ({ rows, isLoading }) => {
                         className={classes.trashIcon}
                         onClick={() => {
                           history.push(
-                            `/project/${MODAL_PROJECT.DELETE}/${row.projectId}`,
+                            `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.DELETE}`,
                             {
                               background: location,
                               payload: row,

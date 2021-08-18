@@ -10,10 +10,14 @@ const GET_AVAILABLE_SKILLS = 'profile/GET_AVAILABLE_SKILLS';
 // Actions
 export const editProfile = createAsyncThunk(
   EDIT_PROFILE,
-  async (credentials, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue, dispatch, getState }) => {
     try {
       const res = await profileAPI.editProfile(credentials);
-      return res;
+      const state = getState();
+      if(res.status === 204) {
+        await dispatch(setProfile({...state.profile.userDTO, ...credentials}))
+      }
+      return {...state.profile.userDTO, ...credentials};
     } catch (e) {
       return rejectWithValue(e.response.data);
     }
@@ -47,12 +51,12 @@ export const profile = createSlice({
   name: 'profile',
   initialState: {
     isLoading: false,
-    userDTO: JSON.parse(localStorage.getItem('userDTO')) || null,
+    userDTO: JSON.parse(localStorage.getItem('userDTO')) || {},
     availableSkills: [],
   },
   reducers: {
     setProfile: (state, action) => {
-      state.userDTO = action.payload;
+      state.userDTO = {...action.payload};
     },
     deleteProfile: (state, action) => {
       state.userDTO = null;

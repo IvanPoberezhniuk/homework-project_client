@@ -73,22 +73,14 @@ export const editProject = createAsyncThunk(
     try {
       const oldUsersIds = payload.oldUsers.map((u) => u.userId);
       const selectedUsersIds = payload.users.map((u) => u.userId);
-      let toAddEmployees = [];
-      let toDeleteEmployees = [];
       const response = await projectsAPI.editProject(payload.id, {
         projectName: payload.projectName,
       })
-      selectedUsersIds.map(el => {
-        const index = oldUsersIds.indexOf(el);
-        if (index === -1) {
-          toAddEmployees.push(el);
-        }
+      const toAddEmployees = selectedUsersIds.map(el => {
+        return (oldUsersIds.indexOf(el) === -1) && el;
       });
-      oldUsersIds.map(el => {
-        const index = selectedUsersIds.indexOf(el);
-        if (index === -1) {
-          toDeleteEmployees.push(el);
-        }
+      const toDeleteEmployees = oldUsersIds.map(el => {
+        return (selectedUsersIds.indexOf(el) === -1) && el;
       })
       toAddEmployees.map(async (el) => {
         await projectsAPI.addEmployee(payload.id, { userId: el })

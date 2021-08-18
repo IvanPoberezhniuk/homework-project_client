@@ -5,6 +5,7 @@ import Avatar from './avatar/Avatar';
 import Button from './button/Button';
 import Checkbox from './checkbox/Checkbox';
 import Fallback from './fallback/Fallback';
+import ProfileForm from './forms/profileForm/ProfileForm';
 import ProjectForm from './forms/ProjectForm';
 import ProjectTitle from './forms/ProjectTitle';
 import SigninForm from './forms/signinForm/SigninForm';
@@ -21,7 +22,6 @@ import TeamModal from './modals/TeamModal';
 import WarningModal from './modals/WarningModal';
 import MultiSelectInput from './multiSelectInput/MultiSelectInput';
 import Paper from './paper/Paper';
-import ProfileForm from './forms/profileForm/ProfileForm';
 import Select from './select/Select';
 // Shared
 import Header from './shared/header/Header';
@@ -48,6 +48,7 @@ export {
   Menu,
   MultiSelectInput,
   Paper,
+  ProfileForm,
   ProjectForm,
   ProjectsModal,
   ProjectTitle,
@@ -61,5 +62,4 @@ export {
   TableTeamAvatar,
   TeamModal,
   WarningModal,
-  ProfileForm,
 };

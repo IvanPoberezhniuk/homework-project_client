@@ -28,7 +28,6 @@ export const signin = createAsyncThunk(
       const { autorization, refreshtoken } = { ...headers };
       const token = autorization.substring(7, autorization.length).trim();
       const refreshToken = refreshtoken.trim();
-
       await dispatch(setProfile(userDTO));
 
       if (credentials.rememberMe) {
@@ -90,21 +89,20 @@ export const auth = createSlice({
     },
     [signup.rejected]: (state, action) => {
       if (!action.payload) {
-        state.serverErrorMsg = "Server isn't available now, try later";
+        state.serverErrorMsg = 'Server isn\'t available now, try later';
       } else if (action.payload.status_code === 2) {
         state.serverErrorMsg = 'User is already exist';
+      } else {
+        state.serverErrorMsg = 'Some server error';
+        state.isSuccessRegister = false;
       }
       state.isSuccessRegister = false;
       state.isLoading = false;
     },
     [signup.fulfilled]: (state, action) => {
-      if (action.payload.status_code === 1) {
-        state.serverErrorMsg = '';
-        state.isSuccessRegister = true;
-      } else {
-        state.serverErrorMsg = 'Some server error';
-        state.isSuccessRegister = false;
-      }
+      state.serverErrorMsg = '';
+      state.isSuccessRegister = true;
+
       state.isLoading = false;
     },
     //  signIn
@@ -113,7 +111,7 @@ export const auth = createSlice({
     },
     [signin.rejected]: (state, action) => {
       if (!action.payload) {
-        state.serverErrorMsg = "Server isn't available now, try later";
+        state.serverErrorMsg = 'Server isn\'t available now, try later';
       } else if (action.payload.status_code === 3) {
         state.serverErrorMsg = 'Incorrect login or password';
       }
