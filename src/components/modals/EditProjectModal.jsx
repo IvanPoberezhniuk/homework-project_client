@@ -74,7 +74,6 @@ const EditProjectModal = ({
   isOpen = true,
   handleClose,
   handleSubmit,
-  isLoading = false,
   id,
   ...other
 }) => {
@@ -82,6 +81,7 @@ const EditProjectModal = ({
   const classes = useStyles();
   const users = useSelector((state) => state.users.list);
   const currentProject = useSelector((state) => state.projects.current);
+  const isLoading = useSelector((state) => state.projects.isLoading);
   
   useEffect(() => {
     dispatch(fetchUsers());

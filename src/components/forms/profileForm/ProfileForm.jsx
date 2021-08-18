@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { Button, Input, MultiSelectInput } from 'components';
+import { Button, Input, MultiSelectInput, ButtonLoader } from 'components';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAvailableSkills } from 'redux/modules/profile';
 import { getUserSkills } from 'redux/modules/users';
 
 import { makeStyles } from '@material-ui/styles';
+import { findDiffernt } from 'helpers/base';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -55,7 +56,7 @@ const ProfileForm = ({ user, handleSubmitting }) => {
   useEffect(() => {
     dispatch(getAvailableSkills());
     dispatch(getUserSkills(user.id));
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -73,7 +74,7 @@ const ProfileForm = ({ user, handleSubmitting }) => {
       <MultiSelectInput
         className={classes.profileItem}
         placeholder="Select your skills"
-        options={allSkills}
+        options={findDiffernt(allSkills, userSkills, 'skillId')}
         userSkills={userSkills}
         getOptionLabel={(option) => option.skillName}
         onSelectHandler={(value) => {
@@ -89,6 +90,7 @@ const ProfileForm = ({ user, handleSubmitting }) => {
       >
         Save
       </Button>
+      {isLoading && <ButtonLoader />}
     </form>
   );
 };

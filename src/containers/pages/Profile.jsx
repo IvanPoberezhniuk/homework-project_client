@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
-
-import { Fallback, ProfileForm } from 'components';
+import { ProfileForm } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
-import { editProfile, getAvailableSkills } from 'redux/modules/profile';
-import { getUserSkills } from 'redux/modules/users';
+import { editProfile,  } from 'redux/modules/profile';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
@@ -33,7 +30,6 @@ const Profile = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile.userDTO);
-  const isLoading = useSelector((state) => state.isLoading);
 
   const editProfileHandleSubmit = async (firstName, lastName, skills) => {
     await dispatch(
@@ -41,12 +37,10 @@ const Profile = () => {
     );
   };
 
-  return isLoading ? (
-    <Fallback />
-  ) : (
+  return  (
     <article className={classes.container}>
       <header>
-        <Typography variant="h5" component="h1">
+        <Typography variant='h5' component='h1'>
           Profile
         </Typography>
       </header>
