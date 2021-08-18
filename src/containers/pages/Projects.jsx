@@ -55,17 +55,19 @@ const Projects = () => {
         <Typography variant='h5' component='h1'>
           Projects
         </Typography>
-        <Button
-          color='primary'
-          className={classes.buttonRoot}
-          onClick={() => {
-            history.push(`/${ENTITY.PROJECTS}/${OPERATIONS.CREATE}`, {
-              background: location,
-            });
-          }}
-        >
-          Create Project
-        </Button>
+        {(user.role === 'admin' || user.role === 'manager') && (
+          <Button
+            color='primary'
+            className={classes.buttonRoot}
+            onClick={() => {
+              history.push(`/${ENTITY.PROJECTS}/${OPERATIONS.CREATE}`, {
+                background: location,
+              });
+            }}
+          >
+            Create Project
+          </Button>
+        )}
       </Grid>
       {(user.role === 'admin' || user.role === 'manager') && (
         <ProjectsTable
