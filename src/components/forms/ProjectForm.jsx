@@ -173,7 +173,6 @@ const ProjectForm = ({
           {isLoading && <ButtonLoader />}
         </Button>
         <Button
-          color="secondary"
           onClick={closeHandler}
           classes={{ root: classes.btn}}
         >

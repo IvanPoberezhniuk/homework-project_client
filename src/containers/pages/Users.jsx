@@ -18,6 +18,7 @@ const Users = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.list);
+  const user = useSelector((state) => state.profile.userDTO);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -28,7 +29,7 @@ const Users = () => {
       <Typography variant='h5' component='h1' className={classes.root}>
         Users
       </Typography>
-      <UsersTable rows={users} />
+      <UsersTable rows={user.role === 'admin' ? users.filter(u => u.userId !== user.id) : users} />
     </>
   );
 };
