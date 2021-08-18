@@ -39,7 +39,7 @@ export const signin = createAsyncThunk(
 
       return { token, refreshToken };
     } catch (err) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(err.response);
     }
   }
 );
@@ -112,8 +112,10 @@ export const auth = createSlice({
     [signin.rejected]: (state, action) => {
       if (!action.payload) {
         state.serverErrorMsg = 'Server isn\'t available now, try later';
-      } else if (action.payload.status_code === 3) {
+      } else if (action.payload.status === 404) {
         state.serverErrorMsg = 'Incorrect login or password';
+      } else if (action.payload.status === 500) {
+        state.serverErrorMsg = 'Some error on server'
       }
 
       state.isAuth = false;
