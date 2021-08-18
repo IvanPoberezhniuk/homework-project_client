@@ -57,7 +57,7 @@ const ProfileForm = ({ user, handleSubmitting }) => {
   useEffect(() => {
     dispatch(getAvailableSkills());
     dispatch(getUserSkills(user.id));
-  }, []);
+  }, [dispatch, user.id]);
 
   useEffect(()=>{setSelectedSkills(userSkills)}, [userSkills])
 
