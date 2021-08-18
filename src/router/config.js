@@ -79,13 +79,6 @@ const modalRoutes = [
     fallback: Fallback,
     exact: true,
   },
-  // {
-  //   path: '/users/:id?/:type',
-  //   component: ModalSwitcher,
-  //   private: true,
-  //   fallback: Fallback,
-  //   exact: true,
-  // },
 ];
 
 export { modalRoutes, routes };
