@@ -49,20 +49,6 @@ const routes = [
     fallback: <Fallback />,
   },
   {
-    path: '/history/:id?',
-    component: lazy(() => import('containers/pages/ProjectHistory')),
-    exact: true,
-    private: true,
-    fallback: <Fallback />,
-  },
-  {
-    path: '/timeline/:id?',
-    component: lazy(() => import('containers/pages/ProjectTimeline')),
-    exact: true,
-    private: true,
-    fallback: <Fallback />,
-  },
-  {
     path: '*',
     component: lazy(() => import('containers/pages/PageNotFound')),
     exact: true,

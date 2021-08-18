@@ -68,18 +68,6 @@ const SideBar = ({ role }) => {
         <Avatar variant='square' src={Users} />
         <ListItemText className={classes.listItemText} primary='Users' />
       </ListItem>
-      <ListItem
-        classes={{ root: classes.button }}
-        button
-        key={123123123}
-        component={NavLink}
-        activeClassName={classes.selected}
-        to='/history'
-        exact
-      >
-        <Avatar variant='square' src={Users} />
-        <ListItemText className={classes.listItemText} primary='HISTORY' />
-      </ListItem>
     </>
   );
 
