@@ -30,17 +30,19 @@ export const editUser = createAsyncThunk(EDIT_USER, async (payload, {dispatch, r
 
 export const deleteUser = createAsyncThunk(
   DELETE_USER,
-  async (payload, thunkApi) => {
+  async (payload, {dispatch, rejectWithValue}) => {
     try {
       const response = await usersAPI.deleteUser(payload.id);
-      return response.data.users;
+      if(response.status === 204){
+        dispatch(fetchUsers());
+      }
     } catch (err) {
-      return thunkApi.rejectedWithValue(err.response.data);
+      return rejectWithValue(err.response.data);
     }
   }
 );
 
-export const getUserProjects = createAsyncThunk(GET_USER_PROJECTS, async (id, { dispatch, rejectWithValue }) => {
+export const getUserProjects = createAsyncThunk(GET_USER_PROJECTS, async (id, { rejectWithValue }) => {
   try {
     const response = await usersAPI.getProjects(id);
     return response.data;
@@ -67,6 +69,7 @@ export const usersTableSlice = createSlice({
   name: 'users',
   initialState: {
     list: [],
+    currentUserProjects: [],
     isLoading: false,
   },
   reducers: {
@@ -98,7 +101,6 @@ export const usersTableSlice = createSlice({
       state.isLoading = true;
     },
     [deleteUser.fulfilled]: (state, action) => {
-      state.list = action.payload;
       state.isLoading = false;
     },
     [deleteUser.rejected]: (state) => {
@@ -109,6 +111,7 @@ export const usersTableSlice = createSlice({
       state.isLoading = true;
     },
     [getUserProjects.fulfilled]: (state, action) => {
+      state.currentUserProjects = action.payload;
       state.isLoading = false;
     },
     [getUserProjects.rejected]: (state) => {
