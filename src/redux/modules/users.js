@@ -27,6 +27,7 @@ export const editUser = createAsyncThunk(EDIT_USER, async (payload, {dispatch, r
   } catch (err) {
     return rejectWithValue(err.response.data);
   }
+}
 );
 
 export const deleteUser = createAsyncThunk(
