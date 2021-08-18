@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Clear } from '@material-ui/icons';
-import { Autocomplete } from '@material-ui/lab';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles(() => ({
   chip: {
@@ -34,46 +34,39 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MultiSelectInput = ({
-  placeholder,
-  onSelectHandler,
-  userSkills,
-  ...other
-}) => {
+const MultiSelectInput = ({options, placeholder, onSelectHandler, value}) => {
   const classes = useStyles();
-  const [selectedSkills, setSelectedSkills] = useState(userSkills);
-  useEffect(() => {
-    setSelectedSkills(userSkills);
-  }, [userSkills]);
+
 
   return (
     <Autocomplete
-      multiple
-      filterSelectedOptions
-      ChipProps={{
-        deleteIcon: <Clear className={{ root: classes.chipIconClear }} />,
-        classes: {
-          root: classes.chip,
-          deleteIcon: classes.chipIconClear,
-          label: classes.chipLabel,
-        },
-      }}
-      defaultValue={selectedSkills}
-      sele
-      classes={{ inputRoot: classes.inputRoot, input: classes.input }}
-      onChange={(event, value) => {
+      onChange = {(event, value) => {
         onSelectHandler(value);
       }}
+      multiple
+      options={options}
+      value = {value}
+      getOptionLabel={option => option.skillName}
+      classes = {{inputRoot: classes.inputRoot, input: classes.input}}
+      ChipProps = {
+        {
+          deleteIcon: <ClearIcon />,
+          classes: {
+            root: classes.chip,
+            deleteIcon: classes.chipIconClear,
+            label: classes.chipLabel,
+          },
+        }
+      }
       renderInput={(params) => (
         <TextField
           {...params}
           variant="outlined"
-          placeholder={selectedSkills.length ? '' : placeholder}
+          placeholder={!value.length && placeholder}
         />
       )}
-      {...other}
     />
   );
-};
+}
 
 export default MultiSelectInput;

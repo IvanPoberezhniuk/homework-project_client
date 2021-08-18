@@ -15,7 +15,7 @@ export const editProfile = createAsyncThunk(
       const res = await profileAPI.editProfile(credentials);
       const state = getState();
       if(res.status === 204) {
-        await dispatch(setProfile(credentials))
+        await dispatch(setProfile({...state.profile.userDTO, ...credentials}))
       }
       return {...state.profile.userDTO, ...credentials};
     } catch (e) {

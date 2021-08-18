@@ -32,9 +32,10 @@ const useStyles = makeStyles(() => ({
 
 const ProfileForm = ({ user, handleSubmitting }) => {
   const classes = useStyles();
-  const [selectedSkills, setSelectedSkills] = useState([]);
   const allSkills = useSelector((state) => state.profile.availableSkills);
   const userSkills = useSelector((state) => state.users.userSkills);
+  const [selectedSkills, setSelectedSkills] = useState(userSkills);
+
   const isLoading = useSelector((state) => state.profile.isLoading);
 
   const dispatch = useDispatch();
@@ -56,7 +57,9 @@ const ProfileForm = ({ user, handleSubmitting }) => {
   useEffect(() => {
     dispatch(getAvailableSkills());
     dispatch(getUserSkills(user.id));
-  }, [dispatch, user]);
+  }, []);
+
+  useEffect(()=>{setSelectedSkills(userSkills)}, [userSkills])
 
   return (
     <form onSubmit={handleSubmit}>
@@ -71,12 +74,12 @@ const ProfileForm = ({ user, handleSubmitting }) => {
         className={classes.profileItem}
         {...getFieldProps('lastName')}
       />
+      
       <MultiSelectInput
         className={classes.profileItem}
         placeholder="Select your skills"
-        options={findDiffernt(allSkills, userSkills, 'skillId')}
-        userSkills={userSkills}
-        getOptionLabel={(option) => option.skillName}
+        options={findDiffernt(allSkills, selectedSkills, 'skillId')}
+        value = {selectedSkills}
         onSelectHandler={(value) => {
           setSelectedSkills(value);
         }}
