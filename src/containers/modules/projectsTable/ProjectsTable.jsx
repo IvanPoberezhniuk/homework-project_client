@@ -89,7 +89,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTable = ({ rows, isLoading }) => {
+const EnhancedTable = ({ rows, isLoading, isShowOperationsIcons }) => {
+  console.log(isShowOperationsIcons);
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
@@ -193,12 +194,44 @@ const EnhancedTable = ({ rows, isLoading }) => {
                       size='small'
                       className={classes.actions__container}
                     >
-                      {!row.startDate && !row.finishDate && (
-                        <StartIcon
-                          className={classes.startIcon}
+                      {!row.startDate &&
+                        !row.finishDate &&
+                        isShowOperationsIcons && (
+                          <StartIcon
+                            className={classes.startIcon}
+                            onClick={() => {
+                              history.push(
+                                `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.START}`,
+                                {
+                                  background: location,
+                                  payload: row,
+                                }
+                              );
+                            }}
+                          />
+                        )}
+                      {row.startDate &&
+                        !row.finishDate &&
+                        isShowOperationsIcons && (
+                          <FinishIcon
+                            className={classes.finishIcon}
+                            onClick={() => {
+                              history.push(
+                                `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.FINISH}`,
+                                {
+                                  background: location,
+                                  payload: row,
+                                }
+                              );
+                            }}
+                          />
+                        )}
+                      {isShowOperationsIcons && (
+                        <EditIcon
+                          className={classes.editIcon}
                           onClick={() => {
                             history.push(
-                              `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.START}`,
+                              `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.EDIT}`,
                               {
                                 background: location,
                                 payload: row,
@@ -207,12 +240,12 @@ const EnhancedTable = ({ rows, isLoading }) => {
                           }}
                         />
                       )}
-                      {row.startDate && !row.finishDate && (
-                        <FinishIcon
-                          className={classes.finishIcon}
+                      {isShowOperationsIcons && (
+                        <TrashIcon
+                          className={classes.trashIcon}
                           onClick={() => {
                             history.push(
-                              `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.FINISH}`,
+                              `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.DELETE}`,
                               {
                                 background: location,
                                 payload: row,
@@ -221,30 +254,6 @@ const EnhancedTable = ({ rows, isLoading }) => {
                           }}
                         />
                       )}
-                      <EditIcon
-                        className={classes.editIcon}
-                        onClick={() => {
-                          history.push(
-                            `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.EDIT}`,
-                            {
-                              background: location,
-                              payload: row,
-                            }
-                          );
-                        }}
-                      />
-                      <TrashIcon
-                        className={classes.trashIcon}
-                        onClick={() => {
-                          history.push(
-                            `/${ENTITY.PROJECTS}/${row.projectId}/${OPERATIONS.DELETE}`,
-                            {
-                              background: location,
-                              payload: row,
-                            }
-                          );
-                        }}
-                      />
                     </TableCell>
                   </TableRow>
                 );

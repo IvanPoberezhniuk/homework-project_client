@@ -1,24 +1,16 @@
 import { useEffect } from 'react';
 
 import { Button } from 'components';
-import {
-  useDispatch,
-  useSelector,
-} from 'react-redux';
-import {
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { fetchProjects } from 'redux/modules/projects';
 import { OPERATIONS, ENTITY } from 'router/ModalSwitcher';
 
-import {
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ProjectsTable from '../modules/projectsTable/ProjectsTable';
+import { users } from 'redux/modules';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,12 +28,21 @@ const Projects = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const projects = useSelector((state) => state.projects.list);
-
   const isLoading = useSelector((state) => state.projects.isLoading);
+  const user = useSelector((state) => state.profile.userDTO);
 
   useEffect(() => {
     dispatch(fetchProjects());
   }, [dispatch]);
+
+  const getUserProjects = () => {
+    return projects.filter((project) => {
+      const teamOfCurrentUser = project.team.filter(
+        (u) => u.userId === user.id
+      );
+      if (teamOfCurrentUser.length > 0) return project;
+    });
+  };
 
   return (
     <>
@@ -66,7 +67,20 @@ const Projects = () => {
           Create Project
         </Button>
       </Grid>
-      <ProjectsTable rows={projects} isLoading={isLoading} />
+      {(user.role === 'admin' || user.role === 'manager') && (
+        <ProjectsTable
+          rows={projects}
+          isLoading={isLoading}
+          isShowOperationsIcons={true}
+        />
+      )}
+      {(user.role === 'developer' || user.role === 'qa') && (
+        <ProjectsTable
+          rows={getUserProjects()}
+          isLoading={isLoading}
+          isShowOperationsIcons={false}
+        />
+      )}
     </>
   );
 };
