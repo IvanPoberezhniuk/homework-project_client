@@ -3,7 +3,7 @@ import axios from 'axios';
 import state from '../redux/configureStore';
 
 const instance = axios.create({
-  baseURL: `http://localhost:8080/api/v1`,
+  baseURL: `http://207.154.199.97/api/v1`,
   timeout: 30000,
 });
 

@@ -8,9 +8,9 @@ import { addDecorator } from '@storybook/react';
 import { makeServer } from '../src/mirage';
 import theme from '../src/theme';
 
-export const decorators = [
-  withServer(() => makeServer({ environment: 'development' })),
-];
+// export const decorators = [
+//   withServer(() => makeServer({ environment: 'development' })),
+// ];
 
 const providerFn = ({ theme, children }) => {
   const muTheme = createMuiTheme(theme);
